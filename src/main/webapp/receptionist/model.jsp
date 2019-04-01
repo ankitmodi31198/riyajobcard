@@ -4,7 +4,7 @@
 <%
 if(request.getParameter("company_id")!=null) 
 {
-    String id=request.getParameter("company_id"); //get country_id from index.jsp page with function country_change() through ajax and store in id variable
+    String id=request.getParameter("company_id"); 
         
     try
     {
@@ -35,4 +35,3 @@ if(request.getParameter("company_id")!=null)
 }
 %>
 
- 

@@ -4,9 +4,9 @@ public class VehicleInfo implements java.io.Serializable {
 
 	private String vehicleNumber;
 	private String vinNumber;
-	private String vehicleCompany;
-	private String companyModel;
-	private String modelVarient;
+	private int vehicleCompany;
+	private int companyModel;
+	private int modelVarient;
 	private String engineNumber;
 	private String fuelType;
 	private String vehicleType;
@@ -29,27 +29,29 @@ public class VehicleInfo implements java.io.Serializable {
 		this.vinNumber = vinNumber;
 	}
 
-	public String getVehicleCompany() {
-		return this.vehicleCompany;
+	
+
+	public int getVehicleCompany() {
+		return vehicleCompany;
 	}
 
-	public void setVehicleCompany(String vehicleCompany) {
+	public void setVehicleCompany(int vehicleCompany) {
 		this.vehicleCompany = vehicleCompany;
 	}
 
-	public String getCompanyModel() {
-		return this.companyModel;
+	public int getCompanyModel() {
+		return companyModel;
 	}
 
-	public void setCompanyModel(String companyModel) {
+	public void setCompanyModel(int companyModel) {
 		this.companyModel = companyModel;
 	}
 
-	public String getModelVarient() {
-		return this.modelVarient;
+	public int getModelVarient() {
+		return modelVarient;
 	}
 
-	public void setModelVarient(String modelVarient) {
+	public void setModelVarient(int modelVarient) {
 		this.modelVarient = modelVarient;
 	}
 

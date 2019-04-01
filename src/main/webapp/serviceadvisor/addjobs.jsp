@@ -1,40 +1,44 @@
+<%@include file="../header.html" %>
+
+<%@page import="modal.VehicleModelDao"%>
+<%@page import="modal.VehicleInfo"%>
+<%@page import="modal.CustomerInfoDao"%>
+<%@page import="modal.CustomerInfo"%>
+<%@page import="modal.JobcardInfoDao"%>
+<%@page import="modal.VehicleInfoDao"%>
+<%@page import="modal.JobcardInfo"%>
+<%@page import="modal.VehiclePartDetailsDao"%>
+<%@page import="modal.VehiclePartDetails"%>
+<%@page import="modal.VehicleServiceDetails"%>
+<%@page import="modal.VehicleServiceDetailsDao"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="modal.VehicleLubricantDetails"%>
+<%@page import="modal.VehicleLubricantDetailsDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<body>	
+<%   String vehicle_number=request.getParameter("id");
+	int model_varient_id=VehicleInfoDao.getVarientByNumber(vehicle_number);
+	int jobcardNumber = JobcardInfoDao.getJNByNumber(vehicle_number);
+		CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
+		VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicle_number);
+		int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
+		String company_model = VehicleModelDao.getModelName(vehicle_model_id);
+		JobcardInfo jc =JobcardInfoDao.getAllByNumber(vehicle_number);
+%>
 <script>
-function partAdd1()
-{
-	var partid = $("#partSel").val();
- $.ajax({
-  type: "POST",
-  url: "cart/partadd.jsp",
-  data: {
-   part_id : partid,
-   reload_flag: 0
- },
- cache: false,
- success: function(response)
- {
-  $("#addedParts").html(response);
-}
-});
-}
-
-  function partAdd(partid)
+  function partAdd(partid,jobcardNumber,partprice,partrepairflag)
   {
-
    $.ajax({
     type: "POST",
     url: "cart/partadd.jsp",
     data: {
      part_id : partid,
-     reload_flag: 0
+     jobcardNumber :jobcardNumber,
+     reload_flag: 0,
+     part_price : partprice,
+     part_repair_flag : partrepairflag
    },
    cache: false,
    success: function(response)
@@ -43,16 +47,14 @@ function partAdd1()
   }
 });
  }
-
- function serviceAdd()
+ function serviceAdd(serviceid,jobcardNumber)
  {
-   // alert(serviceid);
-	var serviceid = $("#serviceSel").val();
    $.ajax({
     type: "POST",
     url: "cart/serviceadd.jsp",
     data: {
      service_id : serviceid,
+     jobcardNumber : jobcardNumber,
      reload_flag: 0
    },
    cache: false,
@@ -62,15 +64,31 @@ function partAdd1()
   }
 }); 
  }
-
+ function lubricantAdd(lubricantid,jobcardNumber)
+ {
+   $.ajax({
+    type: "POST",
+    url: "cart/lubricantadd.jsp",
+    data: {
+     lubricant_id : lubricantid,
+     jobcardNumber: jobcardNumber,
+     reload_flag: 0
+   },
+   cache: false,
+   success: function(response)
+   {
+    $("#addedLubricants").html(response);
+  }
+}); 
+ }
+ 
  function serviceReload()
  {
-   // alert(serviceid);
-
-   $.ajax({
+  $.ajax({
     type: "POST",
     url: "cart/serviceadd.jsp",
     data: {
+     jobcardNumber : <%=jobcardNumber%>,
      reload_flag : 1
    },
    cache: false,
@@ -83,6 +101,7 @@ function partAdd1()
      type: "POST",
      url: "cart/lubricantadd.jsp",
      data: {
+      jobcardNumber : <%=jobcardNumber %>,
       reload_flag : 1
     },
     cache: false,
@@ -95,6 +114,7 @@ function partAdd1()
      type: "POST",
      url: "cart/partadd.jsp",
      data: {
+      jobcardNumber : <%=jobcardNumber%>,
       reload_flag : 1
     },
     cache: false,
@@ -104,155 +124,253 @@ function partAdd1()
    }
  });
  }
-
- /* lubricant ajax */
- function lubricantAdd()
- {
-   // alert(lubricantid);
-	var lubricantid = $("#lubricantSel").val();
-   $.ajax({
-    type: "POST",
-    url: "cart/lubricantadd.jsp",
-    data: {
-     lubricant_id : lubricantid,
-     reload_flag: 0
-   },
-   cache: false,
-   success: function(response)
-   {
-    $("#addedLubricants").html(response);
-  }
-}); 
- }
-
  window.onload= serviceReload;
+ function repairClicked(partid) {
+     var pp = document.getElementById("part_price"+partid);
+     var prf = document.getElementById("part_repair_flag"+partid);
+
+     pp.readOnly = false;    
+     prf.value = "1";
+     pp.value = "";
+     pp.focus();
+   }
 </script>
-	<div class="container">
+<header>
+        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+            <button class="w3-bar-item w3-button w3-large"
+            onclick="w3_close()">Close &times;</button>
+            <a href="#" class="w3-bar-item w3-button">Link 1</a>
+            <a href="#" class="w3-bar-item w3-button">Link 2</a>
+            <a href="#" class="w3-bar-item w3-button">Link 3</a>
+        </div>
+    </header>
+    <main id="main">
+        <div class="my-new-header">
+            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
+            <span>JCMS</span>
+        </div>
 
-<div class="row">
-</div>
-<div class="row">
-</div>
-<div class="row">
-</div>	
+        <!-- breadcrumbs at top of the page -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
+                <li class="breadcrumb-item">Pending List</li>
+                <li class="breadcrumb-item active" aria-current="page">Add Jobs</li>
+            </ol>
+        </nav>  
+        
+         <div class="row my-form-row">
+                    <div class="col-md-6">
+                        <h6>Customer's Details</h6>
+                        <table class="table table-striped table-bordered customer-verification-info-table">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                        <td><%=ci.getCustomerName() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Contact</th>
+                                        <td><%=ci.getCustomerContact() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Car Model</th>
+                                        <td><%= company_model %></td>
+                                </tr>
+                                <tr>
+                                    <th>Fuel Type</th>
+                                        <td><%= vi.getFuelType() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Mech Name</th>
+                                        <td>Hiren</td>
+                                </tr>
+                                <tr>
+                                    <th>Service Advisor</th>
+                                        <td><%=  jc.getOfficeUsername() %></td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Jobcard's Details</h6>
+                        <table class="table table-striped table-bordered customer-verification-info-table">
+                            <tbody>
+                                <tr>
+                                    <th>Vehicle Number</th>
+                                        <td><%= vehicle_number %></td>
+                                </tr>
+                                <tr>
+                                    <th>Work Type</th>
+                                        <td><%= jc.getWorkType() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Running Km</th>
+                                        <td><%= jc.getRunningKm() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Available Fuel</th>
+                                        <td> <%= jc.getAvailableFuel() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Date</th>
+                                        <td><%= jc.getDeliveryDate() %></td>
+                                </tr>
+                                <tr>
+                                    <th>Delivery Time</th>
+                                        <td><%= jc.getDeliveryTime() %></td>
+                                </tr>                                
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+        
+        
+        
 
-					<div class="row">
-						<div class="col m4 input-field">
-							<select onchange="partAdd1()" id="partSel">
-								<option value="" disabled="" selected>Choose your
-									option</option>
-								<%-- 	<%
-      String model_varient_id = (String) session.getAttribute("model_varient_id");
-      List<Vehicle_part_details> list = Vehicle_part_detailsDao.getParts(model_varient_id);
-      Iterator itr = list.iterator();
-      while (itr.hasNext()) {
-      Vehicle_part_details vpd = (Vehicle_part_details) itr.next();
+        <div class="my-form-heading">
+            <h5>Add Jobs</h5>
+        </div>
+        <div class="row mt-3 mb-5 container-95">
+            <div class="col-md-4">
+                <table id="data-table-simple-1" class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Add</th>
+                        <th>Repair</th>
+                    </thead>
+                    <%
+				     
+				      List<VehiclePartDetails> list2 = VehiclePartDetailsDao.getParts(model_varient_id);
+				      Iterator<VehiclePartDetails> itr2 = list2.iterator();
+				      while (itr2.hasNext()) 
+				      {
+				    	  VehiclePartDetails vpd2 =  itr2.next();
+				      %>
+                    <tbody>
+                        	<tr>
+				         	<td><%= vpd2.getPartName() %></td>
+				         	<td><input type="text" name="part_price" value="<%= vpd2.getPartPrice() %>"	id="part_price<%= vpd2.getPartId() %>" readonly required style="width:60px;">
+				         	<input	type="hidden" name="part_repair_flag" value="0" id="part_repair_flag<%= vpd2.getPartId() %>">
+				         	</td>
+				         	<td ><a href="javascript:void(0)" onclick="partAdd('<%= vpd2.getPartId() %>','<%= jobcardNumber %>', document.getElementById('part_price<%= vpd2.getPartId() %>').value, document.getElementById('part_repair_flag<%= vpd2.getPartId()%>').value)"> +</a></td>
+				         	<td><a href="javascript:void(0)" onclick="repairClicked('<%= vpd2.getPartId()%>')">repair</a></td>
+				         	</tr>      
+                    </tbody>
+                    
+      <%
+      }
       %>
-				<option value='<%=vpd.getPart_id()%>'>
-					<%= vpd.getPart_name() %>
-				</option>
-				<%              
-    }
-    %> --%>
-							</select> <label>Parts</label>
-						</div>
-						<div class="input-field col m4">
-							<select onchange="serviceAdd()" id="serviceSel">
-								<option value="" disabled selected>Choose your option</option>
-	<%-- 							<% 
-      List<Vehicle_service_details> list1 = Vehicle_service_detailsDao.getServices(model_varient_id);
-      Iterator<Vehicle_service_details> itr1=list1.iterator();  
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table id="data-table-simple-2" class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Add</th>
+                    </thead>
+                    <%     
+      List<VehicleServiceDetails> list1 = VehicleServiceDetailsDao.getServices(model_varient_id);
+      Iterator<VehicleServiceDetails> itr1=list1.iterator();  
       while(itr1.hasNext()){ 
-      Vehicle_service_details vsd = itr1.next();
+    	  VehicleServiceDetails vsd = itr1.next();
       %>
-            <option value='<%=vsd.getService_id()%>'><%=vsd.getService_name()%></option>                                  
- <%
- }
-   %>
-		 --%>					</select> <label>Service</label>
-						</div>
-						<div class="input-field col m4">
-							<select onchange="lubricantAdd()" id="lubricantSel">
-								<option value="" disabled selected>Choose your option</option>
-							<%-- 	<% 
-      List<Vehicle_lubricant_details> list2 = Vehicle_lubricant_detailsDao.getLubricants(model_varient_id);
-      Iterator<Vehicle_lubricant_details> itr2=list2.iterator();  
-      while(itr2.hasNext()){ 
-      Vehicle_lubricant_details vld = itr2.next();
+                    <tbody>
+                    <tr>
+                    <td><%= vsd.getServiceName() %></td>
+         			<td><%= vsd.getServiceDetails() %></td>
+         			<td><%=vsd.getServicePrice() %></td>
+         			<td><a href="javascript:void(0)" onclick="serviceAdd('<%= vsd.getServiceId() %>','<%= jobcardNumber %>')"> + </a></td>
+                    </tr>           
+            
+            <%
+      }
+            %>
+             </table>
+             </div>
+             
+            <div class="col-md-4" >
+                <table id="data-table-simple-3" class="table table-striped"  >
+                          <thead>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity()</th>
+                        <th>Add</th>
+                    </thead>
+
+    <% 
+       
+      List<VehicleLubricantDetails> list3 = VehicleLubricantDetailsDao.getLubricants(model_varient_id);
+      Iterator<VehicleLubricantDetails> itr3=list3.iterator();  
+      while(itr3.hasNext())
+      { 
+    	  VehicleLubricantDetails vld1 = itr3.next();
+     %>   
+                    <tbody>
+                        <tr>
+                            <td><%= vld1.getLubricantName() %></td>
+                           <td><%= vld1.getLubricantPrice() %></td>
+                            <td><%= vld1.getLubricantQuantity() %></td>
+                            <td><a href="javascript:void(0)" onclick="lubricantAdd('<%=vld1.getLubricantId()%>','<%= jobcardNumber %>')"> + </a></td>                          
+                        </tr>
+                    </tbody>
+      <%
+      }
       %>
-      <option value='<%=vld.getLubricant_id()%>'><%=vld.getLubricant_name()%></option> 
-       <%  }
-    %> --%>
-							</select> <label>Lubricants</label>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col m12">
-							<div class="col m4" id="addedParts">
-								<table class="highlight responsive-table z-depth-3">
-									<thead>
-										<tr>
-											<th>Part Name</th>
-											<th>Item Price</th>
-											<th>Quantity</th>
-											<th>Repair</th>
-											<th>Add</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>abc</td>
-											<td>123</td>
-											<td>1</td>
-											<th>Repair</th>
-											<th>Add</th>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="col m4" id="addedServices">
-								<!-- <table class="highlight responsive-table z-depth-3">
-									<thead>
-										<tr>
-											<th>Service Name</th>
-											<th>Service Price</th>
-											<th>Add</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>abc</td>
-											<td>123</td>
-											<th>Add</th>
-										</tr>
-									</tbody> 
-								</table>   
-							</div>
-							<div class="col m4" id="addedLubricants">
-								 <table class="highlight responsive-table z-depth-3">
-									<thead>
-										<tr>
-											<th>Lubricant Name</th>
-											<th>Lubricant Price</th>
-											<th>Add</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>abc</td>
-											<td>123</td>
-											<th>Add</th>
-										</tr>
-									</tbody>
-								</table> 
-							</div>
-						</div>
-					</div>
-					</div>
-					</main>
-	<!-- body ends -->
-
-
-</body>
-</html>
+      </table>
+            </div>
+        </div>
+        <!-- added servings tables goes here -->
+        <div class="my-form-heading">
+            <h5>Added Jobs</h5>
+        </div>
+        <div class="row mt-3 container-95">
+            <div class="col-md-4" id="addedParts">
+                <table id="data-table-simple-4" class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Remove</th>
+                    </thead>
+                    <tbody>
+                       <!-- data -->
+                    </tbody>
+                </table>     
+            </div>
+            <div class="col-md-4" id="addedServices">
+                <table id="data-table-simple-5" class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </thead>
+                    <tbody>
+                        <!-- data -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4" id="addedLubricants">
+  
+                <table id="data-table-simple-6" class="table table-striped">
+                    <thead>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </thead>
+                 <!--  data  -->
+                </table>     
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-md"></div>
+        	<div class="col-md-1">
+        		<a href="saDashboard.jsp" class="btn btn-danger btn-md">Close</a>
+        	</div>
+        	<div class="col-md"></div>        	
+        </div>            
+    </main>
+ <%@include file="../footer.html" %>

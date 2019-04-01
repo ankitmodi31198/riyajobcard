@@ -26,18 +26,18 @@ public class AdvisorSolutionDao {
           
         return status;  
     }
-	 /*public static int deleteById(int solution)
-		{
-			int status=0;
-			try{
-				Connection con=ConnectionDb.getConnection();  
-	            PreparedStatement ps = con.prepareStatement("delete from customer_complain where complain_id='"+complain_id+"' ");
-	             status = ps.executeUpdate();
-	            con.close();
-			}
-			catch(Exception e){e.printStackTrace();}
-			return status;
-		}*/
+	public static int delete(int jobcardNumber)
+	{
+		int status=0;
+		try{
+			Connection con=ConnectionDb.getConnection();  
+            PreparedStatement ps = con.prepareStatement("delete from advisor_solution where jobcard_number='"+jobcardNumber+"' ");
+             status = ps.executeUpdate();
+            con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return status;
+	}
 	public static List<AdvisorSolution> getAll(int jobcard_number)
 	{
 		List<AdvisorSolution> list = new ArrayList<AdvisorSolution>();

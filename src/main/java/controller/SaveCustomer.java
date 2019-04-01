@@ -35,7 +35,7 @@ public class SaveCustomer extends HttpServlet {
         String customerAddress=request.getParameter("customer_address"); 
         String customerCity=request.getParameter("customer_city");
         String customerState=request.getParameter("customer_state");
-        int pincode= Integer.parseInt(request.getParameter("pincode"));
+        int pincode= Integer.parseInt(request.getParameter("pincode"));	
         String customerRc=request.getParameter("customer_rc");
         String customerAadhaar=request.getParameter("customer_aadhaar");
         String customerLicense=request.getParameter("customer_license");
@@ -43,9 +43,9 @@ public class SaveCustomer extends HttpServlet {
         
         String vehicleNumber=request.getParameter("vehicle_number");
         String vinNumber=request.getParameter("vin_number");
-        String vehicleCompany=request.getParameter("vehicle_company"); 
-        String companyModel=request.getParameter("company_model"); 
-        String modelVarient=request.getParameter("model_varient"); 
+        int vehicleCompany=Integer.parseInt(request.getParameter("vehicle_company")); 
+        int companyModel=Integer.parseInt(request.getParameter("company_model")); 
+        int modelVarient=Integer.parseInt(request.getParameter("model_varient")); 
         String engineNumber=request.getParameter("engine_number");
         String fuelType=request.getParameter("fuel_type");
         String vehicleType=request.getParameter("vehicle_type"); 
@@ -53,8 +53,7 @@ public class SaveCustomer extends HttpServlet {
         String exteriorColor=request.getParameter("exterior_color"); 
         
         
-        System.out.println(companyModel);
-        System.out.println(vehicleNumber);
+      
         
 		CustomerInfo ci=new CustomerInfo();
 		ci.setVehicleNumber(vehicleNumber);

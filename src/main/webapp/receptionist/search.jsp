@@ -1,92 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">JCMS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="receptionistDashboard.jsp">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Job Card List</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reports
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Report 1</a>
-                            <a class="dropdown-item" href="#">Report 2</a>                        
-                            <a class="dropdown-item" href="#">Report 3</a>
-                        </div>
-                    </li>                   
-                </ul>                
-                <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
-            </div>
-        </nav>
+<%@ include file="../header.html" %>
+<title>Search</title>
+<header>
+        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+            <button class="w3-bar-item w3-button w3-large"
+            onclick="w3_close()">Close &times;</button>
+            <a href="#" class="w3-bar-item w3-button">Link 1</a>
+            <a href="#" class="w3-bar-item w3-button">Link 2</a>
+            <a href="#" class="w3-bar-item w3-button">Link 3</a>
+        </div>
     </header>
 
-    <main>
-        <!-- <form class="form-inline">
-            <label class="" for="inlineFormInputName2">Name</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">                                                            
-            
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
-        </form> -->
-        <form action="../CheckVehicle" class="my-form" method="post">
-            <div class="my-form-heading">
-                <h5>Enter Vehicle Number</h5>
-            </div>
-            <div class="container-95">
-                <div class="row my-form-row">
-                    <h6>About Vehicle</h6>
-                    <div class="col-md-4">
-                    
-                        <label for="">Vehicle Number :</label>
-                        <input type="text" name="vehicle_number" id="" class="">
-                        
-                    </div>
-                </div>
-                <div class="my-submit-div">
-                    <input type="submit" name="submit" id="submit" class="btn btn-secondary btn-sm" value="Search">
-                </div>
-            </div>
-        </form>
+    <main id="main">
+        <div class="my-new-header">
+            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
+            <span>JCMS</span>
+        </div>
+
+		
+        <div class="container-95">
+        	<form action="../CheckVehicle" class="my-form" method="post">
+	            <div class="my-form-heading">
+	                <h5>Enter Vehicle Number</h5>
+	            </div>
+	            <div class="container-95">
+						<div class="my-form-row">
+						<h6>About Vehicle</h6>
+						<div class="col-md"></div>
+						<div class="col-md-4">
+						
+							<label for="">Vehicle Number :</label>
+							<input type="text" name="vehicle_number" id="" class="">
+							
+						</div>
+						<div class="col-md"></div>
+					</div>
+					<div class="my-submit-div">
+						<input type="submit" name="submit" id="submit" class="btn btn-secondary btn-sm" value="Search">
+					</div>
+				</div>            
+	        </form>
+        </div>
     </main>
 
-    <footer class="my-footer">
-        <div class="my-footer-copyright container-95">
-            Copyright @ JCMS 2019
-        </div>
-    </footer>
-    
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+<%@ include file="../footer.html" %>

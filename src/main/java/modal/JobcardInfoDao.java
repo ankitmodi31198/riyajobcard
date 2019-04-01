@@ -3,6 +3,7 @@ package modal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,12 +74,55 @@ public class JobcardInfoDao {
 	            while(rs.next()){  
 	            	JobcardInfo jci = new JobcardInfo();
 	            	jci.setVehicleNumber(rs.getString("vehicle_number"));
+	            	jci.setJobcardNumber(rs.getInt("jobcard_number"));
 	            	list.add(jci);
 	            }  
 	            con.close();  
 	        }catch(Exception e){e.printStackTrace();}   
 		 return list;
 	 }
+	 
+	 public static List<JobcardInfo> getByStatus(String status)
+	 {
+		 List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from jobcard_info where status = ?") ;
+
+	            ps.setString(1, status);   
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	JobcardInfo jci = new JobcardInfo();
+	            	jci.setVehicleNumber(rs.getString("vehicle_number"));
+	            	jci.setJobcardNumber(rs.getInt("jobcard_number"));
+	            	jci.setOfficeUsername(rs.getString("officer_username"));
+	            	list.add(jci);
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return list;
+	 }
+	 public static List<JobcardInfo> getByOfficer(String officer_username)
+	 {
+		 List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from jobcard_info where officer_username = ?") ;
+	            ps.setString(1, officer_username);   
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	JobcardInfo jci = new JobcardInfo();
+	            	jci.setVehicleNumber(rs.getString("vehicle_number"));
+	            	jci.setJobcardNumber(rs.getInt("jobcard_number"));
+	            	jci.setArrivalDate(rs.getString("arrival_date"));
+	            	jci.setStatus(rs.getString("status"));
+	            	list.add(jci);
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return list;
+	 }
+	  
 	 public static int getTotal(String officer_username,String status)
 	 {
 		    int i=0;
@@ -125,4 +169,169 @@ public class JobcardInfoDao {
 	        }catch(Exception e){e.printStackTrace();}   
 		 return i;
 	 }
+	 
+	 public static int getJNByNumber(String vehicle_number, String status)
+	 {
+		    int i=0;
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select jobcard_number from jobcard_info where vehicle_number = ? and status = ?") ;
+	            ps.setString(1, vehicle_number);
+	            ps.setString(2, status);
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	              i = rs.getInt("jobcard_number");
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return i;
+	 }
+	 
+		public static JobcardInfo getAllByNumber(String vehicle_number) {
+			JobcardInfo jc = new JobcardInfo();
+			try{
+			 Connection con=ConnectionDb.getConnection();  
+	         PreparedStatement ps=con.prepareStatement("select * from jobcard_info where vehicle_number ='"+vehicle_number+"'");
+	         ResultSet rs = ps.executeQuery();
+	         while(rs.next())
+	         {
+	        	 jc.setVehicleNumber(rs.getString("vehicle_number"));
+	        	 jc.setJobcardNumber(rs.getInt("jobcard_number"));
+	        	 jc.setOfficeUsername(rs.getString("officer_username"));
+	        	 jc.setWorkType(rs.getString("work_type"));
+	        	 jc.setArrivalDate(rs.getString("arrival_date"));
+	        	 jc.setArrivalTime(rs.getString("arrival_time"));
+	        	 jc.setAvailableFuel(rs.getInt("available_fuel"));
+	        	 jc.setDeliveryDate(rs.getString("delivery_date"));
+	        	 jc.setDeliveryTime(rs.getString("delivery_time"));
+	        	 jc.setRunningKm(rs.getInt("running_km"));
+	        	 jc.setStatus(rs.getString("status"));
+	        	 
+	        	 	
+	         }
+			}catch(Exception e){e.printStackTrace();}
+			return jc;
+		}
+		
+		
+		public static JobcardInfo getAllByJC(int jobcardNumber) {
+			JobcardInfo jc = new JobcardInfo();
+			try{
+			 Connection con=ConnectionDb.getConnection();  
+	         PreparedStatement ps=con.prepareStatement("select * from jobcard_info where jobcard_number ='"+jobcardNumber+"'");
+	         ResultSet rs = ps.executeQuery();
+	         while(rs.next())
+	         {
+	        	 jc.setVehicleNumber(rs.getString("vehicle_number"));
+	        	 jc.setOfficeUsername(rs.getString("officer_username"));
+	        	 jc.setJobcardNumber(rs.getInt("jobcard_number"));
+	        	 jc.setWorkType(rs.getString("work_type"));
+	        	 jc.setArrivalDate(rs.getString("arrival_date"));
+	        	 jc.setArrivalTime(rs.getString("arrival_time"));
+	        	 jc.setAvailableFuel(rs.getInt("available_fuel"));
+	        	 jc.setDeliveryDate(rs.getString("delivery_date"));
+	        	 jc.setDeliveryTime(rs.getString("delivery_time"));
+	        	 jc.setRunningKm(rs.getInt("running_km"));
+	        	 jc.setStatus(rs.getString("status"));
+	        	 
+	        	 	
+	         }
+			}catch(Exception e){e.printStackTrace();}
+			return jc;
+		}
+		public static boolean checkIfAllCompleted(int jobcardNumber) throws SQLException {
+			boolean partflag=false,serviceflag=false,lubricantflag=false;
+			partflag = JcPartDao.checkIfAllCompleted(jobcardNumber);
+			serviceflag = JcServiceDao.checkIfAllCompleted(jobcardNumber);
+			lubricantflag = JcLubricantDao.checkIfAllCompleted(jobcardNumber);
+			if(partflag==true && serviceflag == true && lubricantflag == true)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		public static int updateStatus(int jobcardNumber,String status) {
+			int status1=0;  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps=con.prepareStatement("update jobcard_info set status='"+status+"' where jobcard_number = '"+jobcardNumber+"' ");  
+	            
+	            status1=ps.executeUpdate();  
+	            con.close();  
+	        }catch(Exception ex){ex.printStackTrace();}  
+	          
+	        return status1;  
+		}
+		public static int delete(int jobcardNumber) {
+			int status=0;
+			try{
+				Connection con=ConnectionDb.getConnection();  
+		        PreparedStatement ps = con.prepareStatement("delete from jobcard_info where jobcard_number='"+jobcardNumber+"' ");
+		         status = ps.executeUpdate();
+		        con.close();
+			}
+			catch(Exception e){e.printStackTrace();}
+			return status;
+			
+		}
+		public static int getFinalAmount(int jobcardNumber) {
+			int finalamount=0;
+			
+			finalamount = JcPartDao.getTotalAmount(jobcardNumber) + JcServiceDao.getTotalAmount(jobcardNumber) + JcLubricantDao.getTotalAmount(jobcardNumber);
+			return finalamount;
+			
+		}		
+		public static List<JobcardInfo> getCountOfWorkloadOfSA()
+		 {
+			List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+			    
+		        try{  
+		            Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("SELECT officer_username , COUNT(vehicle_number) AS total FROM jobcard_info WHERE (status = 'pending' OR status = 'repaired' OR status = 'arrived') GROUP BY officer_username") ;
+		           
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next()){  
+		            	JobcardInfo ji=new JobcardInfo();
+		            	ji.setOfficeUsername(rs.getString("officer_username"));
+		            	ji.setAvailableFuel(rs.getInt("total"));
+		            	//i = ji.getInt("total");
+		            	list.add(ji);
+		            }  
+		            con.close();  
+		        }catch(Exception e){e.printStackTrace();}   
+			 return list;
+		 }
+		public static List<JobcardInfo> getAllByDate(String from, String to)
+		 {
+			List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+			    
+		        try{  
+		            Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("SELECT * FROM jobcard_info WHERE DATE(arrival_date) BETWEEN ? AND ?") ;
+		            ps.setString(1, from);
+		            ps.setString(2, to);
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next()){  
+		            	JobcardInfo jc=new JobcardInfo();
+		            	jc.setVehicleNumber(rs.getString("vehicle_number"));
+		            	jc.setJobcardNumber(rs.getInt("jobcard_number"));
+			        	 jc.setOfficeUsername(rs.getString("officer_username"));
+			        	 jc.setWorkType(rs.getString("work_type"));
+			        	 jc.setArrivalDate(rs.getString("arrival_date"));
+			        	 jc.setArrivalTime(rs.getString("arrival_time"));
+			        	 jc.setAvailableFuel(rs.getInt("available_fuel"));
+			        	 jc.setDeliveryDate(rs.getString("delivery_date"));
+			        	 jc.setDeliveryTime(rs.getString("delivery_time"));
+			        	 jc.setRunningKm(rs.getInt("running_km"));
+			        	 jc.setStatus(rs.getString("status"));
+			        	 
+		            	list.add(jc);
+		            }  
+		            con.close();  
+		        }catch(Exception e){e.printStackTrace();}   
+			 return list;
+		 }
 }

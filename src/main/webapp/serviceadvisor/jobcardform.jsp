@@ -1,3 +1,4 @@
+<%@include file="../header.html"%>
 <%@page import="modal.VehicleModelDao"%>
 <%@page import="modal.CustomerInfoDao"%>
 <%@page import="modal.CustomerInfo"%>
@@ -7,19 +8,7 @@
 <%@page import="modal.JobcardInfo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
-
-    <title>JobCard Form</title>
-    <script type="text/javascript">
+  <script type="text/javascript">
     	function addComplain(jobcard_number)
     	{
     		var complain=document.getElementById("customer_complain").value;
@@ -96,7 +85,6 @@
     		});
     	}
     </script>
-  </head>
   <body>
    <% int jobcard_number = Integer.parseInt(request.getParameter("id")); 
    String officer_username = (String)session.getAttribute("officer_username");
@@ -105,46 +93,30 @@
     	String vehicle_number = JobcardInfoDao.getVNByNumber(jobcard_number);
     	VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicle_number);
     	CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
-    	String vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
+    	int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
 		String company_model = VehicleModelDao.getModelName(vehicle_model_id);
 		JobcardInfo ji = JobcardInfoDao.getTempByNumber(jobcard_number);
     %>	
+     <!-- openable navbar -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">JCMS</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Job Card List</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Reports
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Report 1</a>
-                            <a class="dropdown-item" href="#">Report 2</a>                        
-                            <a class="dropdown-item" href="#">Report 3</a>
-                        </div>
-                    </li>                   
-                </ul>                
-                <!-- <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
-            </div>
-        </nav>
+        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
+            <button class="w3-bar-item w3-button w3-large"
+            onclick="w3_close()">Close &times;</button>
+            <a href="#" class="w3-bar-item w3-button">Link 1</a>
+            <a href="#" class="w3-bar-item w3-button">Link 2</a>
+            <a href="#" class="w3-bar-item w3-button">Link 3</a>
+        </div>
     </header>
 
-    <main>
-        <form action="../SaveJobCard" class="my-form" method="POST">
+    <main id="main">
+
+        <div class="my-new-header">
+            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
+            <span>JCMS</span>
+        </div>
+
+
+        <form action="../SaveJobCard" class="my-form container-95" method="POST">
             <div class="my-form-heading">
                 <h5>Job Card Form</h5>
             </div>
@@ -240,12 +212,7 @@
                             <div class="col-md-4">
                                 <input type="time" name="arrival_time" id="arrival_time" value='<%=ji.getArrivalTime()%>' readonly>
                             </div>
-                           <!--  <div class="col-md-2">
-                                <label for="floor_incharge_name">Floor Incharge</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" name="floor_incharge_name" id="floor_incharge_name">
-                            </div> -->
+                          
                         </div>
                         <div class="row">
                             <div class="col-md-2">
@@ -293,18 +260,7 @@
                                     <!-- loop -->
                                     <!-- ALERT !!! -->
                                     <!-- ask JASH for while you work on this form -->
-                                    <form action="/for-remove-complain-using-id" id="complain_id">
-                                        <tr>
-                                            <td>This is complain number 1</td>
-                                            <td><button type="submit" class="btn btn-danger btn-sm" form="complain_id">Remove</button></td>
-                                        </tr>
-                                    </form>
-                                    <form action="/for-remove-complain-using-id">
-                                        <tr>
-                                            <td>This is complain number 1</td>
-                                            <td><button type="submit" class="btn btn-danger btn-sm">Remove</button></td>
-                                        </tr>
-                                    </form>
+                                    
                                 </table>
                             </div>
                         </div>
@@ -344,20 +300,7 @@
                                     <!-- loop -->
                                     <!-- ALERT !!! -->
                                     <!-- ask JASH for while you work on this form -->
-                                    <form action="/for-remove-complain-using-id">
-                                        <tr>
-                                            <td>This is solution for complain 1</td>
-                                            <td>1300</td>
-                                            <td><button type="submit" class="btn btn-danger btn-sm">Remove</button></td>
-                                        </tr>
-                                    </form>
-                                    <form action="/for-remove-complain-using-id">
-                                        <tr>
-                                            <td>This is solution for complain 2</td>
-                                            <td>8500</td>
-                                            <td><button type="submit" class="btn btn-danger btn-sm">Remove</button></td>
-                                        </tr>
-                                    </form>
+                                   
                                 </table>
                             </div>
                         </div>
@@ -446,17 +389,4 @@
         </form>
     </main>
 
-    <footer class="my-footer">
-        <div class="my-footer-copyright container-95">
-            Copyright @ JCMS 2019
-        </div>
-    </footer>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="../public/js/jquery-3.2.1.min.js"></script>
-   <!--  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+<%@include file="../footer.html"%>

@@ -42,5 +42,38 @@ public class VehicleCompanyDao {
 			    }catch(Exception e){e.printStackTrace();}  
 			 return vc;
 		 }
+		
+		public static String getCompanyName(int vehicle_company_id)
+		{
+			String vehicle_company_name = null ;
+			 try{  
+		            Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("select vehicle_company_name from vehicle_company where vehicle_company_id ='"+vehicle_company_id+"' ") ;
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next()){  
+		            	vehicle_company_name = rs.getString("vehicle_company_name");
+		            }  
+		            con.close();  
+		        }catch(Exception e){e.printStackTrace();}  
+		        return vehicle_company_name;
+		}
+		public static int save(VehicleCompany vc) {
+			int status = 0;
+
+			try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps=con.prepareStatement(  
+	                         "insert into vehicle_company(vehicle_company_name) values (?)");  
+	            
+	            ps.setString(1, vc.getVehicleCompanyName());
+	              
+	            status=ps.executeUpdate();   
+	            System.out.println(status);
+	            con.close();  
+	        }catch(Exception ex){ex.printStackTrace();}  
+	          
+	        return status;  
+		}
 	
+		
 }

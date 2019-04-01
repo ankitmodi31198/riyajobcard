@@ -27,7 +27,7 @@
                                         <th>Solutions</th>
                                         <th>price</th>
                                         <th>Remove</th>
-                                    </tr>
+                                   </tr>
 	<% 
 	while(itr.hasNext())
 	{

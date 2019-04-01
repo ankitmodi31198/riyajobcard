@@ -30,8 +30,19 @@ public class JcAccessoriesDao {
           
         return status;  
     }
-	
-	
-	
+
+	public static int delete(int jobcardNumber) {
+		int status=0;
+		try{
+			Connection con=ConnectionDb.getConnection();  
+	        PreparedStatement ps = con.prepareStatement("delete from jc_accessories where jobcard_number='"+jobcardNumber+"' ");
+	         status = ps.executeUpdate();
+	        con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return status;
+		
+	}
+
 	
 }

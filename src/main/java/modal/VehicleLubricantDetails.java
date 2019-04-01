@@ -9,7 +9,7 @@ public class VehicleLubricantDetails implements java.io.Serializable {
 	private int lubricantPrice;
 	private int lubricantQuantity;
 	private int lubricantLabour;
-	private Date lubricantValidity;
+	private String lubricantValidity;
 	
 	public int getLubricantId() {
 		return lubricantId;
@@ -47,12 +47,13 @@ public class VehicleLubricantDetails implements java.io.Serializable {
 	public void setLubricantLabour(int lubricantLabour) {
 		this.lubricantLabour = lubricantLabour;
 	}
-	public Date getLubricantValidity() {
+	public String getLubricantValidity() {
 		return lubricantValidity;
 	}
-	public void setLubricantValidity(Date lubricantValidity) {
+	public void setLubricantValidity(String lubricantValidity) {
 		this.lubricantValidity = lubricantValidity;
 	}
+	
 
 	
 

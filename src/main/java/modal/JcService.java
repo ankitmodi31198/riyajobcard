@@ -5,6 +5,15 @@ public class JcService implements java.io.Serializable {
 	private int serviceId;
 	private int jobcardNumber;
 	private String serviceName;
+	private String serviceDesc;
+	
+	
+	public String getServiceDesc() {
+		return serviceDesc;
+	}
+	public void setServiceDesc(String serviceDesc) {
+		this.serviceDesc = serviceDesc;
+	}
 	private int servicePrice;
 	private String serviceStatus;
 	

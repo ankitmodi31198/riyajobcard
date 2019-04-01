@@ -28,15 +28,15 @@ public class CheckVehicle extends HttpServlet {
 		 HttpSession session = request.getSession();  
 	        String vehicle_number=request.getParameter("vehicle_number"); 
 	        session.setAttribute("vehicle_number", vehicle_number);
-	        boolean vflag = VehicleInfoDao.checkVehicleNumber(vehicle_number);
+	        boolean vflag = VehicleInfoDao.checkVehicleNumber(vehicle_number); /*set history when history tables are created*/
 	        if(vflag)
 	        {
-	        	String model_varient = VehicleInfoDao.getVarientByNumber(vehicle_number);
+	        	int model_varient = VehicleInfoDao.getVarientByNumber(vehicle_number);
 	        	String customer_name = CustomerInfoDao.getNameByNumber(vehicle_number);
 	        	session.setAttribute("model_varient_id",model_varient);
 	        	session.setAttribute("customer_name",customer_name);
 	        	session.setAttribute("vehicle_number", vehicle_number);
-	        	response.sendRedirect("pasthistory.jsp");
+	        	response.sendRedirect("receptionist/pastHistory.jsp");
 	        }else{
 	        response.sendRedirect("receptionist/customerRegistration.jsp"); 
 	        }

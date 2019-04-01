@@ -8,7 +8,7 @@ public class VehiclePartDetails implements java.io.Serializable {
 	private String partName;
 	private int partPrice;
 	private int partQuantity;
-	private Date partValidity;
+	private String partValidity;
 	private int partLabour;
 	
 	public int getPartId() {
@@ -41,10 +41,11 @@ public class VehiclePartDetails implements java.io.Serializable {
 	public void setPartQuantity(int partQuantity) {
 		this.partQuantity = partQuantity;
 	}
-	public Date getPartValidity() {
+
+	public String getPartValidity() {
 		return partValidity;
 	}
-	public void setPartValidity(Date partValidity) {
+	public void setPartValidity(String partValidity) {
 		this.partValidity = partValidity;
 	}
 	public int getPartLabour() {

@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modal.JobcardInfo;
 import modal.JobcardInfoDao;
@@ -61,6 +62,8 @@ public class AllocateServiceAdvisor extends HttpServlet {
 		ji.setArrivalTime(arrivalTime);
 		int status1 = JobcardInfoDao.save(ji);
 		if (status1 > 0) {
+			 HttpSession session = request.getSession();
+		      	session.setAttribute("officer_username", officer_username);
 			response.sendRedirect("receptionist/receptionistDashboard.jsp");
 		} else {
 			System.out.println("error in allocating the service advisor");

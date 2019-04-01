@@ -1,24 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
-
-    <!-- w3 links -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- fontawesome CDN -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <title>Receptionist Dashboard</title>
-  </head>
+<%@page import="java.util.Iterator"%>
+<%@page import="modal.OfficerInfoDao"%>
+<%@page import="modal.OfficerInfo"%>
+<%@page import="java.util.List"%>
+<%@ include file="../header.html" %>
+<title>Receptionist Dashboard</title>
   <script type = "text/javascript" >
         function preventBack() { window.history.forward(1); }
         setTimeout("preventBack()", 0);
@@ -29,7 +14,7 @@
         	{
         		
         		response.sendRedirect("../index.jsp");
-        	}
+       	}
         	%>
         }
 </script> 
@@ -40,6 +25,9 @@
         <h3 class="w3-bar-item">Menu</h3>
         <a href="receptionistDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
         <a href="search.jsp" class="w3-bar-item w3-button">Search Customer</a>
+        <a href="serviceadvisorlist.jsp" class="w3-bar-item w3-button">Service Advisor List</a>
+        <a href="servicedetails.jsp" class="w3-bar-item w3-button">Service Details</a>
+        <a href="reports.jsp" class="w3-bar-item w3-button">Reports</a>
         <!-- <a href="#" class="w3-bar-item w3-button">Logout</a> -->
         <form action="../Logout" method="POST">
 		<input type="submit" value="Log Out"/></form>
@@ -93,7 +81,18 @@
                                 <div class="my-dashboard-box-content">
                                     <div class="row">
                                         <div class="col-md-10">Service Advisor</div>
-                                        <div class="col-md-2">3</div>
+                                        <div class="col-md-2">
+                                        <% List<OfficerInfo> list = OfficerInfoDao.getByOfficerRole("service_advisor");
+											Iterator<OfficerInfo> itr = list.iterator();
+											int sa_count = 0;
+											while (itr.hasNext())
+											{
+												OfficerInfo oi =  itr.next();
+												sa_count++;
+											}
+											%>
+											<span class='numscroller' data-min='0' data-max=<%= sa_count %> data-delay='0.5' data-increment='1'><%= sa_count %></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -116,17 +115,4 @@
         
     </main>
 
-    <footer class="my-footer">
-        <div class="my-footer-copyright container-95">
-            Copyright @ JCMS 2019
-        </div>
-    </footer>
-    
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+<%@ include file="../footer.html" %>

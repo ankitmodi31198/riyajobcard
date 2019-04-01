@@ -9,7 +9,7 @@ public class ConnectionDb {
 		        Connection con=null;  
 		        try{  
 		            Class.forName("com.mysql.jdbc.Driver");  
-		            con= DriverManager.getConnection("jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_be92dccf6c8c5bd","b0709172233cc8","8e3bb54c");
+		            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/jcps","root","");
 		        }catch(Exception e){System.out.println(e);}  
 		        return con; 
 		    }

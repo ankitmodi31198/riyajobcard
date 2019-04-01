@@ -55,4 +55,16 @@ public class CustomerComplainDao {
 			}catch(Exception e){e.printStackTrace();}
 		return list;
 	}
+	public static int delete(int jobcardNumber)
+	{
+		int status=0;
+		try{
+			Connection con=ConnectionDb.getConnection();  
+            PreparedStatement ps = con.prepareStatement("delete from customer_complain where jobcard_number='"+jobcardNumber+"' ");
+             status = ps.executeUpdate();
+            con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return status;
+	}
 }

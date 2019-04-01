@@ -28,7 +28,7 @@
 	%>
 	<table class="table table-hover">
                                     <tr>
-                                        <th>Solutions</th>
+                                       <th>Solutions</th>
                                         <th>price</th>
                                         <th>Remove</th>
                                     </tr>
@@ -40,7 +40,7 @@
 		<form action="/for-remove-complain-using-id" id="complain_id">
                                         <tr>
                                             <td><%= as.getDescription() %></td>
-                                            <td><%= as.getPrice() %></td>
+                                            <td><span class="advisorPrice"><%= as.getPrice() %></span></td>
                                            <td><button type="button" class="btn btn-danger btn-sm" form="complain_id" onclick="removeSolution('<%=as.getSolutionId()%>','<%=jobcardNumber%>')">Remove</button></td>
                                         </tr>
                                     </form>

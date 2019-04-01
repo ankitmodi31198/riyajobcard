@@ -37,7 +37,7 @@
                                             <td><button type="button" class="btn btn-danger btn-sm" form="complain_id" onclick="removeComplain('<%=cc.getComplainId()%>',<%=jobcardNumber%>)">Remove</button></td>
                                         </tr>
                                     </form>
-		
+	
 <%
 	}
 %>

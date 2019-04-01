@@ -4,16 +4,16 @@
 <%
 if(request.getParameter("vehicle_model_id")!=null) 
 {
-    String id=request.getParameter("vehicle_model_id"); //get state_id from index.jsp page with function state_change() through ajax and store in id variable.
+    String id=request.getParameter("vehicle_model_id"); 
         
     try
     {
        Connection con = ConnectionDb.getConnection();
-        PreparedStatement pstmt=null ; //create statement
+        PreparedStatement pstmt=null ;
                 
-        pstmt=con.prepareStatement("select * from vehicle_model_varient where vehicle_model_id=? "); //sql select query
+        pstmt=con.prepareStatement("select * from vehicle_model_varient where vehicle_model_id=? "); 
         pstmt.setString(1,id);
-        ResultSet rs=pstmt.executeQuery(); //execute query and set in resultset object rs.
+        ResultSet rs=pstmt.executeQuery(); 
         %>        
             <option selected="selected">--</option>
         <%    

@@ -1,3 +1,6 @@
+<%@page import="modal.VehicleModelVarientDao"%>
+<%@page import="modal.VehicleCompanyDao"%>
+<%@include file="../header.html" %>
 <%@page import="modal.JobcardInfoDao"%>
 <%@page import="modal.VehicleModelDao"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -13,28 +16,12 @@
 <%@page import="modal.CustomerInfoDao"%>
 <%@page import="modal.CustomerInfo"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
-
-    <!-- w3 links -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- fontawesome CDN -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-  </head>
-  
-  <body>
+    pageEncoding="ISO-8859-1"%> 
+    
+    
+<body>	
+        
+    <!-- openable navbar -->
     <header>
         <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
             <button class="w3-bar-item w3-button w3-large"
@@ -44,258 +31,409 @@
             <a href="#" class="w3-bar-item w3-button">Link 3</a>
         </div>
     </header>
-
     <main id="main">
         <div class="my-new-header">
             <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
             <span>JCMS</span>
         </div>
-        
-        <div class="my-form-heading">
-            <h5>Verify Details</h5>
-        </div>               
-        <div class="container-95">
-            <div class="customer-verification-info">
-                <div class="row">
-                    <div class="col-md-1">
-                        <i class="fa fa-car" style="font-size: 50px;"></i>
-                    </div>
-                    
-                    <%
+
+       <div class="container-95">
+            <div class="my-form" id="verify-static-details">
+                <div class="my-form-heading">
+                    <h5>Verify Details</h5>
+                </div>
+                
+                
+                <div class="container-95">
+                    <div class="customer-verification-info">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <i class="fa fa-car" style="font-size: 50px;"></i>
+                            </div>
+                            
+                            
+                             <%
 			String vehicle_number = (String) session.getAttribute("vehicle_number");
 			CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
 			VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicle_number);
-			String vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
+			int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
+			int vehicle_company_id=	vi.getVehicleCompany();	
 			String company_model = VehicleModelDao.getModelName(vehicle_model_id);
+			String company_name = VehicleCompanyDao.getCompanyName(vehicle_company_id);
+			String model_varient_name =VehicleModelVarientDao.getVarientName(vehicle_model_id);
 			
 		%>
                     <div class="col-md-11 customer-verification-info-vehicle-number">
                         <%=session.getAttribute("vehicle_number") %>
                     </div>
                 </div>
-
-                <div class="row my-form-row">
-                    <div class="col-md-6">
-                        <h6>Customer's Details</h6>
-                        <table class="table table-striped table-bordered customer-verification-info-table">
-                            <tbody>
-                                <tr>
-                                    <th>Name</th>
-                                        <td><%= ci.getCustomerName() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Contact</th>
-                                        <td><%= ci.getCustomerContact() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                        <td><%= ci.getCustomerEmail() %></td>
-                                </tr>
-                                <tr>
-                                    <th>RC Number</th>
-                                        <td><%= ci.getCustomerRc() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Aadhaar Number</th>
-                                        <td><%=ci.getCustomerAadhaar() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Lisence Number</th>
-                                        <td><%=ci.getCustomerLicense() %></td>
-                                </tr>                                
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Vehicle's Details</h6>
-                        <table class="table table-striped table-bordered customer-verification-info-table">
-                            <tbody>
-                                <tr>
-                                    <th>Vehicle Number</th>
-                                        <td><%= vehicle_number %></td>
-                                </tr>
-                                <tr>
-                                    <th>VIN</th>
-                                        <td><%= vi.getVinNumber() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Engine Number</th>
-                                        <td><%=vi.getEngineNumber() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Car</th>
-                                        <td><%= company_model %></td>
-                                </tr>
-                                <tr>
-                                    <th>Fuel Type</th>
-                                        <td><%=vi.getFuelType() %></td>
-                                </tr>
-                                <tr>
-                                    <th>Vehicle Type</th>
-                                        <td><%=vi.getVehicleType() %></td>
-                                </tr>                                
-                            </tbody>
-                        </table>
-                    </div>                    
-                </div>
-
-                <form action="../AllocateServiceAdvisor" method="post">
-                    <div class="row officer-select">
-                        <div class="col-md"></div>
-                        <div class="col-md-2">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="officer_id">Service Advisor</label>
-                                </div>
+                           
+        
+                        <div class="row my-form-row">
+                            <div class="col-md-6">
+                                <h6>Customer's Details</h6>
+                                <table class="table table-striped table-hover customer-verification-info-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                                <td><%= ci.getCustomerName() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contact</th>
+                                                <td><%= ci.getCustomerContact() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                                <td><%= ci.getCustomerEmail() %></td>
+                                        </tr>                                        
+                                        <tr>
+                                            <th>Aadhaar Number</th>
+                                                <td><%= ci.getCustomerAadhaar() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lisence Number</th>
+                                                 <td><%= ci.getCustomerLicense() %></td>
+                                        </tr> 
+                                        <tr>
+                                            <th>Customer Type</th>
+                                               <td><%= ci.getCustomerType() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Address</th>
+                                                 <td><%= ci.getCustomerAddress() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>City</th>
+                                                 <td><%= ci.getCustomerCity() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th>
+                                                <td><%= ci.getCustomerState() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pincode</th>
+                                                 <td><%= ci.getPincode() %></td>
+                                        </tr>
+                                                                                                
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <select name="officer_username" id="officer_username">
-                                    <%
+                            <div class="col-md-6">
+                                <h6>Vehicle's Details</h6>
+                                <table class="table table-striped table-bordered customer-verification-info-table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Vehicle Number</th>
+                                                <td><%= vi.getVehicleNumber() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>VIN</th>
+                                                <td><%= vi.getVinNumber() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Engine Number</th>
+                                                <td><%= vi.getEngineNumber() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Company</th>
+                                                <td><%= company_name %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Model</th>
+                                                <td><%= company_model %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Varient</th>
+                                                <td><%= model_varient_name %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fuel Type</th>
+                                                <td><%= vi.getFuelType() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Vehicle Type</th>
+                                                <td><%= vi.getVehicleType() %></td>
+                                        </tr> 
+                                        <tr>
+                                            <th>RC Number</th>
+                                                <td><%= ci.getCustomerRc() %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Exterior Color</th>
+                                                <td><%= vi.getExteriorColor() %></td>
+                                        </tr>           
+                                        <tr>
+                                            <th>Interior Color</th>
+                                                <td><%= vi.getInteriorColor() %></td>
+                                        </tr>                    
+                                    </tbody>
+                                </table>
+                            </div>                    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md"></div>
+                        <div class="col-md-1">
+                            <button class="btn btn-secondary my-btn btn-sm" onclick="editButtonClicked()">Edit</button>
+                        </div>
+                        <div class="col-md"></div>
+                    </div>
+                </div>
+            </div>
+            <form class="my-form" id="edit-form" method="post" action="../UpdateCustomer">
+                    <div class="my-form-heading">
+                        <h5>Edit Details</h5>
+                    </div>
+                    
+                    <div class="container-95">                                           
+                                    <div class="row my-form-row">
+                                        <h6>Customer Details</h6>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_name">Name</label>                                    
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_name" id="customer_name" value='<%= ci.getCustomerName() %>'>
+                                                </div>
+                                            </div>
+                                        </div>                    
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_email">Email</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_email" id="customer_email" value='<%= ci.getCustomerEmail() %>'>
+                                                </div>
+                                            </div>                        
+                                        </div>                    
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_contact">Contact Number</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_contact" id="customer_contact" value='<%= ci.getCustomerContact() %>'>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_type">Customer Type</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select name="customer_type" id="customer_type">
+                                                        <option value="individual" <% if(ci.getCustomerType().equals("individual")) {out.print("selected");} %>>Individual</option>
+                                                        <option value="corporate" <% if(ci.getCustomerType().equals("corporate")) {out.print("selected");} %>>Corporate</option>
+                                                    </select>
+                                                </div>
+                                            </div>                                                
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_aadhaar">Aadhaar Number</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_aadhaar" id="customer_aadhaar" value='<%= ci.getCustomerAadhaar() %>'>
+                                                </div>
+                                            </div>                                                
+                                        </div>                    
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_license">License Number</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_license" id="customer_license" value='<%= ci.getCustomerLicense() %>'>
+                                                </div>
+                                            </div>                                                
+                                        </div>                                                                    
+                                    </div>
+                                    <div class="row my-form-row">
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="Address">Address</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <textarea name="customer_address" id="customer_address" cols="16" rows="2" ><%= ci.getCustomerAddress() %></textarea>
+                                                </div>
+                                            </div>                                                
+                                        </div> 
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_city">City</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_city" id="customer_city" value='<%= ci.getCustomerCity() %>'>
+                                                </div>
+                                            </div>                                                
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_state">State</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_state" id="customer_state" value='<%= ci.getCustomerState() %>'>
+                                                </div>
+                                            </div>                                                
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="pincode">Pincode</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="pincode" id="pincode" value='<%= ci.getPincode() %>'>
+                                                </div>
+                                            </div>                                                
+                                        </div>                                                     
+                                    </div>
+                                    <div class="row my-form-row">
+                                        <h6>Customer's Vehicle Details</h6>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="vehicle_number">Vehicle No.</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="vehicle_number" id="vehicle_number" readonly value=<%=session.getAttribute("vehicle_number") %>>
+                                                </div>
+                                            </div>                                                
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="vin_no">VIN</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="vin_number" id="vin_number" value='<%= vi.getVinNumber() %>' readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="engine_no">Engine No.</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="engine_number" id="engine_number" value='<%= vi.getEngineNumber() %>' readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="fuel_type">Fuel Type</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select name="fuel_type" id="fuel_type">
+                                                        <option value="petrol"  <% if(vi.getFuelType().equals("petrol")) {out.print("selected");}  %>>Petrol</option>
+                                                        <option value="diesel"  <% if(vi.getFuelType().equals("diesel")) {out.print("selected");} %>>Diesel</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="interior_color">Interior color</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="interior_color" id="interior_color" value='<%= vi.getInteriorColor() %>'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="exterior_color">Exterior Color</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="exterior_color" id="exterior_color" value='<%= vi.getExteriorColor() %>' >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="customer_rc">RC Number</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" name="customer_rc" id="customer_rc" value='<%= ci.getCustomerRc() %>' >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="vehicle_type">Vehicle Type</label>                                
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select name="vehicle_type" id="vehicle_type">
+                                                        <option value="passenger"  <% if(vi.getVehicleType().equals("passenger")) {out.print("selected");}  %>>Passenger</option>
+                                                        <option value="taxi"  <% if(vi.getVehicleType().equals("taxi")) {out.print("selected");}  %>> Taxi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>                    
+                                    </div>
+                                 
+                                     <div class="row">
+                            <div class="col-md"></div>
+                            <div class="col-md-1">
+                                <button class="btn btn-secondary my-btn btn-sm">Update</button>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-secondary my-btn btn-sm" onclick="cancelButtonClicked()">Cancel</button>
+                            </div>
+                            <div class="col-md"></div>
+                        </div>
+                                </div>                                   
+                            </form>                       
+                    </div>
+                
+                <form action="../AllocateServiceAdvisor" method="post">
+                        <div class="row officer-select">
+                            <div class="col-md"></div>
+                            <div class="col-md-2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="officer_id">Service Advisor</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <select name="officer_username" id="officer_username">
+                                             <%
                                     	List<OfficerInfo> list = OfficerInfoDao.getByOfficerRole("service_advisor");
                                     	Iterator<OfficerInfo> itr = list.iterator();
                                     	while(itr.hasNext()) {
                                     		OfficerInfo oi = itr.next();
-                                    		int count = JobcardInfoDao.getTotal(oi.getOfficerUsername(),"pending");
+                                    		int count = JobcardInfoDao.getTotal(oi.getOfficerUsername(),"pending") + JobcardInfoDao.getTotal(oi.getOfficerUsername(),"arrived");
 											out.print("<option value="+ oi.getOfficerUsername() +"> "+ oi.getOfficerName() +" "+count+ " </option>");
                                     	}
-                                    %>                                                                           
-                                    </select>
+                                    %>                                       
+                                        </select>
+                                    </div>
                                 </div>
-                                
-                            </div>
-                            <input type="hidden" name="vehicle_number" value="<%= vehicle_number %>">
-                           <%--  <input type="date" value="<%= LocalDate.now() %>" name="arrival_date">
-                            <input type="time" value="<%= LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) %>" name="arrival_time"> --%>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="submit" name="submit" id="submit" value="Allocate" class="btn btn-secondary btn-sm">
+                                <div class="row">
+                                 <input type="hidden" name="vehicle_number" value="<%= vehicle_number %>">
+                                    <div class="col-md-12">
+                                        <input type="submit" name="submit" id="submit" value="Allocate" class="btn btn-secondary btn-sm">
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md"></div>
                         </div>
-                        <div class="col-md"></div>
-                    </div>
-                </form>
-
-                <!-- <div class="row my-form-row customer-verification-info">
-                    <div class="col-md-6">
-                        <h6>Customer's Details</h6>
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                Name : 
-                            </div>
-                            <div class="col-md-3">
-                                Jash Patel
-                            </div>
-                            <div class="col-md-3">
-                                RC Number : 
-                            </div>
-                            <div class="col-md-3">
-                                XYZ12345
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                Contact : 
-                            </div>
-                            <div class="col-md-3">
-                                8734804914
-                            </div>
-                            <div class="col-md-3">
-                                Aadhaar Number : 
-                            </div>
-                            <div class="col-md-3">
-                                123456789123
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-2">
-                                Email : 
-                            </div>
-                            <div class="col-md-4">
-                                jashdetroj@gmail.com
-                            </div>                                                        
-                            <div class="col-md-3">
-                                License Number : 
-                            </div>
-                            <div class="col-md-3">
-                                LSC123456
-                            </div>   
-                        </div>                                                    
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Vehicle's Details</h6>
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                Name : 
-                            </div>
-                            <div class="col-md-3">
-                                Jash Patel
-                            </div>
-                            <div class="col-md-3">
-                                RC Number : 
-                            </div>
-                            <div class="col-md-3">
-                                XYZ12345
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-3">
-                                Contact : 
-                            </div>
-                            <div class="col-md-3">
-                                8734804914
-                            </div>
-                            <div class="col-md-3">
-                                Aadhaar Number : 
-                            </div>
-                            <div class="col-md-3">
-                                123456789123
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-2">
-                                Email : 
-                            </div>
-                            <div class="col-md-4">
-                                jashdetroj@gmail.com
-                            </div>                                                        
-                            <div class="col-md-3">
-                                License Number : 
-                            </div>
-                            <div class="col-md-3">
-                                LSC123456
-                            </div>   
-                        </div>     -->
-                    </div>
-                </div>
-            </div>            
+                    </form>
         </div>
     </main>
+    
 
-    <footer class="my-footer">
-        <div class="my-footer-copyright container-95">
-            Copyright @ JCMS 2019
-        </div>
-    </footer>
-
-    <script>
-        function w3_open() {
-            // document.getElementById("main").style.marginLeft = "25%";
-            document.getElementById("mySidebar").style.width = "25%";
-            document.getElementById("mySidebar").style.display = "block";
-            // document.getElementById("openNav").style.display = 'none';
-        }
-        function w3_close() {
-            // document.getElementById("main").style.marginLeft = "0%";
-            document.getElementById("mySidebar").style.display = "none";
-            // document.getElementById("openNav").style.display = "inline-block";
-        }
-    </script>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+ <%@ include file="../footer.html" %> 
