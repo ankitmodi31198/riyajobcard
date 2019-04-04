@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import modal.AppLubricant;
 import modal.JcAccessories;
 import modal.JcAccessoriesDao;
 import modal.JobcardInfo;
@@ -68,7 +69,6 @@ public class SaveJobCard extends HttpServlet {
 		jca.setClockOrPhoto(clockOrPhoto);
 		jca.setOther(other);
 		
-		
 		int status1=JobcardInfoDao.update(ji);
 		int status2=JcAccessoriesDao.save(jca);
 		
@@ -76,7 +76,7 @@ public class SaveJobCard extends HttpServlet {
 		 if(status1>0 & status2>0){  
 		      //  HttpSession session = request.getSession();
 		            out.print("<p>Record saved successfully!</p>");  
-		            response.sendRedirect("serviceadvisor/saDashboard.jsp");  
+		            response.sendRedirect("serviceadvisor/test.jsp?id="+jobcardNumber);  
 		        }else{  
 		            out.println("Allready Exist Vehicle Number & Status pending or Completed");  
 		            

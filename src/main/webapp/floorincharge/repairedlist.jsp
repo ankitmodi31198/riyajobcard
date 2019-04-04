@@ -72,7 +72,7 @@
 							String officer_username=ji.getOfficeUsername();
 							OfficerInfo oi=OfficerInfoDao.getByUsername(officer_username);					
 							int jobcard_number=JobcardInfoDao.getJNByNumber(vehicle_number,"repaired");
-							String link2 = "testing.jsp?id="+jobcard_number;
+							String link2 = "repairedview.jsp?id="+jobcard_number;
 							%>
 							<tr>
 							<td><%= vehicle_number %></td>

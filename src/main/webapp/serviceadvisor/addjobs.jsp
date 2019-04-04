@@ -1,3 +1,7 @@
+<%@page import="modal.AdvisorSolutionDao"%>
+<%@page import="modal.AdvisorSolution"%>
+<%@page import="modal.CustomerComplainDao"%>
+<%@page import="modal.CustomerComplain"%>
 <%@include file="../header.html" %>
 
 <%@page import="modal.VehicleModelDao"%>
@@ -26,6 +30,8 @@
 		int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
 		String company_model = VehicleModelDao.getModelName(vehicle_model_id);
 		JobcardInfo jc =JobcardInfoDao.getAllByNumber(vehicle_number);
+		OfficerInfo oi=OfficerInfoDao.getByUsername(jc.getOfficeUsername());
+		
 %>
 <script>
   function partAdd(partid,jobcardNumber,partprice,partrepairflag)
@@ -135,21 +141,9 @@
      pp.focus();
    }
 </script>
-<header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+<%@include file="saSidebar.jsp" %>
     <main id="main">
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
-
+        <%@include file="../navbar.jsp" %>
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -181,12 +175,12 @@
                                         <td><%= vi.getFuelType() %></td>
                                 </tr>
                                 <tr>
-                                    <th>Mech Name</th>
-                                        <td>Hiren</td>
+                                    <th> Available Fuel </th>
+                                        <td> <%= jc.getAvailableFuel() %></td>
                                 </tr>
                                 <tr>
                                     <th>Service Advisor</th>
-                                        <td><%=  jc.getOfficeUsername() %></td>
+                                        <td><%= oi.getOfficerName()  %></td>
                                 </tr>                                
                             </tbody>
                         </table>
@@ -200,16 +194,16 @@
                                         <td><%= vehicle_number %></td>
                                 </tr>
                                 <tr>
-                                    <th>Work Type</th>
-                                        <td><%= jc.getWorkType() %></td>
+                                    <th>Jobcard Number</th>
+                                        <td> <%= jc.getJobcardNumber() %></td>
                                 </tr>
                                 <tr>
-                                    <th>Running Km</th>
+                                    <th>Running Km </th>
                                         <td><%= jc.getRunningKm() %></td>
                                 </tr>
                                 <tr>
-                                    <th>Available Fuel</th>
-                                        <td> <%= jc.getAvailableFuel() %></td>
+                                    <th>Work Type</th>
+                                        <td><%= jc.getWorkType() %> </td>
                                 </tr>
                                 <tr>
                                     <th>Delivery Date</th>
@@ -224,7 +218,57 @@
                     </div>                    
                 </div>
         
-        
+        <div class="row">
+			 <div class="col-md-6">
+			 	<table class="table table-striped">
+				 	<tr>
+				 		<th>Customer Requests</th>			 					 		
+				 	</tr>
+				 	<%
+				 	List<CustomerComplain> list = CustomerComplainDao.getAll(jobcardNumber);
+					Iterator<CustomerComplain> itr = list.iterator();
+					%>
+					<% 
+					while(itr.hasNext())
+					{
+						CustomerComplain cc = itr.next();
+						%>						
+				                                        <tr>
+				                                            <td><%= cc.getCustomerComplain() %></td>
+				                                            
+				                                        </tr>
+				                                    
+					
+				<%
+					}
+				%>
+				</table>
+				 
+			 </div>
+			 <div class="col-md-6">
+			 	<table class="table table-striped">
+				 	<tr>
+				 		<th>Advisor's Solutions</th>			 					 		
+				 	</tr>
+				 	<%
+				 	List<AdvisorSolution> list5 = AdvisorSolutionDao.getAll(jobcardNumber);
+					Iterator<AdvisorSolution> itr5 = list5.iterator();
+						while (itr5.hasNext()) {
+							AdvisorSolution as = itr5.next();			
+					%>		
+						<tr>
+							<td><%=as.getDescription()%></td>							
+						</tr>
+					
+				
+					<%
+						}
+					%>
+					
+				</table>
+
+			 </div>
+        </div>
         
 
         <div class="my-form-heading">
@@ -368,7 +412,7 @@
         <div class="row">
         	<div class="col-md"></div>
         	<div class="col-md-1">
-        		<a href="saDashboard.jsp" class="btn btn-danger btn-md">Close</a>
+        		<a href="pendinglist.jsp" class="btn btn-danger btn-md">Close</a>
         	</div>
         	<div class="col-md"></div>        	
         </div>            

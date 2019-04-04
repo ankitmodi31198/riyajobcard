@@ -2,6 +2,7 @@ package modal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class JcAccessoriesDao {
 
@@ -44,5 +45,33 @@ public class JcAccessoriesDao {
 		
 	}
 
+	public static int updateImage(int jobcardNumber, String image) {
+		int status=0;
+		try{
+			Connection con=ConnectionDb.getConnection();  
+	        PreparedStatement ps = con.prepareStatement("update jc_accessories set image='"+image+"' where jobcard_number='"+jobcardNumber+"' ");
+	         status = ps.executeUpdate();
+	        con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return status;
+		
+	}
 	
+	public static String getImage(int jobcardNumber) {
+		String image=null;
+		try{
+			Connection con=ConnectionDb.getConnection();  
+	        PreparedStatement ps = con.prepareStatement("select image from jc_accessories where jobcard_number='"+jobcardNumber+"' ");
+	         ResultSet rs = ps.executeQuery();
+	         if(rs.next())
+	         {	
+	        	image = rs.getString("image"); 
+	         }
+	        con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return image;
+		
+	}
 }

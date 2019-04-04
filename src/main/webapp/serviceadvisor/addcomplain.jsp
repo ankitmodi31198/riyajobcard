@@ -4,9 +4,10 @@
 <%@page import="modal.CustomerComplainDao"%>
 <%@page import="modal.ConnectionDb"%>
 
-<%
+<% int jobcardNumber; 
+if(request.getParameter("reload_flag").equals("0")){
 	String customerComplain = request.getParameter("complain");
-	int jobcardNumber; 
+	
 	if(customerComplain!=null)
 	{
 	jobcardNumber=Integer.parseInt(request.getParameter("jobcard_number"));
@@ -18,6 +19,10 @@
 	else{
 		jobcardNumber =Integer.parseInt((String)session.getAttribute("jobcard_number"));
 	}
+}else
+{
+	jobcardNumber=Integer.parseInt(request.getParameter("jobcard_number"));
+}
 	List<CustomerComplain> list = CustomerComplainDao.getAll(jobcardNumber);
 	Iterator<CustomerComplain> itr = list.iterator();
 	%>

@@ -3,6 +3,13 @@
 <%@page import="modal.OfficerInfo"%>
 <%@page import="java.util.List"%>
 <%@ include file="../header.html" %>
+<%@page import="modal.OfficerInfo"%>
+<%@page import="modal.OfficerInfoDao"%>
+
+<% String username = (String) session.getAttribute("officer_username");
+	OfficerInfo oi2 = OfficerInfoDao.getByUsername(username);
+    String name =oi2.getOfficerName();
+    %>
 <title>Receptionist Dashboard</title>
   <script type = "text/javascript" >
         function preventBack() { window.history.forward(1); }
@@ -18,8 +25,9 @@
         	%>
         }
 </script> 
-  <body onload="check()">
-    
+
+
+  <body onload="check()" >
     <!-- Sidebar -->
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
@@ -29,16 +37,20 @@
         <a href="servicedetails.jsp" class="w3-bar-item w3-button">Service Details</a>
         <a href="reports.jsp" class="w3-bar-item w3-button">Reports</a>
         <!-- <a href="#" class="w3-bar-item w3-button">Logout</a> -->
-        <form action="../Logout" method="POST">
-		<input type="submit" value="Log Out"/></form>
+        <!-- <form action="../Logout" method="POST">
+		<input type="submit" id="sidebar-logout-btn" value="Log Out"/></form> -->
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
-
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <div class="my-new-header">
+             <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&nbsp;</button>
+             <span>JCMS</span>
+             <div class="navbar-userpart">
+                <span class="navbar-userpart-username">Welcome, <%= name %> | </span> <span><a href="../logout.jsp">logout</a></span>
+             </div>
+         </div>
+        
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -65,18 +77,37 @@
                                 </div>
                                 <div class="my-dashboard-box-content">
                                     <div class="row">
-                                        <div class="col-md-10">Click</div>
+                                        <div class="col-md-10">Search Cars</div>
                                         
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
+                    
+                  
+                    <div class="col-md-4">
+                        <!-- whole card is given as a link, so give href in the below anchor tag -->
+                        <a href="appointmentlist.jsp" class="my-dashboard-box-link">
+                            <div class="my-dashboard-box">
+                                <div class="my-dashboard-box-header">
+                                    <h6>Appointments <i class="fa fa-calendar-check"></i></h6>
+                                </div>
+                                <div class="my-dashboard-box-content">
+                                    <div class="row">
+                                        <div class="col-md-10">Your Appointments</div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                   
+                    
                     <div class="col-md-4">
                         <a href="serviceadvisorlist.jsp" class="my-dashboard-box-link">
                             <div class="my-dashboard-box">
                                 <div class="my-dashboard-box-header">
-                                    <h6>Service Advisor List <i class="fa fa-car-side"></i></h6>
+                                    <h6>Service Advisor List <i class="fa fa-tasks"></i></h6>
                                 </div>
                                 <div class="my-dashboard-box-content">
                                     <div class="row">
@@ -100,11 +131,16 @@
                     </div>
                     
                     
+                    
+                    
+                    
+                    
                 </div>
             </div>
         </div>
 
     </div>
+    
     <main>
         <!-- <form class="form-inline">
             <label class="" for="inlineFormInputName2">Name</label>

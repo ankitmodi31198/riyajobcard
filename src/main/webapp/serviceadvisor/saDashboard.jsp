@@ -23,28 +23,32 @@
     <% String officer_username = (String)session.getAttribute("officer_username");
     	String officer_name = (String)session.getAttribute("officer_name");
     	String officer_role = (String)session.getAttribute("officer_role");
+    	
+        %>
     %>
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
         <a href="saDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="search.jsp" class="w3-bar-item w3-button">Search Customer</a>
+       
         <a href="newarrival.jsp" class="w3-bar-item w3-button">New Arrival Cars</a>
         <a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
         <a href="repaiedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
-        <a href="completedlist.jsp" class="w3-bar-item w3-button">Completed Cass</a>
         <a href="closedlist" class="w3-bar-item w3-button">Closed Cars</a>
         <a href="jobcardview.jsp" class="w3-bar-item w3-button">Jobcard View</a>
         <a href="reports.jsp" class="w3-bar-item w3-button">Reports</a>   
-        <form action="../Logout" method="POST">
-		<input type="submit" value="Log Out"/ class="w3-bar-item w3-button"></form>
+        
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <div class="my-new-header">
+             <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&nbsp;</button>
+             <span>JCMS</span>
+             <div class="navbar-userpart">
+                <span class="navbar-userpart-username">Welcome, <%= officer_name %> | </span> <span><a href="../logout.jsp">logout</a></span>
+             </div>
+         </div>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -55,8 +59,7 @@
 
         <!-- dashboard -->
         <div class="my-dashboard">
-            <div class="my-dashboard-header">
-            Welcome <%= officer_name %>
+            <div class="my-dashboard-header">           
                 <center>
                     <h4>Service Advisor's Dashboard</h4>
                 </center>
@@ -115,23 +118,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-md-4">
-                        <a href="completedlist.jsp" class="my-dashboard-box-link">
-                            <div class="my-dashboard-box">
-                                <div class="my-dashboard-box-header">
-                                    <h6>Completed <i class="fa fa-check-circle"></i></h6>
-                                </div>
-                                <div class="my-dashboard-box-content">
-                                    <div class="row">
-                                        <div class="col-md-10">Your completed cars</div>
-                                        <div class="col-md-2">                                        	
-                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"completed") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"completed") %></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                  
                     <div class="col-md-4">
                         <a href="closedlist.jsp" class="my-dashboard-box-link">
                             <div class="my-dashboard-box">

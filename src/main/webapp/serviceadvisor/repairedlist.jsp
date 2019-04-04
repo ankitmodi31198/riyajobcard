@@ -17,19 +17,12 @@
     	String officer_role = (String)session.getAttribute("officer_role");
     %>
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <h3 class="w3-bar-item">Menu</h3>
-        <a href="saDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
-    </div>
+   <%@include file="saSidebar.jsp" %>
 
     <!-- Page Content -->
-    <div style="margin-left:20%">
+    <div>
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <%@include file="../navbar.jsp" %>
 
        <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -46,17 +39,17 @@
                     <h4>Repaired Cars list</h4>
                 </center>
             </div>
-            <div class="container-95 mt-5">
+            <div class="container mt-5">
 	   		<table id="data-table-simple-1" class="table">
 			   	<thead style="text-align: center;">
 			   		<tr>
-			   			<th>Vehicle No.</th>			   				
-			   			<th>Date</th>
-			   			<th>Name</th>
+			   			<th>Vehicle No</th>
+			   			<th>JobCard No</th>			   				
+			   			<th>Arrival Date</th>
+			   			<th>Customer Name</th>
 			   			<th>Car Name</th> 
-			   			<th>VIN</th>
-			   			<th>JobCard No.</th>
 			   			<th>Delivery Date</th>	
+			   			<th>Amount</th>	
 			   			<th>Action</th>
 			   		</tr>
 			   	</thead>
@@ -75,18 +68,21 @@
 							JobcardInfo ji = JobcardInfoDao.getAllByNumber(vehicle_number);
 							String arrival_date = ji.getArrivalDate();
 							String delivery_date = ji.getDeliveryDate();
-							int jobcard_no=JobcardInfoDao.getJNByNumber(vehicle_number,"repaired");
-                            String link="repairedview.jsp?id="+jobcard_no;
+							int jobcardNumber=JobcardInfoDao.getJNByNumber(vehicle_number,"repaired");
+							int amount=JobcardInfoDao.getFinalAmount(jobcardNumber);
+                            String link="repairedview.jsp?id="+jobcardNumber;
                             
                             %>
 							<tr>
                             <td><%=vehicle_number%></td>
+                            <td><%=jobcardNumber%></td>
                             <td><%=arrival_date%></td>
                             <td><%=customer_name%></td>
                             <td><%=company_model%></td>
-                            <td><%=vin_no%></td>
-                            <td><%=jobcard_no%></td>
+                           
+                            
                             <td><%=delivery_date%></td>
+                            <td><%= amount %></td>
                             <td><a href=<%= link %>>View</a></td>
                             </tr>	 
 						<%	

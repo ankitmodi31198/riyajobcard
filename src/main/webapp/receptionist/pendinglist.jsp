@@ -14,27 +14,17 @@
     %>
     
 	<!-- openable navbar -->
-    <header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+    <%@include file="receptionistSidebar.html" %>
 
     <!-- Page Content -->
     <main id="main">
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+        <%@include file="../navbar.jsp" %>
 
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="receptionistDashboard.jsp">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="serviceadvisorlist.jsp">Service Advisor List</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Pending List</li>
             </ol>
         </nav>    
@@ -43,7 +33,7 @@
         <div class="my-dashboard">
             <div class="my-dashboard-header">
                 <center>
-                    <h4>Pending List</h4>
+                    <h4>Pending Cars List</h4>
                 </center>
             </div>
             <div class="container mt-5">
@@ -53,9 +43,7 @@
 			   			<th>Vehicle No.</th>
 			   			<th>Name</th>
 			   			<th>Car Name</th> 
-			   			<th>Contact No.</th>
-			   			<th>Action</th>	
-			   			<th>Action</th>	
+			   			<th>Contact No.</th>			   			
 			   		</tr>
 			   	</thead>
 			   	<tbody style="font-size: 12px; text-align: center;">
@@ -71,16 +59,16 @@
 							CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
 							String customer_contact=ci.getCustomerContact();
 							int jobcard_number = JobcardInfoDao.getJNByNumber(vehicle_number);
-							String link1 = "addjobs.jsp?id="+vehicle_number;
-							String link2 = "viewstatus.jsp?id="+jobcard_number;
+							String link1 = "receptionAllocate.jsp?id="+vehicle_number;
+							
 							%>
 							<tr>
 							<td><%= vehicle_number %></td>
 							<td><%= customer_name%></td>
 							<td><%= company_model %></td>
 							<td><%= ci.getCustomerContact() %></td>
-							<td><a href=<%= link1 %> >Add Jobs</a></td>
-							 <td><a href=<%= link2 %>>View Status</a></td>
+							
+							
 							</tr>	
 							 
 							<%

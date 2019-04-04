@@ -15,24 +15,18 @@
     <% String officer_username = request.getParameter("id");
     %>
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <h3 class="w3-bar-item">Menu</h3>
-        <a href="receptionistDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
-    </div>
+   <%@include file="receptionistSidebar.html" %>
 
     <!-- Page Content -->
-    <div style="margin-left:20%">
+    <div>
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+        <%@include file="../navbar.jsp" %>
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Newly Added Cars</li>
+                <li class="breadcrumb-item"><a href="serviceadvisorlist.jsp">Service Advisor List</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Repaired Cars List</li>
             </ol>
         </nav>    
         
@@ -43,7 +37,7 @@
                     <h4>Repaired Cars list</h4>
                 </center>
             </div>
-            <div class="container-95 mt-5">
+            <div class="container mt-5">
 	   		<table id="data-table-simple-1" class="table">
 			   	<thead style="text-align: center;">
 			   		<tr>
@@ -54,7 +48,7 @@
 			   			<th>VIN</th>
 			   			<th>JobCard No.</th>
 			   			<th>Delivery Date</th>	
-			   			<th>Action</th>
+			   			
 			   		</tr>
 			   	</thead>
 			   	<tbody style="font-size: 12px; text-align: center;">
@@ -73,7 +67,7 @@
 							String arrival_date = ji.getArrivalDate();
 							String delivery_date = ji.getDeliveryDate();
 							int jobcard_no=JobcardInfoDao.getJNByNumber(vehicle_number,"repaired");
-                            String link="repairedview.jsp?id="+jobcard_no;
+                           
                             
                             %>
 							<tr>
@@ -84,7 +78,7 @@
                             <td><%=vin_no%></td>
                             <td><%=jobcard_no%></td>
                             <td><%=delivery_date%></td>
-                            <td><a href=<%= link %>>View</a></td>
+                            
                             </tr>	 
 						<%	
 						} 

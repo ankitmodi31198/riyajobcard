@@ -1,4 +1,5 @@
 <%@include file="../header.html"%>
+
 <%@page import="modal.JcLubricantDao"%>
 <%@page import="modal.JcLubricant"%>
 <%@page import="modal.JcService"%>
@@ -7,20 +8,10 @@
 <%@page import="modal.JcPartDao"%>
 <%@page import="modal.JcPart"%>
 <%@page import="java.util.List"%>
-<header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+
+<%@include file="saSidebar.jsp" %>
     <main id="main">
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+         <%@include file="../navbar.jsp" %>
         <div class="row mt-3">
         	<div class="col-md"></div>
         	<div class="col-md-2">
@@ -49,7 +40,7 @@
                             %>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="part<%=jcp.getPartId()%>" name='parts' value='<%=jcp.getPartId()%>' >    
+                                   
                                     <label for="part<%=jcp.getPartId()%>" class="checklist-label"><%=jcp.getPartName() %></label>
                                 </td>
                             </tr>
@@ -73,7 +64,7 @@
                             <!-- Loop for services -->
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="service<%=jcs.getServiceId()%>" name="services" value='<%=jcs.getServiceId()%>'>     
+                                        
                                     <label for="service<%=jcs.getServiceId()%>" class="checklist-label"><%= jcs.getServiceName() %></label>
                                 </td>
                             </tr>
@@ -97,7 +88,7 @@
                             <!-- Loop for Lubricants -->
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="lubricant<%=jcl.getLubricantId()%>" name="lubricants" value='<%=jcl.getLubricantId()%>'>    
+                                   
                                     <label for="lubricant<%=jcl.getLubricantId()%>" class="checklist-label"><%=jcl.getLubricantName() %></label>
                                 </td>
                             </tr>
@@ -124,7 +115,7 @@
                             %>
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="part<%=jcp.getPartId()%>" name='parts' value='<%=jcp.getPartId()%>' >    
+                                     
                                     <label for="part<%=jcp.getPartId()%>" class="checklist-label"><%=jcp.getPartName() %></label>
                                 </td>
                             </tr>
@@ -148,7 +139,7 @@
                             <!-- Loop for services -->
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="service<%=jcs.getServiceId()%>" name="services" value='<%=jcs.getServiceId()%>'>     
+                                       
                                     <label for="service<%=jcs.getServiceId()%>" class="checklist-label"><%= jcs.getServiceName() %></label>
                                 </td>
                             </tr>
@@ -172,7 +163,7 @@
                             <!-- Loop for Lubricants -->
                             <tr>
                                 <td>
-                                    <input type="checkbox" id="lubricant<%=jcl.getLubricantId()%>" name="lubricants" value='<%=jcl.getLubricantId()%>'>    
+                                    
                                     <label for="lubricant<%=jcl.getLubricantId()%>" class="checklist-label"><%=jcl.getLubricantName() %></label>
                                 </td>
                             </tr>

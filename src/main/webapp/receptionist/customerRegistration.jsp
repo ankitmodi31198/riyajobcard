@@ -39,21 +39,10 @@ function model_change()
 </script>
   <body>
   
-    <header>
-        <!-- <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div> -->
-    </header>
+   <%@include file="receptionistSidebar.html" %>
 
     <main>
-    	<div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+    	 <%@include file="../navbar.jsp" %>
         
         <form action="../SaveCustomer" method="post" class="my-form container-95">
             <div class="my-form-heading">
@@ -68,7 +57,7 @@ function model_change()
                                 <label for="customer_name">Name</label>                                    
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_name" id="customer_name">
+                                <input type="text" name="customer_name" id="customer_name" required>
                             </div>
                         </div>
                     </div>                    
@@ -78,7 +67,7 @@ function model_change()
                                 <label for="customer_email">Email</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_email" id="customer_email">
+                                <input type="text" name="customer_email" id="customer_email" required>
                             </div>
                         </div>                        
                     </div>                    
@@ -88,7 +77,7 @@ function model_change()
                                 <label for="customer_contact">Contact No.</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_contact" id="customer_contact">
+                                <input type="text" name="customer_contact" id="customer_contact" required>
                             </div>
                         </div>                                            
                     </div>
@@ -98,7 +87,7 @@ function model_change()
                                 <label for="customer_type">Customer Type</label>
                             </div>
                             <div class="col-md-8">
-                                <select name="customer_type" id="customer_type">
+                                <select name="customer_type" id="customer_type" required>
                                     <option value="individual">Individual</option>
                                     <option value="corporate">Corporate</option>
                                 </select>
@@ -111,7 +100,7 @@ function model_change()
                                 <label for="customer_aadhaar">Aadhaar Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_aadhaar" id="customer_aadhaar">
+                                <input type="text" name="customer_aadhaar" id="customer_aadhaar" required>
                             </div>
                         </div>                                                
                     </div>                    
@@ -121,7 +110,7 @@ function model_change()
                                 <label for="customer_license">License Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_license" id="customer_license">
+                                <input type="text" name="customer_license" id="customer_license" required>
                             </div>
                         </div>                                                
                     </div>                                                                    
@@ -133,7 +122,7 @@ function model_change()
                                 <label for="Address">Address</label>
                             </div>
                             <div class="col-md-8">
-                                <textarea name="customer_address" id="customer_address" cols="18" rows="2"></textarea>
+                                <textarea name="customer_address" id="customer_address" cols="18" rows="2" required></textarea>
                             </div>
                         </div>                                                
                     </div> 
@@ -143,7 +132,7 @@ function model_change()
                                 <label for="customer_city">City</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_city" id="customer_city">
+                                <input type="text" name="customer_city" id="customer_city" required>
                             </div>
                         </div>                                                
                     </div>
@@ -153,7 +142,7 @@ function model_change()
                                 <label for="customer_state">State</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_state" id="customer_state">
+                                <input type="text" name="customer_state" id="customer_state" required>
                             </div>
                         </div>                                                
                     </div>
@@ -163,7 +152,7 @@ function model_change()
                                 <label for="pincode">Pincode</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="pincode" id="pincode">
+                                <input type="text" name="pincode" id="pincode" required>
                             </div>
                         </div>                                                
                     </div>                                                     
@@ -186,7 +175,7 @@ function model_change()
                                 <label for="vin_no">VIN</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="vin_number" id="vin_number">
+                                <input type="text" name="vin_number" id="vin_number" required>
                             </div>
                         </div>
                     </div>
@@ -196,7 +185,7 @@ function model_change()
                                 <label for="engine_no">Engine No.</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="engine_number" id="engine_number">
+                                <input type="text" name="engine_number" id="engine_number" required>
                             </div>
                         </div>
                     </div>
@@ -206,7 +195,7 @@ function model_change()
                                 <label for="fuel_type">Fuel Type</label>                                
                             </div>
                             <div class="col-md-8">
-                                <select name="fuel_type" id="fuel_type">
+                                <select name="fuel_type" id="fuel_type" required>
                                     <option value="petrol">Petrol</option>
                                     <option value="diesel">Diesel</option>
                                 </select>
@@ -219,7 +208,7 @@ function model_change()
                                 <label for="interior_color">Interior color</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="interior_color" id="interior_color">
+                                <input type="text" name="interior_color" id="interior_color" required>
                             </div>
                         </div>
                     </div>
@@ -229,7 +218,7 @@ function model_change()
                                 <label for="exterior_color">Exterior Color</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="exterior_color" id="exterior_color">
+                                <input type="text" name="exterior_color" id="exterior_color" required>
                             </div>
                         </div>
                     </div>
@@ -239,7 +228,7 @@ function model_change()
                                 <label for="customer_rc">RC Number</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_rc" id="customer_rc">
+                                <input type="text" name="customer_rc" id="customer_rc" required>
                             </div>
                         </div>
                     </div>
@@ -249,7 +238,7 @@ function model_change()
                                 <label for="vehicle_type">Vehicle Type</label>                                
                             </div>
                             <div class="col-md-8">
-                                <select name="vehicle_type" id="vehicle_type">
+                                <select name="vehicle_type" id="vehicle_type" required>
                                     <option value="passenger">Passenger</option>
                                     <option value="taxi">Taxi</option>
                                 </select>
@@ -264,7 +253,7 @@ function model_change()
                                 <label for="vehicle_company">Company</label>                                
                             </div>
                             <div class="col-md-8">
-                                <select name="vehicle_company" id="vehicle_company" onchange="company_change()">
+                                <select name="vehicle_company" id="vehicle_company" onchange="company_change()" required>
                                 <option selected>--</option>
                                  <%List<VehicleCompany> list= VehicleCompanyDao.getCompanies();
 					                                    Iterator itr=list.iterator();  
@@ -283,7 +272,7 @@ function model_change()
                                 <label for="vehicle_model">Model</label>                                
                             </div>
                             <div class="col-md">
-                                <select name="company_model" id="company_model" onchange="model_change()">
+                                <select name="company_model" id="company_model" onchange="model_change()" required>
                                  <option selected>--</option>
                                 </select>
                             </div>
@@ -295,7 +284,7 @@ function model_change()
                                 <label for="model_varient">Varient</label>                                
                             </div>
                             <div class="col-md">
-                                <select name="model_varient" id="model_varient">
+                                <select name="model_varient" id="model_varient" required>
                                  <option selected>--</option>
                                 </select>
                             </div>

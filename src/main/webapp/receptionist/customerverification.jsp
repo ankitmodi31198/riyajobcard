@@ -22,20 +22,10 @@
 <body>	
         
     <!-- openable navbar -->
-    <header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+     <%@include file="receptionistSidebar.html" %>
+     
     <main id="main">
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+         <%@include file="../navbar.jsp" %>
 
        <div class="container-95">
             <div class="my-form" id="verify-static-details">
@@ -87,7 +77,7 @@
                                                 <td><%= ci.getCustomerEmail() %></td>
                                         </tr>                                        
                                         <tr>
-                                            <th>Aadhaar Number</th>
+                                            <th width="40%">Aadhaar Number</th>
                                                 <td><%= ci.getCustomerAadhaar() %></td>
                                         </tr>
                                         <tr>
@@ -174,7 +164,7 @@
                     <div class="row">
                         <div class="col-md"></div>
                         <div class="col-md-1">
-                            <button class="btn btn-secondary my-btn btn-sm" onclick="editButtonClicked()">Edit</button>
+                            <button class="btn btn-secondary my-btn btn-lg" onclick="editButtonClicked()">Edit</button>
                         </div>
                         <div class="col-md"></div>
                     </div>
@@ -404,19 +394,24 @@
                             <div class="col-md-2">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label for="officer_id">Service Advisor</label>
+                                        <label for="officer_id">
+                                            <center>
+                                                <h4>Service Advisor</h4>
+                                            </center>                                            
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <select name="officer_username" id="officer_username">
+                                        <select name="officer_username" id="officer_username" required>
+                                            
                                              <%
                                     	List<OfficerInfo> list = OfficerInfoDao.getByOfficerRole("service_advisor");
                                     	Iterator<OfficerInfo> itr = list.iterator();
                                     	while(itr.hasNext()) {
                                     		OfficerInfo oi = itr.next();
                                     		int count = JobcardInfoDao.getTotal(oi.getOfficerUsername(),"pending") + JobcardInfoDao.getTotal(oi.getOfficerUsername(),"arrived");
-											out.print("<option value="+ oi.getOfficerUsername() +"> "+ oi.getOfficerName() +" "+count+ " </option>");
+											out.print("<option value="+ oi.getOfficerUsername() +"> "+ oi.getOfficerName() +" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+count+ " </option>");
                                     	}
                                     %>                                       
                                         </select>

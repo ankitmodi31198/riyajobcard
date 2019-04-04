@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import modal.CustomerInfo;
 import modal.CustomerInfoDao;
+import modal.JobcardInfo;
+import modal.JobcardInfoDao;
 import modal.VehicleInfoDao;
 
 @WebServlet("/CheckVehicle")
@@ -31,6 +33,7 @@ public class CheckVehicle extends HttpServlet {
 	        boolean vflag = VehicleInfoDao.checkVehicleNumber(vehicle_number); /*set history when history tables are created*/
 	        if(vflag)
 	        {
+	        	
 	        	int model_varient = VehicleInfoDao.getVarientByNumber(vehicle_number);
 	        	String customer_name = CustomerInfoDao.getNameByNumber(vehicle_number);
 	        	session.setAttribute("model_varient_id",model_varient);
@@ -38,7 +41,15 @@ public class CheckVehicle extends HttpServlet {
 	        	session.setAttribute("vehicle_number", vehicle_number);
 	        	response.sendRedirect("receptionist/pastHistory.jsp");
 	        }else{
-	        response.sendRedirect("receptionist/customerRegistration.jsp"); 
+	        	JobcardInfo jci = JobcardInfoDao.getAllByNumber(vehicle_number);
+	        	if(jci.getStatus()!=null)
+	        	{
+	        		response.sendRedirect("receptionist/jobcardview.jsp");
+	        	}
+	        	else
+	        	{
+	        		response.sendRedirect("receptionist/customerRegistration.jsp"); 
+	        	}
 	        }
 	}
 

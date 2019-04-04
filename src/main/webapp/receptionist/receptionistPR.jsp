@@ -1,164 +1,205 @@
-<%@page import="modal.HistoryDao"%>
-<%@page import="modal.History"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="modal.JobcardInfo"%>
-<%@page import="java.util.List"%>
 <%@page import="modal.JobcardInfoDao"%>
-<%@page import="modal.VehicleCompanyDao"%>
+<%@page import="modal.JobcardInfo"%>
 <%@page import="modal.VehicleInfoDao"%>
 <%@page import="modal.CustomerInfoDao"%>
-<%@page import="modal.CustomerInfo"%>
-<%@include file="../header.html" %>
+<%@page import="java.util.Iterator"%>
+<%@page import="modal.OfficerInfoDao"%>
+<%@page import="modal.OfficerInfo"%>
+<%@page import="java.util.List"%>
+<%@ include file="../header.html" %>
+<title>Report Dashboard</title>
+ 
+  <body>
+    
+    <!-- Sidebar -->
+    <%@include file="receptionistSidebar.html" %>
 
-<header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
     <!-- Page Content -->
-    <main id="main">
+    <div style="margin-left:20%">
 
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
+        <div class="w3-container dashboard-header">
+          <h3>JCMS</h3>
         </div>
-
+        
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="receptionistDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Newly Added Cars</li>
+                <li class="breadcrumb-item" aria-current="page"><a href="receptionistPR.jsp">Report  Dashboard</a> / </li>
             </ol>
-        </nav>               
-        
-        <div class="container-95">
-        	 <div class="row">
-	        	<select id="reporttype" onchange="showReport()">
-	        		<option>Customer Type</option>
-	        		<option>Fuel Type</option>
-	        		<option>Vehicle Type</option>
-	        		<option>Workload on Service Advisor</option>
-	        	</select>
-	        </div> 
-        	<div class="row">
-	        	<%= CustomerInfoDao.getCountOfCustomerType("corporate") %>
-	        </div>
-	        <div class="row">
-	        	<%= VehicleInfoDao.getCountOfVehicleType("taxi") %>
-	        </div>
-	        <div class="row">
-	        	<%= VehicleInfoDao.getCountOfFuelType("diesel") %>
-	        </div>
-	        <div class="row">
-	        	<% List<JobcardInfo> list = JobcardInfoDao.getCountOfWorkloadOfSA();
-						Iterator<JobcardInfo> itr = list.iterator();
-						while (itr.hasNext())
-						{
-							JobcardInfo jci =  itr.next();
-							String officer_username = jci.getOfficeUsername();
-							int workload = jci.getAvailableFuel();						
-                            
-                            %>
-                            <%= officer_username   %>
-                            <%= workload %>
-                            
-                           <% } %>
-	        </div>
-	        <div class="row">
-	        	<% List<CustomerInfo> list1 = CustomerInfoDao.getCountOfRegistrationByMonth("2019");
-						Iterator<CustomerInfo> itr1 = list1.iterator();
-						while (itr1.hasNext())
-						{
-							CustomerInfo ci =  itr1.next();
-							int month = ci.getPincode();
-							int count = ci.getCustomerId();
-                            
-                            %>
-                           	<%= month %>
-                           : <%= count %>
-                            <br>
-                           <% } %>
-	        </div>
-	        <div class="row">
-	        		<% List<CustomerInfo> list2 = CustomerInfoDao.getCountOfRegistrationByDate("2019-01-01", "2019-01-31");
-						Iterator<CustomerInfo> itr2 = list2.iterator();
-						while (itr2.hasNext())
-						{
-							CustomerInfo ci =  itr2.next();
-							int month = ci.getPincode();
-							int count = ci.getCustomerId();
-                            
-                            %>
-                           	<%= month %>
-                           : <%= count %>
-                            <br>
-                           <% } %>
-	        </div>
-	         <div class="row">
-	        	<% List<JobcardInfo> list3 = JobcardInfoDao.getAllByDate("2019-01-01", "2019-04-01");
-						Iterator<JobcardInfo> itr3 = list3.iterator();
-						while (itr3.hasNext())
-						{
-							JobcardInfo jci =  itr3.next();
-							String officer_username = jci.getOfficeUsername();
-							int jcno = jci.getJobcardNumber();
-							
-                            %>
-                            <%= officer_username   %>:
-                            <%= jcno %>
-                            <br>
-                           <% } %>
-	        </div>
-	        
-	        <div class="row">
-	        sa report
-	      
-	        <%= JobcardInfoDao.getTotal("b_hiren", "arrived") 
-	        %>
-	         <%= JobcardInfoDao.getTotal("b_hiren", "repaired") 
-	        %>
-	         <%= JobcardInfoDao.getTotal("b_hiren", "pending") 
-	        %>
-	        	       	   
-	        
-	        
-	        </div>
-	        
-	        <div class="row">
-	        	<% List<History> list4 = HistoryDao.getCountOfCompanyByDate("2019-03-20", "2019-03-30", "b_hiren");
-						Iterator<History> itr4 = list4.iterator();
-						while (itr4.hasNext())
-						{
-							History h =  itr4.next();
-							String company = h.getHistoryId();
-							int count = h.getRunningKM();
-							
-                            %>
-                            <%= company   %>:
-                            <%= count %>
-                            <br>
-                           <% } %>
-	        </div>
-	         <div class="row">
-	        	<% List<History> list5 = HistoryDao.getCountOfCompanyNameBySA("c_gunjan");
-						Iterator<History> itr5 = list5.iterator();
-						while (itr5.hasNext())
-						{
-							History h =  itr5.next();
-							String company = h.getHistoryId();
-							int count = h.getRunningKM();							
-                            %>
-                            <%= company   %>:
-                            <%= count %>
-                            <br>
-                           <% } %>
-	        </div>
-	        
-        </div>
-     </main>
+        </nav>    
 
-<%@include file="../footer.html" %>
+        <div class="container-95">
+        	<!-- dashboard -->
+	        <div class="my-dashboard">
+	            <div class="my-dashboard-header">
+	                <center>
+	                    <h4>Report Dashboard</h4>
+	                </center>
+	            </div>
+	           
+	           <div class="row">
+	           		<div class="col-md"></div>
+	           		<div class="col-md-3">
+	           			<select id="PercentageReports">
+	           				<option disabled selected>Select Report Type</option>
+	           				<option value="ct">Customer Type</option>
+	           				<option value="vt">Vehicle Type</option>
+	           				<option value="ft">Fuel Type</option>
+	           				<option value="wl">Service Advisor Work Load</option>           				
+	           			</select>
+	           		</div>
+	           		<div class="col-md"></div>           		
+	           </div>
+	           
+	           <div class="row" id="ctpr">
+	           	
+	           </div>
+	           
+	           <div class="row" id="vtpr">
+	           		
+	           </div>
+	           
+	           <div class="row" id="ftpr">
+	           		
+	           </div>
+	           
+	           <div class="row" id="wlpr">
+	           		
+	           </div>
+	               
+	        </div>
+        </div>
+		<script type="text/javascript">
+			$("#ctpr").hide(); 
+			$("#vtpr").hide();
+			$("#ftpr").hide();
+			$("#wlpr").hide();
+			$("#PercentageReports").change(function() {				
+				if($(this).val() === "ct") {
+					$("#ctpr").show();
+					$("#vtpr").hide();
+					$("#ftpr").hide();
+					$("#wlpr").hide();					
+				} else if($(this).val() === "vt") {
+					$("#ctpr").hide();
+					$("#vtpr").show();
+					$("#ftpr").hide();
+					$("#wlpr").hide();					
+				} else if($(this).val() === "ft") {
+					$("#ctpr").hide();
+					$("#vtpr").hide();
+					$("#ftpr").show();
+					$("#wlpr").hide();					
+				} else if($(this).val() === "wl") {
+					$("#ctpr").hide();
+					$("#vtpr").hide();
+					$("#ftpr").hide();
+					$("#wlpr").show();					
+				}
+			});
+		</script>
+		<script type="text/javascript">
+		// Load google charts
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Task', 'Hours per Day'],
+		  ['Corporate', <%= CustomerInfoDao.getCountOfCustomerType("corporate") %>],
+		  ['Individual', <%= CustomerInfoDao.getCountOfCustomerType("individual") %>]
+		]);
+		
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'width':550, 'height':400}; //is3D : true try it
+		
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('ctpr'));   
+		  chart.draw(data, options);
+		}
+		</script>
+		<script type="text/javascript">
+		// Load google charts
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Task', 'Hours per Day'],
+		  ['Passenger', <%= VehicleInfoDao.getCountOfVehicleType("passenger")%>],
+		  ['taxi', <%= VehicleInfoDao.getCountOfVehicleType("taxi") %>]
+		]);
+		
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'width':550, 'height':400}; //is3D : true try it
+		
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('vtpr'));   
+		  chart.draw(data, options);
+		}
+		</script>
+		<script type="text/javascript">
+		// Load google charts
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Task', 'Hours per Day'],
+		  ['Petrol', <%= VehicleInfoDao.getCountOfFuelType("petrol")%>],
+		  ['Diesel', <%= VehicleInfoDao.getCountOfFuelType("diesel") %>]
+		]);
+		
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'width':550, 'height':400}; //is3D : true try it
+		
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('ftpr'));   
+		  chart.draw(data, options);
+		}
+		</script>
+		<script type="text/javascript">
+		// Load google charts
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		
+		// Draw the chart and set the chart values
+		function drawChart() {
+		  var data = google.visualization.arrayToDataTable([
+		  ['Task', 'Hours per Day']
+		  <% List<JobcardInfo> list = JobcardInfoDao.getCountOfWorkloadOfSA();
+			Iterator<JobcardInfo> itr = list.iterator();
+			while (itr.hasNext())
+			{
+				JobcardInfo jci =  itr.next();
+				String officer_username = jci.getOfficeUsername();
+				int workload = jci.getAvailableFuel();						
+              
+              %>
+		  ,['<%= officer_username %>', <%= workload %>] 
+		  <% } %>
+		]); 
+		
+		  // Optional; add a title and set the width and height of the chart
+		  var options = {'width':800,'height':400, 'is3D': true}; //is3D : true try it
+		
+		  // Display the chart inside the <div> element with id="piechart"
+		  var chart = new google.visualization.PieChart(document.getElementById('wlpr'));   
+		  chart.draw(data, options);
+		}
+		</script>
+    </div>
+    <main>
+        <!-- <form class="form-inline">
+            <label class="" for="inlineFormInputName2">Name</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">                                                            
+            
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form> -->
+        
+    </main>
+
+<%@ include file="../footer.html" %>

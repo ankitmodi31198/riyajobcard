@@ -148,4 +148,20 @@ public static int getTotalAmount(int jobcardNumber) {
 	return (int)total_price;
 }
 	
+
+public static int getCount(int jobcardNumber, String status) {
+	 int count = 0;
+       try{  
+           Connection con=ConnectionDb.getConnection();  
+           PreparedStatement ps = con.prepareStatement("select count(lubricant_id) from jc_lubricant where jobcard_number = ? and lubricant_status = ?") ;
+           ps.setInt(1, jobcardNumber);
+           ps.setString(2, status);
+           ResultSet rs = ps.executeQuery();
+           while(rs.next()){  
+           	count = rs.getInt(1);
+           }  
+           con.close();  
+       }catch(Exception e){e.printStackTrace();}   
+	 return count;
+}
 }

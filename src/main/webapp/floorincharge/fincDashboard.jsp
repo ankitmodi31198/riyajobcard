@@ -21,9 +21,8 @@
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
         <a href="fincDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <form action="../Logout" method="POST">
-		<input type="submit" value="Log Out"/></form>
+       	<a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
+       	<a href="repairedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a> 
     </div>
 
     <!-- Page Content -->

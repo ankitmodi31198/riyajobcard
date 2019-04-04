@@ -1,3 +1,4 @@
+<%@page import="modal.CustomerInfo"%>
 <%@page import="modal.OfficerInfo"%>
 <%@page import="modal.OfficerInfoDao"%>
 <%@page import="modal.VehicleInfo"%>
@@ -10,73 +11,16 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="modal.JobcardInfo"%>
 <%@page import="modal.JobcardInfoDao"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="../materialize/css/materialize.css"> -->
-    <!-- <link rel="stylesheet" href="../materialize/css/materialize.css"> -->
+<%@include file="../header.html" %>
+<title>Repaired View</title> 
+<body>  
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
+  
+  <%@include file="receptionistSidebar.html" %>
 
-    <!-- w3 links -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- fontawesome CDN -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <!-- <script src="../materialize/js/materialize.js"></script> -->
-    <!-- <script src="../materialize/js/materialize.min.js"></script> -->
-     <script src="../public/js/jquery.dataTables.min.js"></script>
-    <script src="../public/js/data-tables-script.js"></script>
-    
-    <!-- <script src="./main.js"></script> -->
-    <!-- <link rel="stylesheet" href="./customize.css"> -->
-    <link rel="stylesheet" href="../public/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../public/style.css">
-    <!-- /links.html -->
-       
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/style.css">
-
-    <!-- w3 links -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-    <!-- fontawesome CDN -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <h3 class="w3-bar-item">Menu</h3>
-        <a href="receptionistDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
-    </div>
-
-    <!-- Page Content -->
-    <div style="margin-left:20%">
-
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
-
+  <main id="main">
+   <%@include file="../navbar.jsp" %>
+   
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -102,6 +46,7 @@
 			   			<th>Date</th>
 			   			<th>Service Advisor Name</th>
 			   			<th>Running KM</th>
+			   			<th>Car Name</th>
 			   			<th>Service Type </th>	
 			   			<th>Action</th>
 			   		</tr>
@@ -113,22 +58,20 @@
 						{
 							History h =  itr.next();
 							VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicleNumber);
-							JobcardInfo ji = JobcardInfoDao.getAllByNumber(vehicleNumber);
-							String Customername= CustomerInfoDao.getNameByNumber(vehicleNumber);
-							String username = h.getOfficerUsername();
-							OfficerInfo oi = OfficerInfoDao.getByUsername(username);
-							int jobcard_no = JobcardInfoDao.getJNByNumber(vehicleNumber);		
-							String link="passHistoryview.jsp?id="+jobcard_no;
+							CustomerInfo ci =CustomerInfoDao.getAllByNumber(vehicleNumber);
+							OfficerInfo oi = OfficerInfoDao.getByUsername(h.getOfficerUsername());
+							int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicleNumber);
+							String company_model = VehicleModelDao.getModelName(vehicle_model_id);
+							String link="pasthistoryview.jsp?id="+vehicleNumber;
 							%>
 							<tr>
-                            <td><%= Customername %></td>
+                            <td><%= ci.getCustomerName() %></td>
                             <td><%=h.getDeliveryDate()%></td>
                             <td><%=oi.getOfficerName()%></td>
-                            <td><%=h.getRunningKM()%></td>
                             
+                            <td><%=h.getRunningKM()%></td>
+                            <td><%= company_model %>
                             <td><%=h.getWorkType()%></td>
-                           
-                          
                             <td><a href=<%= link %>>View</a></td>
                             </tr>	 
 

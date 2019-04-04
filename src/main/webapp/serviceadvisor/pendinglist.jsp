@@ -16,23 +16,12 @@
     %>
     
 	<!-- openable navbar -->
-    <header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+    <%@include file="saSidebar.jsp" %>
 
     <!-- Page Content -->
     <main id="main">
 
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+         <%@include file="../navbar.jsp" %>
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -52,10 +41,11 @@
 	   		<table id="data-table-simple-1" class="table">
 			   	<thead style="text-align: center;">
 			   		<tr>
-			   			<th>Vehicle No.</th>
+			   			<th>Vehicle No</th>
+			   			<th>Jobcard No</th>
 			   			<th>Name</th>
 			   			<th>Car Name</th> 
-			   			<th>Contact No.</th>
+			   			<th>Customer Contact</th>
 			   			<th>Action</th>	
 			   			<th>Action</th>	
 			   		</tr>
@@ -78,6 +68,7 @@
 							%>
 							<tr>
 							<td><%= vehicle_number %></td>
+							<td><%= jobcard_number %>
 							<td><%= customer_name%></td>
 							<td><%= company_model %></td>
 							<td><%= ci.getCustomerContact() %></td>

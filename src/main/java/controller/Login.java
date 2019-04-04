@@ -46,9 +46,9 @@ public class Login extends HttpServlet {
 				{
 					response.sendRedirect("receptionist/receptionistDashboard.jsp");
 				}
-				else if(role.equals("final_inspector"))
+				else if(role.equals("customer"))
 				{
-					response.sendRedirect("finalinspector/finsDashboard.jsp");
+					response.sendRedirect("regularcustomer/customerDashboard.jsp");
 				}
 				else if(role.equals("admin"))
 				{
@@ -66,7 +66,7 @@ public class Login extends HttpServlet {
 //				 						break; 
 //				case "receptionist" : response.sendRedirect("receptionist/receptionistDashboard.jsp");
 //				 					  break;
-//				case "final_inspector" : response.sendRedirect("finalinspector/finsDashboard.jsp");
+//				case "customer" : response.sendRedirect("regularcustomer/customerDashboard.jsp");
 //										 break;
 //				case "admin" : response.sendRedirect("admin/adminDashboard.jsp");
 //							   break;

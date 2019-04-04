@@ -22,6 +22,9 @@ public class HistoryPayment {
 		this.bankName = bankName;
 		this.paymentDate = paymentDate;
 	}
+	public HistoryPayment() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getFinalAmount() {
 		return finalAmount;
 	}

@@ -3,6 +3,7 @@
 :root {
     --form-theme-color-1: #49274a;
     --form-theme-color-1-light: #94618e;
+    --form-theme-color-1-input-light: #eddeed;
 
     --dark-navbar-color: #343a40;
 
@@ -24,6 +25,14 @@ body {
 .container-95 {
     width: 95%;
     margin: 10px auto;
+}
+.container-75 {
+  width: 75%;
+  margin: auto;
+}
+.container-70 {
+  width: 70%;
+  margin: auto;
 }
 .my-form-heading {
     background-color: var(--form-theme-color-1-light);
@@ -130,6 +139,8 @@ th {
     border-radius: 5px;
     position: relative;
     top: 100px;
+    width: 70% !important;
+    margin-left: 15%;
 }
 .my-login-content {
     padding: 20px 10px;    
@@ -334,4 +345,47 @@ th {
 }
 .my-btn:hover{
     background-color: var(--form-theme-color-1-light);
+}
+
+/* dashboard links */
+.w3-bar-item {
+
+}
+.w3-bar-item:hover {
+  text-decoration: none;
+  background-color: var(--form-theme-color-1) !important;
+  color: var(--whitish-text-color) !important;
+} 
+#sidebar-logout-btn {
+  padding: 5px 15px;
+  background-color: transparent;
+  border: none;
+  
+}
+#sidebar-logout-btn:hover {
+  padding: 5px 15px;
+  background-color: var(--form-theme-color-1);
+  border: none;
+  color: var(--whitish-text-color) !important;
+}
+input[type=text],input[type=password],input[type=number],input[type=date],input[type=time] select, textarea {
+  background-color: var(--form-theme-color-1-input-light) !important;
+}
+.datatable-link {
+  color: var(--form-theme-color-1);
+  text-decoration: underline;
+}
+
+/*navbar sidebar*/
+.navbar-userpart {
+  float: right;
+  margin-right: 40px;
+}
+.navbar-userpart-username {
+  font-size: 18px !important;
+}
+
+.navbar-logo-link:hover {
+	text-decoration: none;
+	color: var(--whitish-text-color  );
 }

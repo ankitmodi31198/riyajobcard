@@ -2,6 +2,9 @@ package modal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryPaymentDao {
 
@@ -25,5 +28,33 @@ public class HistoryPaymentDao {
         return status; 
 		
 	}
+	
+	
+			
+	public static List<ReportObj> getRevenueByMonthAndSa(String year, String sa)
+	 {
+		 List<ReportObj> list=new ArrayList<ReportObj>();  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("SELECT MONTH(history_payment.payment_date) as month, SUM(history_payment.final_amount) as total FROM history_payment, history WHERE YEAR(history_payment.payment_date) = ? AND history.officer_username = ? AND history.history_id = history_payment.history_id GROUP BY MONTH(history_payment.payment_date)") ;
+
+	            ps.setString(1, year);
+	            ps.setString(2, sa);			           
+	            
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+
+	            	ReportObj ro=new ReportObj();
+	            	
+	            	ro.setP1(rs.getInt("month"));
+	            	ro.setP2(rs.getInt("total"));
+	            	
+	            	
+	            	list.add(ro);
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return list;
+	 }
 
 }

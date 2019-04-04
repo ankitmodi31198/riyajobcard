@@ -59,6 +59,27 @@ public class HistoryDao {
 		 return list;
 	 }
 	
+	public static String getByOfficerUsername(String officer_username)
+	 {
+		String vehicle_number=null;
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from history where officer_username=?") ;
+
+	            ps.setString(1, officer_username);   
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	
+	            	
+	            	vehicle_number =rs.getString("officer_username");
+	            	
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return vehicle_number;
+	 }
+	
+	
 	public static List<History> getCountOfCompanyByDate(String from, String to, String sa)
 	 {
 		 List<History> list=new ArrayList<History>();  
@@ -142,7 +163,7 @@ public class HistoryDao {
 			            while(rs.next()){  
 			            	History h = new History();
 			            	h.setHistoryId(rs.getString("vehiclenumber"));	            	
-			            	h.setRunningKM(rs.getInt("vehiclenumber"));
+			            	h.setRunningKM(rs.getInt("finalamount"));
 			            	
 			            	list.add(h);
 			            }  

@@ -17,7 +17,8 @@
     		    url: "addcomplain.jsp",
     		    data: {
     		     complain : complain,
-    		     jobcard_number : jobcard_number
+    		     jobcard_number : jobcard_number,
+    		     reload_flag : 0
     		   },
     		   cache: false,
     		   success: function(response)
@@ -35,7 +36,8 @@
     		    url: "removecomplain.jsp",
     		    data: {
     		     complain_id : complain_id,
-    		     jobcard_number : jobcard_number
+    		     jobcard_number : jobcard_number,
+    		     reload_flag : 0
     		   },
     		   cache: false,
     		   success: function(response)
@@ -54,7 +56,8 @@
     		    data: {
     		     solution : solution,
     		     price : price,
-    		     jobcard_number : jobcard_number
+    		     jobcard_number : jobcard_number,
+    		     reload_flag : 0
     		   },
     		   cache: false,
     		   success: function(response)
@@ -75,7 +78,8 @@
     		    data: {
     		    solution : solution,
        		     solution_id : solution_id,
-    		     jobcard_number : jobcard_number
+    		     jobcard_number : jobcard_number,
+    		     reload_flag : 0
     		   },
     		   cache: false,
     		   success: function(response)
@@ -84,6 +88,39 @@
     		  }
     		});
     	}
+    	 function reload()
+    	 {
+    		 var jobcard_number = <%=Integer.parseInt(request.getParameter("id"))%>; 
+    	 
+    	  $.ajax({
+    	    type: "POST",
+    	    url: "addcomplain.jsp",
+    	    data: {
+    	     jobcard_number : jobcard_number,
+    	     reload_flag : 1
+    	   },
+    	   cache: false,
+    	   success: function(response)
+    	   {
+    	    $("#addedComplains").html(response);
+    	  }
+    	}); 
+    	  $.ajax({
+      	    type: "POST",
+      	    url: "addsolution.jsp",
+      	    data: {
+      	     jobcard_number : jobcard_number,
+      	     reload_flag : 1
+      	   },
+      	   cache: false,
+      	   success: function(response)
+      	   {
+      	    $("#addedSolutions").html(response);
+      	  }
+      	}); 
+    	  
+    	 }
+    	 window.onload= reload;
     </script>
   <body>
    <% int jobcard_number = Integer.parseInt(request.getParameter("id")); 
@@ -98,22 +135,11 @@
 		JobcardInfo ji = JobcardInfoDao.getTempByNumber(jobcard_number);
     %>	
      <!-- openable navbar -->
-    <header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="#" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
+  <%@include file="saSidebar.jsp" %>
 
     <main id="main">
 
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+         <%@include file="../navbar.jsp" %>
 
 
         <form action="../SaveJobCard" class="my-form container-95" method="POST">
@@ -130,7 +156,7 @@
                                 <label for="ro_number">Jobcard Number</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" name="jobcard_number" id="jobcard_number"  value='<%=jobcard_number%>' readonly>
+                                <input type="text" name="jobcard_number" id="jobcard_number"  value='<%=jobcard_number %>' readonly>
                             </div>
                             <div class="col-md-2">
                                 <label for="vin">VIN</label>
@@ -193,8 +219,8 @@
                                 <label for="work_type">Work Type</label>
                             </div>
                             <div class="col-md-4">
-                                <select name="work_type" id="work_type">
-                                	<option>-----</option>
+                                <select name="work_type" id="work_type" required>
+                                	<option disabled selected>-----</option>
                                     <option value="free service">Free Service</option>
                                     <option value="paid service">Paid Service</option>
                                     <option value="running repair">Running Repair</option>
@@ -219,7 +245,7 @@
                                 <label for="running_km">Running KM</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" name="running_km" id="running_km">
+                                <input type="text" name="running_km" id="running_km" required>
                             </div>
                             <div class="col-md-3">
                                 <label for="available_fuel">Available Fuel</label>
@@ -258,8 +284,7 @@
                                         <th></th>
                                     </tr>
                                     <!-- loop -->
-                                    <!-- ALERT !!! -->
-                                    <!-- ask JASH for while you work on this form -->
+                                    
                                     
                                 </table>
                             </div>
@@ -297,9 +322,7 @@
                                         <th>Price</th>
                                         <th></th>
                                     </tr>
-                                    <!-- loop -->
-                                    <!-- ALERT !!! -->
-                                    <!-- ask JASH for while you work on this form -->
+                                   
                                    
                                 </table>
                             </div>
@@ -308,26 +331,22 @@
                 </div>
                 <div class="row my-form-row">
                     <div class="col-md-6">
-                        <h6>Costing and Delivery</h6>
+                        <h6> Delivery</h6>
+                        
                         <div class="row">
-                            <div class="col-md-3">
-                                <label for="estimate_price">Estimate Price</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" name="estimate_price" id="estimate_price" readonly value="9800">
-                            </div>                            
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="delivery_date">Delivery Date</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <input type="date" name="delivery_date" id="delivery_date">
                             </div>
-                            <div class="col-md-3">
+                            <br>
+                           
+                            <br>
+                            <div class="col-md-6">
                                 <label for="delivery_time">Delivery Time</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <input type="time" name="delivery_time" id="delivery_time">
                             </div>
                         </div>

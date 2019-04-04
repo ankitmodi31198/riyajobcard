@@ -334,4 +334,30 @@ public class JobcardInfoDao {
 		        }catch(Exception e){e.printStackTrace();}   
 			 return list;
 		 }
+		
+		public static List<ReportObj> getCountOfJobStatusByUsername(String OfficerUsername)
+		 {
+			 	List<ReportObj> JcList = new ArrayList<ReportObj>();
+			 	
+			    int jobcardNumber=0;
+		        try{  
+		            Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("select jobcard_number from jobcard_info where Officer_username = ?") ;
+		            ps.setString(1, OfficerUsername);
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next()){  
+		              jobcardNumber = rs.getInt("jobcard_number");
+		              int pendingPartCount = JcPartDao.getCount(jobcardNumber,"pending");
+		              int completedPartCount = JcPartDao.getCount(jobcardNumber,"completed");
+		              int pendingServiceCount = JcServiceDao.getCount(jobcardNumber,"pending");
+		              int completedServiceCount = JcServiceDao.getCount(jobcardNumber,"completed");
+		              int pendingLubricantCount = JcLubricantDao.getCount(jobcardNumber,"pending");
+		              int completedLubricantCount = JcLubricantDao.getCount(jobcardNumber,"completed");
+		              ReportObj ro = new ReportObj(pendingPartCount, completedPartCount, pendingServiceCount, completedServiceCount, pendingLubricantCount, completedLubricantCount, jobcardNumber);
+		              JcList.add(ro);
+		            }  
+		            con.close();  
+		        }catch(Exception e){e.printStackTrace();}   
+			 return JcList;
+		 }
 }
