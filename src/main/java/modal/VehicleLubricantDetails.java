@@ -9,7 +9,9 @@ public class VehicleLubricantDetails implements java.io.Serializable {
 	private int lubricantPrice;
 	private int lubricantQuantity;
 	private int lubricantLabour;
-	private String lubricantValidity;
+	private int lubricantValidity;
+	private int lubricantValidityKm;
+	private boolean lubricantSuggestflag; 
 	
 	public int getLubricantId() {
 		return lubricantId;
@@ -47,12 +49,25 @@ public class VehicleLubricantDetails implements java.io.Serializable {
 	public void setLubricantLabour(int lubricantLabour) {
 		this.lubricantLabour = lubricantLabour;
 	}
-	public String getLubricantValidity() {
+	public int getLubricantValidity() {
 		return lubricantValidity;
 	}
-	public void setLubricantValidity(String lubricantValidity) {
+	public void setLubricantValidity(int lubricantValidity) {
 		this.lubricantValidity = lubricantValidity;
 	}
+	public int getLubricantValidityKm() {
+		return lubricantValidityKm;
+	}
+	public void setLubricantValidityKm(int lubricantValidityKm) {
+		this.lubricantValidityKm = lubricantValidityKm;
+	}
+	public boolean isLubricantSuggestflag() {
+		return lubricantSuggestflag;
+	}
+	public void setLubricantSuggestflag(boolean lubricantSuggestflag) {
+		this.lubricantSuggestflag = lubricantSuggestflag;
+	}
+
 	
 
 	

@@ -2,6 +2,9 @@ package modal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryLubricantDao {
 
@@ -26,5 +29,31 @@ public class HistoryLubricantDao {
         return status; 
 	}
 
+	public static List<HistoryLubricant> getAllById(String history_id)
+	{
+		List<HistoryLubricant> list=new ArrayList<HistoryLubricant>();
+		try{
+			Connection con=ConnectionDb.getConnection();  
+            PreparedStatement ps = con.prepareStatement("select * from history_lubricant where history_id='"+history_id+"'");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+            	HistoryLubricant jl=new HistoryLubricant();
+            	jl.setLubricantId(rs.getInt("lubricant_id"));
+            	jl.setLubricantName(rs.getString("lubricant_name"));
+            	jl.setLubricantPrice(rs.getInt("lubricant_price"));
+            	jl.setHistoryId(rs.getString("history_id"));
+            	
+            	
+            	list.add(jl);
+            }
+            con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return list;
+	}
+	
+	
+	
 }
   

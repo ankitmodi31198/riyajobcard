@@ -19,6 +19,7 @@ import modal.AppLubricant;
 import modal.AppLubricantDao;
 import modal.AppService;
 import modal.AppServiceDao;
+import modal.AppointmentDao;
 import modal.CustomerComplain;
 import modal.CustomerComplainDao;
 import modal.JcLubricant;
@@ -61,12 +62,9 @@ public class AllocateAppointment extends HttpServlet {
 		String officer_username = request.getParameter("officer_username");
 		String status = "arrived";
 		String vehicle_number = request.getParameter("vehicle_number");
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime now = LocalDateTime.now();
-        String arrival_date = dtf.format(now);
 		
-        DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm:ss");
-        String arrivalTime = dtf1.format(now);
+        String arrival_date =  request.getParameter("appointment_date");
+        String arrivalTime =  request.getParameter("appointment_time");
 		JobcardInfo ji = new JobcardInfo();
 		ji.setOfficeUsername(officer_username);
 		ji.setStatus(status);
@@ -119,12 +117,13 @@ public class AllocateAppointment extends HttpServlet {
 		}
 		
 		if (status1 > 0) {
-			 HttpSession session = request.getSession();
-		      	session.setAttribute("officer_username", officer_username);
+			AppointmentDao.delete(vehicle_number);
+			
 			response.sendRedirect("receptionist/receptionistDashboard.jsp");
 		} else {
 			System.out.println("error in allocating the service advisor");
 		}
+		
 	}
 		
 		

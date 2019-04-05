@@ -123,6 +123,33 @@ public class JobcardInfoDao {
 		 return list;
 	 }
 	  
+	 public static List<JobcardInfo> getAll()
+	 {
+		 List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from jobcard_info") ;
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	JobcardInfo jci = new JobcardInfo();
+	            	jci.setVehicleNumber(rs.getString("vehicle_number"));
+		        	 jci.setJobcardNumber(rs.getInt("jobcard_number"));
+		        	 jci.setOfficeUsername(rs.getString("officer_username"));
+		        	 jci.setWorkType(rs.getString("work_type"));
+		        	 jci.setArrivalDate(rs.getString("arrival_date"));
+		        	 jci.setArrivalTime(rs.getString("arrival_time"));
+		        	 jci.setAvailableFuel(rs.getInt("available_fuel"));
+		        	 jci.setDeliveryDate(rs.getString("delivery_date"));
+		        	 jci.setDeliveryTime(rs.getString("delivery_time"));
+		        	 jci.setRunningKm(rs.getInt("running_km"));
+		        	 jci.setStatus(rs.getString("status"));
+	            	list.add(jci);
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return list;
+	 }
+	  
 	 public static int getTotal(String officer_username,String status)
 	 {
 		    int i=0;
@@ -139,6 +166,22 @@ public class JobcardInfoDao {
 	        }catch(Exception e){e.printStackTrace();}   
 		 return i;
 	 }
+	 public static int getCountByStatus(String status)
+	 {
+		    int i=0;
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select count(jobcard_number) from jobcard_info where status = ? ") ;
+	            ps.setString(1, status);
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	i = rs.getInt(1);
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return i;
+	 }
+
 	 public static int getJNByNumber(String vehicle_number)
 	 {
 		    int i=0;
@@ -360,4 +403,17 @@ public class JobcardInfoDao {
 		        }catch(Exception e){e.printStackTrace();}   
 			 return JcList;
 		 }
+		
+		public static int changeAllocation(int jobcardNumber,String officer_username) {
+			int status1=0;  
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps=con.prepareStatement("update jobcard_info set officer_username='"+officer_username+"' where jobcard_number = '"+jobcardNumber+"' ");  
+	            
+	            status1=ps.executeUpdate();  
+	            con.close();  
+	        }catch(Exception ex){ex.printStackTrace();}  
+	          
+	        return status1;  
+		}
 }

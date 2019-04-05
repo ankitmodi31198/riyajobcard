@@ -15,9 +15,6 @@
 <%@include file="../header.html" %>
   <body>
     <% String officer_username = (String)session.getAttribute("officer_username");
-    	String officer_name = (String)session.getAttribute("officer_name");
-    	String officer_role = (String)session.getAttribute("officer_role");
-   
     %>
     <!-- Sidebar -->
     <%@include file="saSidebar.jsp" %>
@@ -39,7 +36,8 @@
         <div class="my-dashboard">
             <div class="my-dashboard-header">
                 <center>
-                    <h4>Closed Car list</h4>
+                    <h4>Closed Car list 
+                    </h4>
                 </center>
             </div>
            <div class="container mt-5">
@@ -56,20 +54,19 @@
 			   	</thead>
 			   	<tbody style="font-size: 12px; text-align: center;">
 			   		 <% 
-			   		 String vehicleNumber =HistoryDao.getByOfficerUsername(officer_username);
-			   		 List<History> list = HistoryDao.getByNumber(vehicleNumber);
+			   		
+			   		 List<History> list = HistoryDao.getByOfficerUsername(officer_username);
 						Iterator<History> itr = list.iterator();
 						while (itr.hasNext())
 						{
 							History h =  itr.next();
-							
+							String vehicleNumber=h.getVehicleNumber();
 							VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicleNumber);
-							JobcardInfo ji = JobcardInfoDao.getAllByNumber(vehicleNumber);
 							String Customername= CustomerInfoDao.getNameByNumber(vehicleNumber);
 							String username = h.getOfficerUsername();
 							OfficerInfo oi = OfficerInfoDao.getByUsername(username);
-							int jobcard_no = JobcardInfoDao.getJNByNumber(vehicleNumber);		
-							String link="passHistoryview.jsp?id="+jobcard_no;
+									
+							String link="closedview.jsp?id="+vehicleNumber;
 							%>
 							<tr>
                             <td><%= Customername %></td>

@@ -17,6 +17,12 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("admin")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -94,11 +100,27 @@
                         <input type="number" name="lubricant_labour" id="lubricant_labour">
                     </div>
                     <div class="col-md-1">
-                        <label for="lubricant_validity">Validity(Yr)</label>
+                        <label for="lubricant_validity">Validity(Month)</label>
                     </div>
                     <div class="col-md-2">
                         <input type="number" name="lubricant_validity" id="lubricant_validity" value="1">
-                    </div>                    
+                    </div>  
+                     <div class="col-md-1">
+                        <label for="lubricant_validity_km">Validity Km </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="lubricant_validity_km" id="lubricant_validity_km">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="lubricant_suggest_flag">Customer Show </label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="radio" name="lubricant_suggest_flag" id="lubricant_suggest_flag" value="0" >No
+                        <input type="radio" name="lubricant_suggest_flag" id="lubricant_suggest_flag1" value="1">Yes
+                    </div>
+                    
+                    
+                                      
                 </div>
                 <div class="my-submit-div">
                     <input type="submit" name="submit" id="submit" class="btn btn-secondary btn-sm" value="Add">
@@ -140,7 +162,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button onclick="editLubricant" class="btn btn-primary btn-sm">Edit</button>
+                    <button onclick="editLubricant" class="btn btn-primary btn-sm">Edit</button>
                                             </div>
                                             <div class="col-md-6">                                                                                            
                                                 <form action="../DeleteLubricant" method="post">                                                    

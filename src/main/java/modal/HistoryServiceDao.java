@@ -2,6 +2,9 @@ package modal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HistoryServiceDao {
 
@@ -24,5 +27,30 @@ public class HistoryServiceDao {
         return status;  
 		
 	}
+	
+	
+	public static List<HistoryService> getAllById(String history_id)
+	{
+		List<HistoryService> list=new ArrayList<HistoryService>();
+		try{
+			Connection con=ConnectionDb.getConnection();  
+            PreparedStatement ps = con.prepareStatement("select * from history_service where history_id='"+history_id+"'");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+            	HistoryService js=new HistoryService();
+            	js.setServiceId(rs.getInt("service_id"));
+            	js.setServiceName(rs.getString("service_name"));
+            	js.setServiceDetails(rs.getString("service_details"));
+            	js.setServicePrice(rs.getInt("service_price"));
+            	js.setHistoryId(rs.getString("history_id"));
+            	list.add(js);
+            }
+            con.close();
+		}
+		catch(Exception e){e.printStackTrace();}
+		return list;
+	}
+ 
 
 }

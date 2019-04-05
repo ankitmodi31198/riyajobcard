@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdk.nashorn.internal.scripts.JS;
 
 public class AppServiceDao {
 

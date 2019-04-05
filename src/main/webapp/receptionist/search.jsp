@@ -23,7 +23,7 @@
 								<div class="col-md-6">
 								
 									<label for="">Vehicle Number :</label>
-									<input type="text" name="vehicle_number" id="vehicle_number" class="" onkeyup="toUppercase()">
+									<input type="text" name="vehicle_number" id="vehicle_number" class="" onkeyup="toUppercase()" pattern="[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{1,4}" >
 									
 								</div>
 								<div class="col-md"></div>

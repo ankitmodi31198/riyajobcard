@@ -57,33 +57,36 @@
 		<br>
 		<div class="fix">
 			<table style="width: 100%;">
-				<th align="left" style="width: 50%; color: red;"><b>RIYA</b></th>
-				<th align="right" style="width: 50%; color: blue;">INVOICE</th>
+				<tr>
+					<th align="left" style="width: 50%; color: red;"><b>RIYA</b></th>
+					<th align="right" style="width: 50%; color: blue;">INVOICE</th>
+				</tr>
 			</table>
 		</div>
 		<hr class="fix" color="gray">
 		<div class="fix">
 			<table style="width: 100%;">
-				<td align="left" style="width: 50%;">Riya car Pvt. Ltd;<br>14,abd
+			<tr>	<td align="left" style="width: 50%;">Riya car Pvt. Ltd;<br>14,abd
 					Road,palanpur<br>
 				<b>123465789</b>
-
+			
 				</td>
-				<td align="right" style="width: 50%;">DATE:12/03/2019<br>Bill
+			</tr><tr>	<td align="right" style="width: 50%;">DATE:12/03/2019<br>Bill
 					No:<b>123465789</b>
-
-				</td>
+				</td></tr>
 			</table>
 		</div>
 		<hr class="fix" color="gray">
 		<div class="fix">
 			<table style="width: 100%;">
-				<th bgcolor=#95C8D8 align="left" style="width: 50%">Customer
+				<tr>
+					<th bgcolor=#95C8D8 align="left" style="width: 50%">Customer
 					Info</th>
-				<th bgcolor=#95C8D8 align="left">Vehicle Details</th>
+					<th bgcolor=#95C8D8 align="left">Vehicle Details</th>
+				</tr>
 				<tr>
 					<td>Name:<b><%=ci.getCustomerName()%></b></td>
-					<td>Vehicle no.:<b><%=vi.getVehicleNumber()%></td>
+					<td>Vehicle no.:<b><%=vi.getVehicleNumber()%></b></td>
 				</tr>
 				<tr>
 					<td>Mobile No :<%=ci.getCustomerContact()%>
@@ -106,12 +109,14 @@
 				</tr>
 			</table>
 			<table style="width: 100%;">
-				<th bgcolor=#95C8D8 align="left" style="width: 50%">Jobcard
+				<tr>
+					<th bgcolor=#95C8D8 align="left" style="width: 50%">Jobcard
 					Info</th>
 				<th bgcolor=#95C8D8 align="left">Adviser Details</th>
+				</tr>
 				<tr>
 					<td>Jobcard Number:<b><%=jobcard_number%></b></td>
-					<td>Adviser Name:<b><%=oi.getOfficerName()%></td>
+					<td>Adviser Name:<b><%=oi.getOfficerName()%></b></td>
 				</tr>
 				<tr>
 					<td>Work Type: <%=ji.getWorkType()%></td>
@@ -125,17 +130,18 @@
 			</table>
 
 			<table style="width: 100%;">
-				<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
-				<th bgcolor=#95C8D8 align="left" style="width: 30%;">Spare &
-					Parts</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Quantity</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Labour
-					Price</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
-
-				<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				<tr>
+					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
+					<th bgcolor=#95C8D8 align="left" style="width: 30%;">Spare and Parts</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Quantity</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Labour
+						Price</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
+	
+					<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				</tr>
 				<tr>
 					<%
 						int srno = 0;
@@ -170,7 +176,7 @@
 					}
 				%>
 			</table>
-			<tr>
+			<!-- <tr>
 				<td></td>
 			</tr>
 			<tr>
@@ -181,19 +187,21 @@
 			</tr>
 			<tr>
 				<td></td>
-			</tr>
+			</tr> -->
 
 			<table style="width: 100%;">
-				<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
-				<th bgcolor=#95C8D8 align="left" style="width: 30%;">Services</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 20%;" colspan="2">Service
-					Desc</th>
-				<!-- <th bgcolor=#95C8D8 align="right" style="width:10%;">Service Desc</th> -->
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
-
-				<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				<tr>
+					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
+					<th bgcolor=#95C8D8 align="left" style="width: 30%;">Services</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 20%;" colspan="2">Service
+						Desc</th>
+					<!-- <th bgcolor=#95C8D8 align="right" style="width:10%;">Service Desc</th> -->
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
+	
+					<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				</tr>
 				<tr>
 					<%
 						int srno1 = srno;
@@ -224,7 +232,7 @@
 					}
 				%>
 			</table>
-			<tr>
+			<!-- <tr>
 				<td></td>
 			</tr>
 			<tr>
@@ -235,19 +243,21 @@
 			</tr>
 			<tr>
 				<td></td>
-			</tr>
+			</tr> -->
 
 
 			<table style="width: 100%;">
-				<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
-				<th bgcolor=#95C8D8 align="left" style="width: 30%;">Lubricants</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Quantity</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">Labour
-					Price</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
-				<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				<tr>
+					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
+					<th bgcolor=#95C8D8 align="left" style="width: 30%;">Lubricants</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Quantity</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Labour
+						Price</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 15%;">Amount</th>
+				</tr>
 				<tr>
 					<%
 						int srno2 = srno1;
@@ -299,21 +309,21 @@
 			</table>
 			<hr color="red">
 			<table style="width: 100%;">
-				<tr width=60%>
+				<tr>
 					<td>All tax included</td>
-					<td align="right" style="width: 20%;"><b> Total:</td>
-					<td style="width: 30%;" align="right"><b><%=(int)total_price%>  </td>
+					<td align="right" style="width: 20%;"><b> Total: </b></td>
+					<td style="width: 30%;" align="right"><b><%=(int)total_price%> </b> </td>
 				</tr>
-				<tr width=60%>
+				<tr>
 					<td></td>
-					<td align="right" style="width: 20%;"><b>Round Off Amount:
+					<td align="right" style="width: 20%;"><b>Round Off Amount:</b>
 					</td>
-					<td style="width: 30%;" align="right"><b><%=(int)total_price%></td>
+					<td style="width: 30%;" align="right"><b><%=(int)total_price%></b></td>
 				</tr>
-				<tr width=60%>
+				<tr>
 					<td></td>
-					<td align="right" style="width: 20%;"><b>Total Amount: </td>
-					<td style="width: 30%;" align="right"><b><%=(int)total_price%> </td>
+					<td align="right" style="width: 20%;"><b>Total Amount: </b> </td>
+					<td style="width: 30%;" align="right"><b><%=(int)total_price%> </b></td>
 				</tr>
 
 			</table>
@@ -338,12 +348,12 @@
 		<div class="fix">
 			<table style="width: 100%">
 				<tr>
-					<th style="width: 25%" ; align="center"></br>
-					<br /></th>
-					<th style="width: 25%" ; align="center"></br></th>
-					<th style="width: 25%" ; align="center"></br></th>
-					<th style="width: 25%" ; align="center"></br></th>
-
+					<th style="width: 25%" ; align="center">
+					</th>
+					<th style="width: 25%" ; align="center"></th>
+					<th style="width: 25%" ; align="center"></th>
+					<th style="width: 25%" ; align="center"></th>
+ 
 				</tr>
 				<tr>
 					<td colspan=2><hr style="width: 60%;"></td>
@@ -362,7 +372,7 @@
 		<center>
 			<h4>Thank you! Serice Regularly and Ride safely.</h4>
 		</center>
-		<h3>
+		<!-- <h3> -->
 			<form action="../SaveHistory" method="post">
 				<center>
 					<input type="hidden" name="finalamount" value =<%=(int)total_price%> />
@@ -374,9 +384,9 @@
 				 <a class="btn btn-secondary my-btn btn-lg" href=<%= link %>>Paymant
 					& Genarate Pdf</a>
 			</center> --%>
-		</h3>
+		<!-- </h3> -->
 	</div>
-	</div>
+	
 
 
 

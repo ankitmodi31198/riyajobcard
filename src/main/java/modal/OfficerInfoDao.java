@@ -10,6 +10,29 @@ import java.sql.SQLException;
 
 public class OfficerInfoDao {
 
+	public static int save(OfficerInfo oi) {
+		int status=0;  	
+        try{  
+            Connection con=ConnectionDb.getConnection();  
+            PreparedStatement ps=con.prepareStatement(  
+                         "insert into officer_info(officer_username,officer_name,officer_role,officer_contact,officer_email,officer_password) values (?,?,?,?,?,?)");  
+            
+            ps.setString(1, oi.getOfficerUsername());
+            ps.setString(2, oi.getOfficerName());
+            ps.setString(3, oi.getOfficerRole());
+            ps.setString(4, oi.getOfficerContact());
+            ps.setString(5, oi.getOfficerEmail());
+            ps.setString(6, oi.getOfficerPassword());
+              
+            status=ps.executeUpdate();   
+            System.out.println(status);
+            con.close();  
+        }catch(Exception ex){ex.printStackTrace();}  
+          
+        return status;
+	}
+	
+	
 	public static boolean authenticate(String username, String password) throws SQLException {
 		Connection con = ConnectionDb.getConnection();
 		PreparedStatement ps = con.prepareStatement("select officer_role from officer_info where  officer_username= ? and officer_password =?");

@@ -14,14 +14,16 @@ public class VehicleLubricantDetailsDao {
         try{  
         	Connection con=ConnectionDb.getConnection();  
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(  
-                         "insert into vehicle_lubricant_details (lubricant_name, lubricant_price, lubricant_quantity, lubricant_labour,lubricant_validity, model_varient_id) values (?, ?, ?,?, ?, ?)");  
+                         "insert into vehicle_lubricant_details (lubricant_name, lubricant_price, lubricant_quantity, lubricant_labour,lubricant_validity, model_varient_id,lubricant_validity_km,lubricant_validity_km) values (?, ?, ?,?, ?, ?,?,?)");  
             
             ps.setString(1, vld.getLubricantName());
             ps.setInt(2, vld.getLubricantPrice());
             ps.setInt(3, vld.getLubricantQuantity());
             ps.setInt(4, vld.getLubricantLabour());
-            ps.setString(5, vld.getLubricantValidity());
+            ps.setInt(5, vld.getLubricantValidity());
             ps.setInt(6, vld.getModelVarientid());
+            ps.setInt(7,vld.getLubricantValidityKm());
+            ps.setBoolean(8, vld.isLubricantSuggestflag());
               
             status=ps.executeUpdate();     
             con.close();  
@@ -43,8 +45,10 @@ public class VehicleLubricantDetailsDao {
         	vld.setLubricantPrice(rs.getInt("lubricant_price"));
         	vld.setLubricantQuantity(rs.getInt("lubricant_quantity"));
         	vld.setLubricantLabour(rs.getInt("lubricant_labour"));
-        	vld.setLubricantValidity(rs.getString("lubricant_validity"));
+        	vld.setLubricantValidity(rs.getInt("lubricant_validity"));
         	vld.setModelVarientid(rs.getInt("model_varient_id"));
+        	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
+        	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
         	list.add(vld);
         }  
         con.close();  
@@ -101,8 +105,10 @@ public class VehicleLubricantDetailsDao {
             	vld.setLubricantName(rs.getString("lubricant_name"));
             	vld.setLubricantPrice(rs.getInt("lubricant_price"));
             	vld.setLubricantLabour(rs.getInt("lubricant_labour"));
-            	vld.setLubricantValidity(rs.getString("lubricant_validity"));
+            	vld.setLubricantValidity(rs.getInt("lubricant_validity"));
             	vld.setModelVarientid(rs.getInt("model_varient_id"));
+            	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
+            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
             }  
             con.close();  
         }catch(Exception e){e.printStackTrace();}  
@@ -124,8 +130,10 @@ public class VehicleLubricantDetailsDao {
 	                vld.setLubricantPrice(rs.getInt("lubricant_price"));
 	                vld.setLubricantQuantity(rs.getInt("lubricant_quantity"));
 	                vld.setLubricantLabour(rs.getInt("lubricant_labour"));
-	            	vld.setLubricantValidity(rs.getString("lubricant_validity"));
+	                vld.setLubricantValidity(rs.getInt("lubricant_validity"));
 	            	vld.setModelVarientid(rs.getInt("model_varient_id"));
+	            	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
+	            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
 	            	list.add(vld);
 	            }  
 	            con.close();  

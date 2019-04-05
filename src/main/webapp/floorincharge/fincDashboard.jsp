@@ -1,6 +1,18 @@
+<%@page import="modal.JobcardInfoDao"%>
 <%@ include file="../header.html" %>
     <title>Hello, world!</title>
   </head>
+  <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("floor_incharge")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
+  <% String officer_username = (String)session.getAttribute("officer_username");
+    	String officer_name = (String)session.getAttribute("officer_name");
+    	String officer_role = (String)session.getAttribute("officer_role");
+    	
+        %>
  <script type = "text/javascript" >
         function preventBack() { window.history.forward(1); }
         setTimeout("preventBack()", 0);
@@ -23,14 +35,20 @@
         <a href="fincDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
        	<a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
        	<a href="repairedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a> 
+       	
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+        <div class="my-new-header">
+             <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&nbsp;</button>
+             <span>JCMS</span>
+             <div class="navbar-userpart">
+                <span class="navbar-userpart-username">Welcome, <%= officer_name %> | </span> <span><a href="../logout.jsp">logout</a></span>
+             </div>
+         </div>
+        
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -58,7 +76,7 @@
                                     <div class="row">
                                         <div class="col-md-10">Your Pending cars</div>
                                         <div class="col-md-2">
-                                        	<span class='numscroller' data-min='0' data-max=2 data-delay='0.5' data-increment='1'>2</span>
+                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("pending")%> data-delay='0.5' data-increment='1'>2</span>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +93,7 @@
                                     <div class="row">
                                         <div class="col-md-10">Your repaired cars</div>
                                         <div class="col-md-2">
-                                        	<span class='numscroller' data-min='0' data-max=2 data-delay='0.5' data-increment='1'>2</span>
+                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("repaired")%>  data-delay='0.5' data-increment='1'>2</span>
                                         </div>
                                     </div>
                                 </div>

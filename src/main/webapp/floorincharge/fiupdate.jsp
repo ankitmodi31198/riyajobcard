@@ -10,26 +10,28 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ include file="../header.html" %>
+
     <title>Hello, world!</title>
       <%
     int jobcardNumber = Integer.parseInt(request.getParameter("id"));
     %>
 </head>
 <body>	  
-    <header>
-        <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
-            <button class="w3-bar-item w3-button w3-large"
-            onclick="w3_close()">Close &times;</button>
-            <a href="fincDashboard.jsp" class="w3-bar-item w3-button">Link 1</a>
-            <a href="#" class="w3-bar-item w3-button">Link 2</a>
-            <a href="#" class="w3-bar-item w3-button">Link 3</a>
-        </div>
-    </header>
-    <main id="main">
-        <div class="my-new-header">
-            <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&#9776;</button>
-            <span>JCMS</span>
-        </div>
+  <%@include file="fincSidebar.jsp" %>
+    <!-- Page Content -->
+    <div>
+
+        <%@include file="../navbar.jsp" %>
+
+			<!-- breadcrumbs at top of the page -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="fincDashboard.jsp">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="pendinglist.jsp">Pending Cars</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Jobs Done </li>
+            </ol>
+        </nav>    
+
 
         <div class="my-form">
             <div class="my-form-heading">

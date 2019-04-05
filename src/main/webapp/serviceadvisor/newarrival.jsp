@@ -61,7 +61,7 @@
 				CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
 				String customer_contact=ci.getCustomerContact();
 				int jobcard_number = JobcardInfoDao.getJNByNumber(vehicle_number);
-                String link = "jobcardform.jsp?id="+jobcard_number ;
+                String link = "dentimage.jsp?id="+jobcard_number ;
 				%>
 				<tr><td><%= vehicle_number %></td><td><%= customer_name %></td><td><%= company_model %></td><td><%= customer_contact %></td><td><a href=<%= link %>>Add</a></td></tr>
 				<%	 

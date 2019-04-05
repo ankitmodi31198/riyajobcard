@@ -1,5 +1,11 @@
 <%@ include file="../header.html" %>
     <title>Hello, world!</title>
+     <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("customer")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
   </head>
  <script type = "text/javascript" >
         function preventBack() { window.history.forward(1); }
@@ -18,26 +24,37 @@
   <body onload="check()">
     
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+  
+
+	<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
-        <a href="fincDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <form action="../Logout" method="POST">
-		<input type="submit" value="Log Out"/></form>
+        <a href="customerDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
+        <a href="pasthistoryview.jsp" class="w3-bar-item w3-button">view Past History</a>
+        <a href="#" class="w3-bar-item w3-button">Service List</a>
+         
+        
     </div>
+<% String vehicleNumber = (String)session.getAttribute("officer_username");
+    	String officer_name = (String)session.getAttribute("officer_name");
+    	String officer_role = (String)session.getAttribute("officer_role");
+        %>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <div class="my-new-header">
+             <button id="openNav" class="w3-button w3-xlarge my-hamburger-btn" onclick="w3_open()">&nbsp;</button>
+             <span>JCMS</span>
+             <div class="navbar-userpart">
+                <span class="navbar-userpart-username">Welcome, <%= officer_name %> | </span> <span><a href="../logout.jsp">logout</a></span>
+             </div>
+         </div>
         
-        <% String vehicleNumber = (String)session.getAttribute("officer_username"); %>
+        
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item" aria-current="page"><a href="fincDashboard.jsp">Dashboard</a> / </li>
+                <li class="breadcrumb-item" aria-current="page"><a href="customerDashboard.jsp">Dashboard</a> / </li>
             </ol>
         </nav>    
 
@@ -69,7 +86,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="repairedlist.jsp" class="my-dashboard-box-link">
+                        <a href="pasthistoryview.jsp" class="my-dashboard-box-link">
                             <div class="my-dashboard-box">
                                 <div class="my-dashboard-box-header">
                                     <h6>pass History <i class="fa fa-check-circle"></i></h6>

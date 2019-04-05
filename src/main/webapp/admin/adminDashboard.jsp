@@ -2,6 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 <%@include file="../header.html" %>
 <title>Admin Dashboard</title> 
+<%
+  if( ! ((String)session.getAttribute("officer_role")).equals("admin")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
   <body onload="check()">
     
     <!-- Sidebar -->

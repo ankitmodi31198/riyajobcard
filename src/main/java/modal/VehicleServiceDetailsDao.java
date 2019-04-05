@@ -21,9 +21,10 @@ public class VehicleServiceDetailsDao {
         	vsd.setServiceId(rs.getInt("service_id"));
         	vsd.setServiceName(rs.getString("service_name"));
         	vsd.setServicePrice(Integer.parseInt(rs.getString("service_price")));
-        	vsd.setServiceValidity(rs.getString("service_validity"));  
+        	vsd.setServiceValidity(rs.getInt("service_validity"));  
         	vsd.setServiceDetails(rs.getString("service_details"));
         	vsd.setModelVarientId(rs.getInt("model_varient_id"));
+        	vsd.setServiceValidityKm(rs.getInt("service_validity_km"));
         	
         	list.add(vsd);
         }  
@@ -42,7 +43,8 @@ public class VehicleServiceDetailsDao {
         	vsd.setServiceId(rs.getInt("service_id"));
         	vsd.setServiceName(rs.getString("service_name"));
         	vsd.setServicePrice(Integer.parseInt(rs.getString("service_price")));
-        	vsd.setServiceValidity(rs.getString("service_validity"));  
+        	vsd.setServiceValidity(rs.getInt("service_validity"));  
+        	vsd.setServiceValidityKm(rs.getInt("service_validity_km"));
         	vsd.setServiceDetails(rs.getString("service_details"));
         	vsd.setModelVarientId(rs.getInt("model_varient_id"));
         }  
@@ -80,7 +82,8 @@ public class VehicleServiceDetailsDao {
             	vsd.setServiceId(rs.getInt("service_id"));
             	vsd.setServiceName(rs.getString("service_name"));
             	vsd.setServicePrice(Integer.parseInt(rs.getString("service_price")));
-            	vsd.setServiceValidity(rs.getString("service_validity"));  
+            	vsd.setServiceValidity(rs.getInt("service_validity"));  
+            	vsd.setServiceValidityKm(rs.getInt("service_validity_km"));
             	vsd.setServiceDetails(rs.getString("service_details"));
             	vsd.setModelVarientId(rs.getInt("model_varient_id"));
             	list.add(vsd);
@@ -97,13 +100,14 @@ public class VehicleServiceDetailsDao {
 		try{  
             java.sql.Connection con=ConnectionDb.getConnection();  
             PreparedStatement ps=(PreparedStatement) con.prepareStatement(  
-                         "insert into vehicle_service_details (service_name, service_price, service_details, service_validity, model_varient_id) values (?, ?, ?,?, ?)");  
+                         "insert into vehicle_service_details (service_name, service_price, service_details, service_validity, model_varient_id,service_validity_km) values (?, ?, ?,?,?, ?)");  
             
             ps.setString(1, vsd.getServiceName());
             ps.setInt(2, vsd.getServicePrice());
             ps.setString(3, vsd.getServiceDetails());
-            ps.setString(4, vsd.getServiceValidity());
+            ps.setInt(4, vsd.getServiceValidity());
             ps.setInt(5, vsd.getModelVarientId());
+            ps.setInt(6,vsd.getServiceValidityKm());
               
             status=ps.executeUpdate();   
             System.out.println(status);
@@ -127,7 +131,8 @@ public class VehicleServiceDetailsDao {
             	vsd.setServiceName(rs.getString("service_name"));
             	vsd.setServicePrice(rs.getInt("service_price")); 
             	vsd.setServiceDetails(rs.getString("service_details"));
-            	vsd.setServiceValidity(rs.getString("service_validity"));          	
+            	vsd.setServiceValidity(rs.getInt("service_validity"));  
+            	vsd.setServiceValidityKm(rs.getInt("service_validity_km"));        	
             	vsd.setModelVarientId(rs.getInt("model_varient_id"));
             	list.add(vsd);
             }  

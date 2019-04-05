@@ -44,7 +44,8 @@ public class CheckVehicle extends HttpServlet {
 	        	JobcardInfo jci = JobcardInfoDao.getAllByNumber(vehicle_number);
 	        	if(jci.getStatus()!=null)
 	        	{
-	        		response.sendRedirect("receptionist/jobcardview.jsp");
+	        		int jobcard_number=JobcardInfoDao.getJNByNumber(vehicle_number);
+	        		response.sendRedirect("receptionist/jobcardview.jsp?id="+jobcard_number);
 	        	}
 	        	else
 	        	{

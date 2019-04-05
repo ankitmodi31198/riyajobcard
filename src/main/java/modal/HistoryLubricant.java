@@ -1,6 +1,12 @@
 package modal;
 
 public class HistoryLubricant {
+	
+	public HistoryLubricant()
+	{
+		
+	}
+	
 	private String historyId;
 	private int lubricantId;
 	public String getHistoryId() {

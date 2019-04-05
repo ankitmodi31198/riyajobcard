@@ -87,6 +87,27 @@ public class AppointmentDao {
 		 return app;
 	 }
 	
-	
+	 public static void delete(String vehicle_number)
+		{
+			try{Connection con=ConnectionDb.getConnection();  
+
+	        PreparedStatement ps = con.prepareStatement("delete from app_lubricant where vehicle_number='"+vehicle_number+"'");
+
+	        PreparedStatement ps1 = con.prepareStatement("delete from app_service where vehicle_number='"+vehicle_number+"'");
+
+	        PreparedStatement ps2 = con.prepareStatement("delete from app_customer_complain where vehicle_number='"+vehicle_number+"'");
+	        
+	        PreparedStatement ps3 = con.prepareStatement("delete from appointment where vehicle_number='"+vehicle_number+"'");
+	        
+	       int status1=ps.executeUpdate();
+	       int status2=ps1.executeUpdate();
+	       int status3=ps2.executeUpdate();
+	       int status4=ps3.executeUpdate();
+	        if(status1>0&&status2>0&&status3>0&&status4>0){  
+	        	System.out.println("Deleted");        	
+	        }  
+	        con.close();  
+	    }catch(Exception e){e.printStackTrace();}
+		}
 	
 }

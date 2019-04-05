@@ -27,6 +27,12 @@
             <a href="#" class="w3-bar-item w3-button">Link 2</a>
             <a href="#" class="w3-bar-item w3-button">Link 3</a>
         </div>
+         <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("service_advisor")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
     </header>
     <!-- Page Content -->
     <main id="main">

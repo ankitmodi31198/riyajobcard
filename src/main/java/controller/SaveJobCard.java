@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import modal.AppLubricant;
+import modal.CustomerInfo;
+import modal.CustomerInfoDao;
 import modal.JcAccessories;
 import modal.JcAccessoriesDao;
 import modal.JobcardInfo;
@@ -70,13 +75,25 @@ public class SaveJobCard extends HttpServlet {
 		jca.setOther(other);
 		
 		int status1=JobcardInfoDao.update(ji);
-		int status2=JcAccessoriesDao.save(jca);
+		int status2=JcAccessoriesDao.update(jca);
 		
+		
+	        
 		
 		 if(status1>0 & status2>0){  
+			 URL oracle = new URL("http://localhost:8080/JCPS/serviceadvisor/jobcardview.jsp?id="+jobcardNumber);
+		        BufferedReader in = new BufferedReader(
+		        new InputStreamReader(oracle.openStream()));
+		        String inputLine,jobCard="";
+		        while ((inputLine = in.readLine()) != null)
+		            jobCard=jobCard + inputLine;
+		        in.close();
 		      //  HttpSession session = request.getSession();
+			 	MyThread my = new MyThread();
+			 	CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicleNumber);
+			 	my.StartThread(ci.getCustomerEmail(), jobCard, "Your Jobcard has been Created");
 		            out.print("<p>Record saved successfully!</p>");  
-		            response.sendRedirect("serviceadvisor/test.jsp?id="+jobcardNumber);  
+		            response.sendRedirect("serviceadvisor/jobcardviewall.jsp?id="+jobcardNumber);  
 		        }else{  
 		            out.println("Allready Exist Vehicle Number & Status pending or Completed");  
 		            

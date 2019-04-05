@@ -338,7 +338,7 @@
                                 <label for="delivery_date">Delivery Date</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" name="delivery_date" id="delivery_date">
+                                <input type="date" name="delivery_date" id="delivery_date" required> 
                             </div>
                             <br>
                            
@@ -347,7 +347,7 @@
                                 <label for="delivery_time">Delivery Time</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="time" name="delivery_time" id="delivery_time">
+                                <input type="time" name="delivery_time" id="delivery_time" required>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,9 @@ public class VehicleServiceDetails implements java.io.Serializable {
 	private String serviceName;
 	private int servicePrice;
 	private String serviceDetails;
-	private String serviceValidity;
+	private int serviceValidity;
+	private int serviceValidityKm;
+	
 	
 	public int getServiceId() {
 		return serviceId;
@@ -40,12 +42,19 @@ public class VehicleServiceDetails implements java.io.Serializable {
 	public void setServiceDetails(String serviceDetails) {
 		this.serviceDetails = serviceDetails;
 	}
-	public String getServiceValidity() {
+	public int getServiceValidity() {
 		return serviceValidity;
 	}
-	public void setServiceValidity(String serviceValidity) {
+	public void setServiceValidity(int serviceValidity) {
 		this.serviceValidity = serviceValidity;
 	}
+	public int getServiceValidityKm() {
+		return serviceValidityKm;
+	}
+	public void setServiceValidityKm(int serviceValidityKm) {
+		this.serviceValidityKm = serviceValidityKm;
+	}
+	
 	
 	
 	

@@ -62,8 +62,7 @@ public class AllocateServiceAdvisor extends HttpServlet {
 		ji.setArrivalTime(arrivalTime);
 		int status1 = JobcardInfoDao.save(ji);
 		if (status1 > 0) {
-			 HttpSession session = request.getSession();
-		      	session.setAttribute("officer_username", officer_username);
+			
 			response.sendRedirect("receptionist/receptionistDashboard.jsp");
 		} else {
 			System.out.println("error in allocating the service advisor");

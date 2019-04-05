@@ -1,6 +1,11 @@
 package modal;
 
 public class HistoryService {
+	
+	public HistoryService()
+	{
+		
+	}
 	private String historyId;
 	private int serviceId;
 	private String serviceName;

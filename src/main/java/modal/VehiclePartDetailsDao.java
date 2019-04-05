@@ -20,7 +20,7 @@ public class VehiclePartDetailsDao {
             ps.setString(1, vpd.getPartName());
             ps.setInt(2, vpd.getPartPrice());
             ps.setInt(3, vpd.getPartQuantity());
-            ps.setString(4, vpd.getPartValidity());
+            ps.setInt(4, vpd.getPartValidity());
             ps.setInt(5, vpd.getPartLabour());
             ps.setInt(6, vpd.getModelVarientId());
               
@@ -46,7 +46,7 @@ public class VehiclePartDetailsDao {
             	vpd.setPartName(rs.getString("part_name"));
             	vpd.setPartPrice(rs.getInt("part_price"));
             	vpd.setPartQuantity(rs.getInt("part_quantity"));
-            	 vpd.setPartValidity(rs.getString("part_validity"));
+            	 vpd.setPartValidity(rs.getInt("part_validity"));
             	vpd.setPartLabour(rs.getInt("part_labour"));
             	vpd.setModelVarientId(rs.getInt("model_varient_id"));
             	list.add(vpd);
@@ -87,7 +87,7 @@ public class VehiclePartDetailsDao {
             ps.setString(1, vpd.getPartName());
             ps.setInt(2, vpd.getPartPrice());
             ps.setInt(3, vpd.getPartQuantity());
-            ps.setString(4, vpd.getPartValidity());
+            ps.setInt(4, vpd.getPartValidity());
             ps.setInt(5, vpd.getPartLabour());
             ps.setInt(6, vpd.getPartId());
 
@@ -118,7 +118,7 @@ public class VehiclePartDetailsDao {
             	vpd.setPartPrice(rs.getInt("part_price"));
             	vpd.setPartQuantity(rs.getInt("part_quantity"));
             	vpd.setPartLabour(rs.getInt("part_labour"));
-            	vpd.setPartValidity(rs.getString("part_validity"));
+            	vpd.setPartValidity(rs.getInt("part_validity"));
             	vpd.setModelVarientId(rs.getInt("model_varient_id"));
             	list.add(vpd);
             }
@@ -159,7 +159,7 @@ public class VehiclePartDetailsDao {
             	vpd.setPartPrice(rs.getInt("part_price"));
             	vpd.setPartQuantity(rs.getInt("part_quantity"));
             	vpd.setPartLabour(rs.getInt("part_labour"));
-            	vpd.setPartValidity(rs.getString("part_validity"));
+            	vpd.setPartValidity(rs.getInt("part_validity"));
             	vpd.setModelVarientId(rs.getInt("model_varient_id"));
             	list.add(vpd);
             }  
@@ -181,7 +181,7 @@ public class VehiclePartDetailsDao {
             	vpd.setPartPrice(rs.getInt("part_price"));
             	vpd.setPartQuantity(rs.getInt("part_quantity"));
             	vpd.setPartLabour(rs.getInt("part_labour"));
-            	vpd.setPartValidity(rs.getString("part_validity"));
+            	vpd.setPartValidity(rs.getInt("part_validity"));
             	vpd.setModelVarientId(rs.getInt("model_varient_id"));
             }  
             con.close();  

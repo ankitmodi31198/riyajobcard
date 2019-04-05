@@ -3,6 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
   <title>Service Advisor Dashboard</title>
+  <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("service_advisor")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
   </head>
   <script type = "text/javascript" >
         function preventBack() { window.history.forward(1); }
@@ -17,7 +23,7 @@
         	}
         	%>
         }
-</script> 
+</script> 	
   <body onload="check()">
     <!-- Sidebar -->
     <% String officer_username = (String)session.getAttribute("officer_username");
@@ -25,17 +31,16 @@
     	String officer_role = (String)session.getAttribute("officer_role");
     	
         %>
-    %>
+
     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
         <a href="saDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-       
         <a href="newarrival.jsp" class="w3-bar-item w3-button">New Arrival Cars</a>
         <a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
         <a href="repaiedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
         <a href="closedlist" class="w3-bar-item w3-button">Closed Cars</a>
-        <a href="jobcardview.jsp" class="w3-bar-item w3-button">Jobcard View</a>
-        <a href="reports.jsp" class="w3-bar-item w3-button">Reports</a>   
+        <a href="alljobcardlist.jsp" class="w3-bar-item w3-button">Jobcard View</a>
+        <a href="serviceadvisorPR.jsp" class="w3-bar-item w3-button">Reports</a>   
         
     </div>
 

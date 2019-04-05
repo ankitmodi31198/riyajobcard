@@ -11,7 +11,7 @@ if(request.getParameter("reload_flag").equals("0")){
 	String saSolution = request.getParameter("solution");
 	int price = Integer.parseInt(request.getParameter("price"));
 	
-	if (saSolution != null) {
+	if (!saSolution.equals("")) {
 		jobcardNumber = Integer.parseInt(request.getParameter("jobcard_number"));
 		AdvisorSolution as = new AdvisorSolution();
 

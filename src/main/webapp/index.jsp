@@ -43,7 +43,7 @@
         <div class="container-95">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="./public/image/login-car.jpg">
+                    <img src="./public/image/login-car.jpg" width="100%" height="380px">
                 </div>
                 <div class="col-md-6">
                     <form action="Login" class="my-login-form" method="POST">
@@ -86,15 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="row mt-3">
-                                        <div class="col-md">
-                                            <center>
-                                                <a href="">Forgot Password ?</a>
-                                            </center>
-                                        </div>
-                                    </div>
-                                </div>                                        
+                                                                   
                                     </div>
                                 </div>
                                 <div class="col-md"></div>

@@ -42,7 +42,7 @@ public class AddService extends HttpServlet {
 		String service_name = request.getParameter("service_name");
 		int model_varient_id = Integer.parseInt(request.getParameter("vid"));
 		int service_price = Integer.parseInt(request.getParameter("service_price"));		
-		 String service_validity = request.getParameter("service_validity");
+		 int service_validity =Integer.parseInt( request.getParameter("service_validity"));
 		String service_details = request.getParameter("service_details");
  
 		VehicleServiceDetails vsd = new VehicleServiceDetails();

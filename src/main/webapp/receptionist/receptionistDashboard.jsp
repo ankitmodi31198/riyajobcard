@@ -6,6 +6,13 @@
 <%@page import="modal.OfficerInfo"%>
 <%@page import="modal.OfficerInfoDao"%>
 
+<%
+  if( ! ((String)session.getAttribute("officer_role")).equals("receptionist")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
+
 <% String username = (String) session.getAttribute("officer_username");
 	OfficerInfo oi2 = OfficerInfoDao.getByUsername(username);
     String name =oi2.getOfficerName();

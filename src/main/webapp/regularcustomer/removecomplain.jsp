@@ -5,7 +5,12 @@
 <%@page import="modal.CustomerComplain"%>
 <%@page import="modal.CustomerComplainDao"%>
 <%@page import="modal.ConnectionDb"%>
-
+ <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("customer")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 <%
 	int complainId =Integer.parseInt(request.getParameter("complain_id"));
 	String vehicleNumber; 

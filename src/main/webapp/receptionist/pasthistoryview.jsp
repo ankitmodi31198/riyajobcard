@@ -1,4 +1,14 @@
- <%@page import="modal.VehicleCompanyDao"%>
+<%@page import="modal.HistoryPaymentDao"%>
+<%@page import="modal.HistoryPayment"%>
+<%@page import="modal.HistoryLubricantDao"%>
+<%@page import="modal.HistoryLubricant"%>
+<%@page import="modal.HistoryServiceDao"%>
+<%@page import="modal.HistoryService"%>
+<%@page import="modal.HistoryPartDao"%>
+<%@page import="modal.HistoryPart"%>
+<%@page import="modal.History"%>
+<%@page import="modal.HistoryDao"%>
+<%@page import="modal.VehicleCompanyDao"%>
 <%@page import="modal.VehicleModelDao"%>
 <%@page import="modal.JcLubricantDao"%>
 <%@page import="modal.JcLubricant"%>
@@ -18,41 +28,40 @@
 <%@page import="modal.JobcardInfoDao"%>
 <%@page import="modal.CustomerInfoDao"%>
 <%@page import="modal.CustomerInfo"%>
- 
- <%@include file="../header.html" %>
-<%
- /*  OfficerInfo oi = OfficerInfoDao.getAllByRole("floor_incharge");
-  
-	History 
-  String vehicle_number = JobcardInfoDao.getVNByNumber(jobcard_number);
-  CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
-  VehicleInfo vi=VehicleInfoDao.getAllByNumber(vehicle_number);
-  JobcardInfo ji=JobcardInfoDao.getAllByNumber(vehicle_number);
-  int vehicle_company_id=	vi.getVehicleCompany();	
-  int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicle_number);
-  String company_model = VehicleModelDao.getModelName(vehicle_model_id);
-  String company_name = VehicleCompanyDao.getCompanyName(vehicle_company_id); */
+<%@include file="../header.html" %>
+<title>PastHistory View</title> 
+<body>  
+  <%
+  String vehicleNumber=request.getParameter("id");
+  History h=HistoryDao.getAllByNumber(vehicleNumber);
+  VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicleNumber);
+	CustomerInfo ci =CustomerInfoDao.getAllByNumber(vehicleNumber);
+	OfficerInfo oi = OfficerInfoDao.getByUsername(h.getOfficerUsername());
+	int vehicle_model_id = VehicleInfoDao.getModelByNumber(vehicleNumber);
+	String company_model = VehicleModelDao.getModelName(vehicle_model_id);
+	String history_id=h.getHistoryId();
+	HistoryPayment hp=HistoryPaymentDao.getAllById(history_id);
   %>  
-
-
-
-
-<body>	
-        
-    <!-- openable navbar -->
-      
- <%@include file="receptionistSidebar.html" %>
+  
+  <%@include file="receptionistSidebar.html" %>
 
   <main id="main">
    <%@include file="../navbar.jsp" %>
 
-	<%-- <div class="row my-form-row">
+   <div class="container-95">
+    <div class="my-form" id="verify-static-details">
+        <div class="my-form-heading">
+            <h5>Name</h5>
+        </div>
+
+
+        <div class="row my-form-row">
             <div class="col-md-6">
                 <table class="table table-striped table-bordered customer-verification-info-table">
                     <tbody>
                         <tr>
                             <th>Vehicle Number:</th>
-                            <td><%=vehicle_number %></td>
+                            <td><%=vehicleNumber %></td>
                         </tr>
                         <tr>
                             <th>Customer Name:</th>
@@ -66,6 +75,10 @@
                             <th>Car Name:</th>
                             <td> <%=  company_model %></td>
                         </tr>
+                        <tr>
+                            <th> VIN no</th>
+                            <td> <%=  vi.getVinNumber() %></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -73,131 +86,149 @@
                 <table class="table table-striped table-bordered customer-verification-info-table">
                     <tbody>
                         <tr>
-                            <th>Arrival Date:</th>
-                            <td><%= ji.getArrivalDate() %></td>
+                            <th>PastHistory Date:</th>
+                            <td><%= h.getDeliveryDate() %></td>
                         </tr>
                         <tr>
-                            <th>Arrival Time:</th>
-                            <td><%= ji.getArrivalTime() %></td>
+                            <th> Service Advisor Name</th>
+                            <td><%= oi.getOfficerName() %></td>
                         </tr>
                         <tr>
-                            <th>Service Adviser:</th>
-                            <td><%= oi.getOfficerName() %> </td>
+                            <th>Running Km</th>
+                            <td><%= h.getRunningKM() %> </td>
                         </tr>
                         <tr>
-                            <th>Service Adviser Contact:</th>
-                            <td><%= jobcard_number %></td>
+                            <th>Jobcard No.:</th>
+                            <td><%= h.getHistoryId() %></td>
+                        </tr>
+                        <tr>
+                            <th>Work Type</th>
+                            <td><%= h.getWorkType() %></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-             --%>
-            
+            <div class="col-md-4">
+                <h6 style="margin-left:7px;">Parts</h6>
+                <table class="table table-striped table-bordered customer-verification-info-table">
+                    <tbody>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Name</th> 
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+						<tr>
+                        <%
+                        int srno=0;
+                        List<HistoryPart> list = HistoryPartDao.getAllById(history_id);
+                        Iterator<HistoryPart> itr2 = list.iterator();
+                        while (itr2.hasNext()) {
+                        	HistoryPart jp = itr2.next();
+                        srno++;
+                        %>
+                        <td><%=srno%></td>
+                        <td><%=jp.getPartName()%></td>
+                        <td><%=jp.getPartQuantity()%></td>
+                        <td><%=jp.getPartPrice()%></td>                        
+                    </tr>
+                    <%
+                }
+                %>
+				
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h6>Services</h6>
+        <table class="table table-striped table-bordered customer-verification-info-table">
+            <tbody>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Name</th>
+                    <th>Price</th>                                        
+                </tr>
+                <tr>
+                    <%
+                    int srno1=0;
+                    List<HistoryService> list1 = HistoryServiceDao.getAllById(history_id);
+                    Iterator<HistoryService> itr3 = list1.iterator();
+                    while (itr3.hasNext())
+                        {
+                    	HistoryService js =  itr3.next();
+                           srno1++;
+                           %>
+                           <td><%= srno1 %></td>
+                           <td><%= js.getServiceName() %></td>
+                           <td><%= js.getServicePrice() %></td>
 
+                       </tr>
 
+                       <% 
+                   }
+                   %>
 
-        <!-- <div class="container-95">
-            <div class="my-form" id="verify-static-details">
-                <div class="my-form-heading">
-                    <h5>View Details</h5>
-                </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="cname">Vehicle No:</label><br>
-                                    <label for="arriavld">Arrival Date:</label>
-                                    <label for="arriavlt">Arrival Time:</label>
-                                    <label for="s_aname">Service Adviser:</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="cname">GJ01AB1234</label><br>
-                                    <label for="arriavld">22/03/2019</label>
-                                    <label for="arriavlt">01:25:21</label>
-                                    <label for="s_aname">Gunajan</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="cname">JobCard No:</label><br>
-                                    <label for="arriavld">Delivery Date:</label>
-                                    <label for="arriavlt">Delivery Time:</label>
-                                    <label for="s_aname">Service Adviser Contact:</label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="cname">12345</label><br>
-                                    <label for="arriavld">23/03/2019</label>
-                                    <label for="arriavlt">01:25:23</label>
-                                    <label for="s_aname">123456789</label>
-                                </div>
-                            </div>
-                        </div>
-                     </div><hr> -->
-                     <div class="row">
-                        <div class="col-md-6">
-                            <div align="center">
-                                <h4>Customer Complain</h4>
-                                    <div class="complain-box">
-                                        <h5>helloo</h5>
-                                    </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div align="center">
-                                <h4>Advisor Solution</h4>
-                                    <div class="complain-box">
-                                        <h5>helloo</h5>
-                                    </div>
-                            </div>
-                        </div>
-                     </div><hr>
-                    <div class="container-95">
-                                <table id="data-table-simple-1" class="table table-striped mt-3">
-                                <thead>
-                                    <tr>
-                                        <th>Services</th>
-                                        <th>Parts</th>
-                                        <th>Lubricants</th>                       
-                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Service1</td>
-                                        <td>Bumper</td>
-                                        <td>Oil</td>                       
-                                    </tr>
-                                    <tr>
-                                        <td>Service1</td>
-                                        <td>Bumper</td>
-                                        <td>Oil</td>                       
-                                    </tr>
-                                    <tr>
-                                        <td>Service1</td>
-                                        <td>Bumper</td>
-                                        <td>Oil</td>                       
-                                    </tr>
-                                </tbody>
-                            </table>
-                    </div> <hr>
-                    <div class="row">
-                        <div align="right" class="col-md-12">
-                            <h2>Total Amount:2000</h2>
-                        </div>
-                    </div>
-                    <hr>
-                     <div class="row">
-                        <div class="col-md"></div>
-                        <div class="col-md-1">
-                            <button class="btn btn-secondary my-btn btn-lg">Close</button>
-                        </div>
-                        <div class="col-md"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+               </tr>
+
+           </tbody>
+       </table>
+   </div>
+   <div class="col-md-4">
+    <h6>Lubricants</h6>
+    <table class="table table-striped table-bordered customer-verification-info-table">
+        <tbody>
+            <tr>
+                <th>Sr.No</th>
+                <th>Name</th> 
+                <th>Lubricant</th>
+            </tr>
+            <tr>
+             <%
+             int srno2=0;
+             List<HistoryLubricant> list2 = HistoryLubricantDao.getAllById(history_id);
+             Iterator<HistoryLubricant> itr4 = list2.iterator();
+             while (itr4.hasNext())
+                {
+            	 HistoryLubricant jl =  itr4.next();
+                   srno2++;
+                   
+                   %>
+                   <td><%= srno2 %></td>
+                   <td><%= jl.getLubricantName() %></td>
+                   <td><%= jl.getLubricantPrice() %></td>
+
+               </tr>
+
+               <% 
+           }
+           %>
+       </tr>
+
+   </tbody>
+</table>
+</div>
+
+    </div>
     
- 
+    <div class="row">
+                        <div align="right" class="col-md-12">
+                            <h2>Total Amount: <%= hp.getFinalAmount()  %></h2>
+                        </div>
+                    </div>
+
+    <div class="row">
+        <div class="col-md"></div>
+        <div class="col-md-2">
+           
+            <a class="btn btn-secondary my-btn btn-lg" href="pastHistory.jsp" >Close</a>
+        </div>
+        <div class="col-md"></div>
+    </div>
+</div>
+</main>
+
+
+
+
+
 <%@include file="../footer.html"%>

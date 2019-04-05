@@ -12,7 +12,7 @@
 <%@page import="modal.JobcardInfo"%>
 <%@page import="modal.JobcardInfoDao"%>
 <%@include file="../header.html" %>
-<title>Repaired View</title> 
+<title>History View</title> 
 <body>  
 
   
@@ -68,7 +68,6 @@
                             <td><%= ci.getCustomerName() %></td>
                             <td><%=h.getDeliveryDate()%></td>
                             <td><%=oi.getOfficerName()%></td>
-                            
                             <td><%=h.getRunningKM()%></td>
                             <td><%= company_model %>
                             <td><%=h.getWorkType()%></td>

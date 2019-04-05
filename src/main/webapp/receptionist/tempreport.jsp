@@ -11,7 +11,12 @@
 <%@page import="modal.CustomerInfoDao"%>
 <%@page import="modal.CustomerInfo"%>
 <%@include file="../header.html" %>
-
+<%
+  if( ! ((String)session.getAttribute("officer_role")).equals("receptionist")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 <header>
         <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none" id="mySidebar">
             <button class="w3-bar-item w3-button w3-large"

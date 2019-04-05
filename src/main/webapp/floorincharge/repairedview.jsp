@@ -19,6 +19,14 @@
 <%@page import="modal.CustomerInfoDao"%>
 <%@page import="modal.CustomerInfo"%>
 <%@include file="../header.html" %>
+
+<%
+  if( ! ((String)session.getAttribute("officer_role")).equals("floor_incharge")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
+
  <title>Repaired View</title> 
 <body>  
       <%

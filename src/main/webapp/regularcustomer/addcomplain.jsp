@@ -5,11 +5,16 @@
 <%@page import="modal.CustomerComplain"%>
 <%@page import="modal.CustomerComplainDao"%>
 <%@page import="modal.ConnectionDb"%>
-
+ <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("customer")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 <%
 	String customerComplain = request.getParameter("complain");
 	String vehicleNumber; 
-	if(customerComplain!=null)
+	if(!customerComplain.equals(""))
 	{
 		vehicleNumber=request.getParameter("vehicleNumber");
 	AppCustomerComplain cc = new AppCustomerComplain();
@@ -18,7 +23,7 @@
 	AppCustomerComplainDao.save(cc);
 	}
 	else{
-		vehicleNumber =(String)session.getAttribute("vehicleNumber");
+		vehicleNumber =request.getParameter("vehicleNumber");;
 	}
 	List<AppCustomerComplain> list = AppCustomerComplainDao.getAll(vehicleNumber);
 	Iterator<AppCustomerComplain> itr = list.iterator();

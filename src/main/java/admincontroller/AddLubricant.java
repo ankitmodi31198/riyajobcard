@@ -42,8 +42,10 @@ public class AddLubricant extends HttpServlet {
 		int model_varient_id = Integer.parseInt(request.getParameter("vid"));
 		int lubricant_price = Integer.parseInt(request.getParameter("lubricant_price"));
 		int lubricant_quantity = Integer.parseInt(request.getParameter("lubricant_quantity"));
-		String lubricant_validity = request.getParameter("lubricant_validity");
+		int lubricant_validity = Integer.parseInt(request.getParameter("lubricant_validity"));
 		int lubricant_labour = Integer.parseInt(request.getParameter("lubricant_labour"));
+		int lubricant_validity_km = Integer.parseInt(request.getParameter("lubricant_validity_km"));
+		
  
 		VehicleLubricantDetails vld = new VehicleLubricantDetails();
 		vld.setLubricantName(lubricant_name);

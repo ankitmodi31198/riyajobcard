@@ -2,6 +2,8 @@ package modal;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +30,32 @@ public class HistoryPartDao {
 		          
 		        return status;  
 		    }	
+		 
+		 public static List<HistoryPart> getAllById(String history_id)
+			{
+				List<HistoryPart> list=new ArrayList<HistoryPart>();
+				try{
+					Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("select * from history_part where history_id='"+history_id+"' ");
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next())
+		            {
+		            	HistoryPart jp=new HistoryPart();
+		            	jp.setHistoryId(rs.getString("history_id"));
+		            	jp.setPartId(rs.getInt("part_id"));
+		            	jp.setPartName(rs.getString("part_name"));
+		            	jp.setPartPrice(rs.getInt("part_price"));
+		            	jp.setPartRepairFlag(rs.getBoolean("part_repair_flag"));
+		            	jp.setPartQuantity(rs.getInt("part_quantity"));
+		            	list.add(jp);
+		            }
+		            con.close();
+				}
+				catch(Exception e){e.printStackTrace();}
+				return list;
+			}
+		 
+		 
 	
 		
 }

@@ -1,6 +1,11 @@
 <%@page import="modal.ConnectionDb"%>
 <%@page import="java.sql.*" %>
-
+<%
+  if( ! ((String)session.getAttribute("officer_role")).equals("receptionist")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 <%
 if(request.getParameter("vehicle_model_id")!=null) 
 {

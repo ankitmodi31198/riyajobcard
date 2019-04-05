@@ -4,7 +4,12 @@
 <%@page import="modal.VehicleCompany"%>
 <%@page import="java.util.List"%>
 <%@page import="modal.VehicleCompanyDao"%>
-
+ <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("receptionist")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 <script type="text/javascript">
 function company_change()
 {
@@ -67,7 +72,7 @@ function model_change()
                                 <label for="customer_email">Email</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_email" id="customer_email" required>
+                                <input type="text" name="customer_email" id="customer_email" pattern="[a-z0-9_.]{2,30}[@][a-z]{2,15}[.]{1}[a-z.]{2,15}" required>
                             </div>
                         </div>                        
                     </div>                    
@@ -77,7 +82,7 @@ function model_change()
                                 <label for="customer_contact">Contact No.</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_contact" id="customer_contact" required>
+                                <input type="text" name="customer_contact" id="customer_contact" max=10 min=10 required>
                             </div>
                         </div>                                            
                     </div>
@@ -100,7 +105,7 @@ function model_change()
                                 <label for="customer_aadhaar">Aadhaar Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_aadhaar" id="customer_aadhaar" required>
+                                <input type="text" name="customer_aadhaar" id="customer_aadhaar" max=12 min=12 required>
                             </div>
                         </div>                                                
                     </div>                    
@@ -110,7 +115,7 @@ function model_change()
                                 <label for="customer_license">License Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_license" id="customer_license" required>
+                                <input type="text" name="customer_license" id="customer_license" max=12 required>
                             </div>
                         </div>                                                
                     </div>                                                                    
@@ -152,7 +157,7 @@ function model_change()
                                 <label for="pincode">Pincode</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="pincode" id="pincode" required>
+                                <input type="text" name="pincode" id="pincode" max=6 min=6 required>
                             </div>
                         </div>                                                
                     </div>                                                     
@@ -175,7 +180,7 @@ function model_change()
                                 <label for="vin_no">VIN</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="vin_number" id="vin_number" required>
+                                <input type="text" name="vin_number" id="vin_number" min=10 max=16 required>
                             </div>
                         </div>
                     </div>
@@ -185,7 +190,7 @@ function model_change()
                                 <label for="engine_no">Engine No.</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="engine_number" id="engine_number" required>
+                                <input type="text" name="engine_number" id="engine_number" min=6 max=9 required>
                             </div>
                         </div>
                     </div>
@@ -228,7 +233,7 @@ function model_change()
                                 <label for="customer_rc">RC Number</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_rc" id="customer_rc" required>
+                                <input type="text" name="customer_rc" id="customer_rc" min=8 max=10 required>
                             </div>
                         </div>
                     </div>

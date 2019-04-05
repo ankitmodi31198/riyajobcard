@@ -9,6 +9,12 @@
 <!doctype html>
 <html lang="en">
   <head>
+  <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("admin")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

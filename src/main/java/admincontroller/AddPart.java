@@ -42,7 +42,7 @@ public class AddPart extends HttpServlet {
 		int model_varient_id = Integer.parseInt(request.getParameter("vid"));
 		int part_price = Integer.parseInt(request.getParameter("part_price"));
 		int part_quantity = Integer.parseInt(request.getParameter("part_quantity"));
-		String part_validity = request.getParameter("part_validity");
+		int part_validity = Integer.parseInt(request.getParameter("part_validity"));
 		// Date part_validity = Integer.parseInt(request.getParameter("part_quantity"));
 		int part_labour = Integer.parseInt(request.getParameter("part_labour"));
  

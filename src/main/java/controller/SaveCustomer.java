@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import modal.CustomerInfo;
 import modal.CustomerInfoDao;
+import modal.OfficerInfo;
+import modal.OfficerInfoDao;
 import modal.VehicleInfo;
 import modal.VehicleInfoDao;
 
@@ -82,10 +84,19 @@ public class SaveCustomer extends HttpServlet {
 		vi.setExteriorColor(exteriorColor);
 	
 		 
+		OfficerInfo oi=new OfficerInfo();
+		oi.setOfficerUsername(vehicleNumber);
+		oi.setOfficerName(customerName);
+		oi.setOfficerRole("customer");
+		oi.setOfficerContact(customerContact);
+		oi.setOfficerEmail(customerEmail);
+		oi.setOfficerPassword("123456789");
+		 
 		int status2 = VehicleInfoDao.save(vi);
 		int status=CustomerInfoDao.save(ci);  
+		int status3 = OfficerInfoDao.save(oi);
 		
-        if(status>0&&status2>0){  
+        if(status>0&&status2>0&&status3>0){  
         HttpSession session = request.getSession();
 	      	session.setAttribute("model_varient_id", modelVarient);
 	       	session.setAttribute("customer_name", customerName);
@@ -96,7 +107,7 @@ public class SaveCustomer extends HttpServlet {
             
         }  
           
-        out.close();  
+        out.close(); 
 }
 		
 			
