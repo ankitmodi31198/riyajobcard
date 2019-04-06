@@ -34,7 +34,7 @@ public class DownloadServlet extends HttpServlet {
 		  PrintWriter out = response.getWriter();
 	        
 		
-		 URL oracle = new URL("http://localhost:8080/JCPS5.0/serviceadvisor/jobcardview.jsp?id="+jobcardNumber);
+		 URL oracle = new URL("riyajobcard.herokuapp.com/serviceadvisor/jobcardview.jsp?id="+jobcardNumber);
 	        BufferedReader in = new BufferedReader(
 	        new InputStreamReader(oracle.openStream()));
 	        String inputLine,jobCard="";
@@ -77,7 +77,7 @@ public class DownloadServlet extends HttpServlet {
 	            Pdfcrowd.HtmlToPdfClient client = new Pdfcrowd.HtmlToPdfClient("tryconvo", "15e747d6b32fc0016076f14122c25516");
 	            client.setPageDimensions("20in", "12in");
 	            // run the conversion and write the result to a file
-	            client.convertStringToFile(jobCard, "F://Hackathon/"+jobcardNumber+".pdf");
+	            client.convertStringToFile(jobCard, "P://Hackathon/"+jobcardNumber+".pdf");
 	        }
 	        catch(Pdfcrowd.Error why) {
 	            // report the error
