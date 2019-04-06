@@ -35,19 +35,18 @@
   </head>
   <body>
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+   <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
-        <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
+         <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>     
+        <a href="companies.jsp" class="w3-bar-item w3-button">Manages Cars</a>
+        <a href="addstaff.jsp" class="w3-bar-item w3-button">Manages Staff</a>
+        <a href="changeallocation.jsp" class="w3-bar-item w3-button">Change Allocated Cars</a>
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+        <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -91,6 +90,7 @@
                     <h4>Varients</h4>
                 </center>
             </div>
+            
             <div class="my-dashboard-content mt-3">
                 <div class="row">
                 	<% 
@@ -100,9 +100,9 @@
 			        		VehicleModelVarient vc = itr.next();
 			        		
 			        		%>
-					        <div class="col-md-4">
+					        <div class="col-md-9">
 		                        <!-- whole card is given as a link, so give href in the below anchor tag -->
-		                        <a href="" class="my-dashboard-box-link">
+		                        <a href="#" class="my-dashboard-box-link">
 		                            <div class="my-dashboard-box">
 		                                <div class="my-dashboard-box-header">
 		                                    <h6><%= vc.getModelVarientName() %> <i class="fa fa-car"></i></h6>
@@ -110,10 +110,11 @@
 		                                <div class="my-dashboard-box-content">
 		                                    <div class="row">
 		                                        <div class="col-md-12">
-		                                        
+ 											<center>
 		                                    <div><a href="parts.jsp?vid=<%= vc.getModelVarientId() %>">Parts</a></div>
 		                                     <div> <a href="services.jsp?vid=<%= vc.getModelVarientId() %>">Services</a></div>
-		                                      <div><a href="lubricants.jsp?vid=<%= vc.getModelVarientId() %>" >Lubricants</a></div>                                        
+		                                      <div><a href="lubricants.jsp?vid=<%= vc.getModelVarientId() %>" >Lubricants</a></div>   
+		                                      </center>                                     
 		                                    </div>
 		                                </div>
 		                            </div>
@@ -129,11 +130,7 @@
 
     </div>
 
-    <footer class="my-footer">
-        <div class="my-footer-copyright container-95">
-            Copyright @ JCMS 2019
-        </div>
-    </footer>
+  
     
 
     <!-- Optional JavaScript -->

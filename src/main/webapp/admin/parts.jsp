@@ -6,7 +6,7 @@
 <%@page import="modal.VehicleCompany"%>
 <%@page import="modal.VehicleCompanyDao"%>
 <%@page import="modal.VehiclePartDetails"%>
-<%@page import="modal.VehiclePartDetailsDao" %>
+<%@page import="modal.VehiclePartDetailsDao"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -39,20 +39,18 @@
   
   <body>
 
-    <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
-        <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
+         <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>     
+        <a href="companies.jsp" class="w3-bar-item w3-button">Manages Cars</a>
+        <a href="addstaff.jsp" class="w3-bar-item w3-button">Manages Staff</a>
+        <a href="changeallocation.jsp" class="w3-bar-item w3-button">Change Allocated Cars</a>
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -92,7 +90,7 @@
                         <input type="number" name="part_quantity" id="part_quantity" value="1">
                     </div>
                     <div class="col-md-1">
-                        <label for="part_validity">Validity(Yr)</label>
+                        <label for="part_validity">Validity(Month)</label>
                     </div>
                     <div class="col-md-2">
                         <input type="number" name="part_validity" id="part_validity" value="1">

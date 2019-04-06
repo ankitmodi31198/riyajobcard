@@ -7,8 +7,8 @@
         
         <a href="newarrival.jsp" class="w3-bar-item w3-button">New Arrival Cars</a>
         <a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
-        <a href="repaiedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
-        <a href="closedlist" class="w3-bar-item w3-button">Closed Cars</a>
+        <a href="repairedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
+        <a href="closedlist.jsp" class="w3-bar-item w3-button">Closed Cars</a>
         <a href="alljobcardlist.jsp" class="w3-bar-item w3-button">Jobcard View</a>
         <a href="serviceadvisorPR.jsp" class="w3-bar-item w3-button">Reports</a>  
          <%

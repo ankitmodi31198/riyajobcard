@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%> 
 <%@page import="modal.OfficerInfoDao"%>
 <%@page import="modal.OfficerInfo"%>
 <%@page import="modal.AdvisorSolutionDao"%>
@@ -11,7 +9,8 @@
 <%@page import="modal.VehicleModelDao"%>
 <%@page import="modal.VehicleModelVarientDao"%>
 <%@page import="modal.JobcardInfo"%>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%> 
 <%@page import="modal.JcAccessories"%>
 <%@page import="modal.VehicleInfoDao"%>
 <%@page import="modal.VehicleInfo"%>
@@ -23,12 +22,13 @@
 <html>
 <head>
 	 <!-- links.html -->
-	 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Index</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="../materialize/css/materialize.css"> -->
+    <!-- <link rel="stylesheet" href="../materialize/css/materialize.css"> -->
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/style.css">
@@ -51,8 +51,9 @@
     <link rel="stylesheet" href="../public/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../public/style.css">
     <!-- /links.html -->
+	
 </head>
-<body style="background-color:#ffffb3";>
+<body style="background-color:#ffe6e6";>
  <% //loading all required data
  int jobcardNumber = Integer.parseInt(request.getParameter("id"));
  String vehicleNumber = JobcardInfoDao.getVNByNumber(jobcardNumber);
@@ -73,12 +74,12 @@
 					<i class="fa fa-car" style="font-size: 50px;"></i>
 					<%= vehicleNumber %>
 				</div>
-			 	<div class="col-md-4"><center><h1>RiyaCars</h1></center></div>
+				<div class="col-md-4"><center><h1>RiyaCars</h1></center></div>
 				<div class="col-md-4" align="right">
 					<i class="fa fa-clipboard" style="font-size: 50px;"></i>
 					JCNo.<%= jobcardNumber %>
 				</div>
-			</div> <hr>
+			</div><hr>
 		</div><br>
 			<div class="row">
 				<div class="col-md-6">
@@ -188,8 +189,8 @@
 		                                    <tbody>
 		                                        <tr>
 		                                        	<th width="20">SrNo.</th>
-		                                            <th>Solution</th> 
-		                                            <th>Price</th>
+		                                            <th w>Solution</th> 
+		                                            <th >Price</th>
 		                                        </tr>
 		                                        <% List<AdvisorSolution> advList = AdvisorSolutionDao.getAll(jobcardNumber);
 		                                    		Iterator<AdvisorSolution> advItr = advList.iterator();

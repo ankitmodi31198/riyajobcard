@@ -148,7 +148,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item">Pending List</li>
+                <li class="breadcrumb-item"><a href="pendingist.jsp">Pending List</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Jobs</li>
             </ol>
         </nav>  
@@ -311,7 +311,7 @@
                 <table id="data-table-simple-2" class="table table-striped">
                     <thead>
                         <th>Name</th>
-                        <th>Description</th>
+                        
                         <th>Price</th>
                         <th>Add</th>
                     </thead>
@@ -324,7 +324,7 @@
                     <tbody>
                     <tr>
                     <td><%= vsd.getServiceName() %></td>
-         			<td><%= vsd.getServiceDetails() %></td>
+         			
          			<td><%=vsd.getServicePrice() %></td>
          			<td><a href="javascript:void(0)" onclick="serviceAdd('<%= vsd.getServiceId() %>','<%= jobcardNumber %>')"> + </a></td>
                     </tr>           
@@ -388,7 +388,7 @@
                 <table id="data-table-simple-5" class="table table-striped">
                     <thead>
                         <th>Name</th>
-                        <th>Description</th>
+                        
                         <th>Price</th>
                         <th>Remove</th>
                     </thead>

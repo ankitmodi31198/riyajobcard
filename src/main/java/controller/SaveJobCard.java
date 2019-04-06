@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pdfcrowd.Pdfcrowd;
+
 import modal.AppLubricant;
 import modal.CustomerInfo;
 import modal.CustomerInfoDao;
@@ -20,6 +22,9 @@ import modal.JcAccessories;
 import modal.JcAccessoriesDao;
 import modal.JobcardInfo;
 import modal.JobcardInfoDao;
+import modal.VehicleInfoDao;
+import modal.VehicleModel;
+import modal.VehicleModelDao;
 
 @WebServlet("/SaveJobCard")
 public class SaveJobCard extends HttpServlet {
@@ -74,25 +79,54 @@ public class SaveJobCard extends HttpServlet {
 		jca.setClockOrPhoto(clockOrPhoto);
 		jca.setOther(other);
 		
+		CustomerInfo ci= CustomerInfoDao.getAllByNumber(vehicleNumber);
+		int model_id=VehicleInfoDao.getModelByNumber(vehicleNumber);
+		String modelName=VehicleModelDao.getModelName(model_id);
+
+		
 		int status1=JobcardInfoDao.update(ji);
 		int status2=JcAccessoriesDao.update(jca);
 		
 		
-	        
-		
 		 if(status1>0 & status2>0){  
-			 URL oracle = new URL("http://localhost:8080/JCPS/serviceadvisor/jobcardview.jsp?id="+jobcardNumber);
+			 URL oracle = new URL("http://localhost:8080/JCPS5.0/serviceadvisor/jobcardview.jsp?id="+jobcardNumber);
 		        BufferedReader in = new BufferedReader(
 		        new InputStreamReader(oracle.openStream()));
 		        String inputLine,jobCard="";
 		        while ((inputLine = in.readLine()) != null)
 		            jobCard=jobCard + inputLine;
 		        in.close();
+		    
+		        
+		        try {
+		            // create the API client instance
+		            Pdfcrowd.HtmlToPdfClient client = new Pdfcrowd.HtmlToPdfClient("tryconvo", "15e747d6b32fc0016076f14122c25516");
+		            client.setPageDimensions("20in", "12in");
+		            // run the conversion and write the result to a file
+		            client.convertStringToFile(jobCard, "F://Hackathon/"+jobcardNumber+".pdf");
+		        }
+		        catch(Pdfcrowd.Error why) {
+		            // report the error
+		            System.err.println("Pdfcrowd Error: " + why);
+
+		            // handle the exception here or rethrow and handle it at a higher level
+		            throw why;
+		        }
+		        catch(IOException why) {
+		            // report the error
+		            System.err.println("IO Error: " + why.getMessage());
+
+		            // handle the exception here or rethrow and handle it at a higher level
+		            throw why;
+		        }
+
+		      String path =  "F://Hackathon/"+jobcardNumber+".pdf" ;
+		        
+			 String msg = "Hello <b>" + ci.getCustomerName() + "</b>,<br> A Jobcard is created for your car  <b>" + modelName + "</b> and Vehicle No. <b>" + vehicleNumber
+						+ "</b>. <br>";
 		      //  HttpSession session = request.getSession();
-			 	MyThread my = new MyThread();
-			 	CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicleNumber);
-			 	my.StartThread(ci.getCustomerEmail(), jobCard, "Your Jobcard has been Created");
-		            out.print("<p>Record saved successfully!</p>");  
+			 AttachmentThread at = new AttachmentThread();
+			 at.StartThread(ci.getCustomerEmail(), msg, "Creation Of Jobcard.",path);
 		            response.sendRedirect("serviceadvisor/jobcardviewall.jsp?id="+jobcardNumber);  
 		        }else{  
 		            out.println("Allready Exist Vehicle Number & Status pending or Completed");  

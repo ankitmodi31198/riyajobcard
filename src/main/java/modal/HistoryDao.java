@@ -116,6 +116,22 @@ public class HistoryDao {
 		 return list;
 	 }
 	
+	 public static int getTotal(String officer_username)
+	 {
+		    int i=0;
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from history where officer_username = ?") ;
+	            
+	            ps.setString(1, officer_username);   
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	i++;
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return i;
+	 }
 	
 	public static List<History> getCountOfCompanyByDate(String from, String to, String sa)
 	 {

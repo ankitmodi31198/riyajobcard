@@ -404,7 +404,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <select name="officer_username" id="officer_username" required>
-                                            
+                                            <option disabled="disabled" selected>---------</option>
                                              <%
                                     	List<OfficerInfo> list = OfficerInfoDao.getByOfficerRole("service_advisor");
                                     	Iterator<OfficerInfo> itr = list.iterator();

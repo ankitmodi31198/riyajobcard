@@ -27,7 +27,7 @@
 <%@page import="modal.VehicleInfo"%>
 <%@page import="modal.JobcardInfoDao"%>
 <%@page import="modal.CustomerInfoDao"%>
-<%@page import="modal.*"%>
+<%@page import="modal.CustomerInfo"%>
 <%@include file="../header.html" %>
 <title>PastHistory View</title> 
 <body>  

@@ -28,7 +28,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Repaired Cars Cars</li>
+                <li class="breadcrumb-item active" aria-current="page">Repaired Cars</li>
             </ol>
         </nav>    
         

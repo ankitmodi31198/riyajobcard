@@ -33,21 +33,20 @@
   </head>
   <body>
     
-    <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+      <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
-        <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
+         <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>     
+        <a href="companies.jsp" class="w3-bar-item w3-button">Manages Cars</a>
+        <a href="addstaff.jsp" class="w3-bar-item w3-button">Manages Staff</a>
+        <a href="changeallocation.jsp" class="w3-bar-item w3-button">Change Allocated Cars</a>
     </div>
- 
- 
+
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+    <main id="main">
+
+         <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -57,7 +56,7 @@
                 <li class="breadcrumb-item" aria-current="page">Models</li>
             </ol>
         </nav>    
-        
+        <div class="container-95">
         <form action="../AddModel" method="post" class="my-form">
             <div class="my-form-heading">
                 <h5>Add New Model</h5>
@@ -119,6 +118,7 @@
 			        %>                                        
                 </div>
             </div>
+        </div>
         </div>
         
 

@@ -40,6 +40,22 @@ public class AppointmentDao {
         return status;  
     }
 	
+	 public static int getCount()
+	 {
+		  int count = 0;
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from appointment") ;
+	            
+	             
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	count++;
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return count;
+	 }
 	
 	 public static List<Appointment> getList()
 	 {
@@ -110,4 +126,18 @@ public class AppointmentDao {
 	    }catch(Exception e){e.printStackTrace();}
 		}
 	
+	 public static boolean checkVehicleNumberAppointment(String vehicle_number) {
+			boolean b = false;
+			try{
+				 Connection con=ConnectionDb.getConnection();  
+		         PreparedStatement ps=con.prepareStatement("select vehicle_number from jobcard_info where vehicle_number ='"+vehicle_number+"'");
+		         ResultSet rs = ps.executeQuery();
+		         if(rs.next())
+		         {
+		          b = true;
+		         }
+				}catch(Exception e){e.printStackTrace();}
+				return b;
+		}  
+	 
 }

@@ -26,7 +26,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Pending List</li>
+                <li class="breadcrumb-item active" aria-current="page">Pending Cars List</li>
             </ol>
         </nav>    
         
@@ -34,7 +34,7 @@
         <div class="my-dashboard">
             <div class="my-dashboard-header">
                 <center>
-                    <h4>Pending List</h4>
+                    <h4>Pending Cars List</h4>
                 </center>
             </div>
             <div class="container mt-5">

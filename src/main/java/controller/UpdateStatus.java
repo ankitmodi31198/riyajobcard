@@ -55,6 +55,8 @@ public class UpdateStatus extends HttpServlet {
 		try {
 			if(JobcardInfoDao.checkIfAllCompleted(jobcardNumber))
 			{				
+				//status changes to repaired means your service is completed in this portion....
+				
 				JobcardInfoDao.updateStatus(jobcardNumber,"repaired");
 			}
 		} catch (SQLException e) {

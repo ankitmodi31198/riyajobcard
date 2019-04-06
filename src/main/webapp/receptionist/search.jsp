@@ -1,16 +1,14 @@
 <%@ include file="../header.html" %>
 <title>Search</title>
 <%@include file="receptionistSidebar.html" %>
-
+<body background="../public/image/carnumberplate.jpg">
+  <div class="overlay"> 
     <main id="main">
          <%@include file="../navbar.jsp" %>
 
 		
         <div class="container-95">
-        	<div class="row">
-        		<div class="col-md-6">
-        			<img src="../public/image/carnumberplate.jpg" width="100%" height="600px">
-        		</div>
+        	
         		<div class="col-md-6">
         			<form action="../CheckVehicle" class="my-form" method="post" style="margin-top: 30%;">
 			            <div class="my-form-heading">
@@ -18,7 +16,7 @@
 			            </div>
 			            <div class="container-95">
 								<div class="my-form-row">
-								<h6>About Vehicle</h6>
+								<h6><font>About Vehicle</font></h6>
 								<div class="col-md"></div>
 								<div class="col-md-6">
 								
@@ -43,4 +41,7 @@
     		document.getElementById('vehicle_number').value = str.toUpperCase();
     	}
     </script>
+     </div>
+    </body>
+  
 <%@ include file="../footer.html" %>

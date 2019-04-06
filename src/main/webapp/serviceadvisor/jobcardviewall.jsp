@@ -19,7 +19,7 @@
 <%@page import="modal.JcAccessoriesDao"%>
 <%@page import="modal.JobcardInfoDao"%>
 <%@include file="../header.html"%>
-<body style="background-color:#ffffb3";>
+<body>
  <%
   if( ! ((String)session.getAttribute("officer_role")).equals("service_advisor")  ){
 	  response.sendRedirect("../notaccess.jsp");
@@ -48,7 +48,7 @@
         </nav>  
  
  
-	<div class="container">
+	<div class="container my-card-view">
 		<div>
 			<div class="row">
 				<div class="col-md-4">
@@ -136,8 +136,8 @@
 					<hr color=black>
 					<div class="row">
 						<div class="col-md-6">
-							<div style="background-color:#cc2900; height: 25%;">	
-								<center><font style="color: black; size: 25px;  ">Request</font><center>
+							<div style="background-color:#750000; height: 25%;">	
+								<center><font style="color: white;font-size:20px; ">Request</font><center>
 							</div>
 							<table class="table table-striped table-bordered customer-verification-info-table">
 		                                    <tbody>
@@ -164,7 +164,7 @@
 		                </div>
 						<div class="col-md-6">
 							<div style="background-color: #4abdac; height: 25%;">	
-								<center><font style="color: black; size: 25px;  ">Solution</font><center>
+								<center><font style="color: white;font-size:20px;  ">Solution</font><center>
 							</div>
 							<table class="table table-striped table-bordered customer-verification-info-table">
 		                                    <tbody>

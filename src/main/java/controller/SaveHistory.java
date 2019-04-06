@@ -28,7 +28,6 @@ import modal.HistoryPaymentDao;
 import modal.HistoryService;
 import modal.HistoryServiceDao;
 import modal.JcAccessoriesDao;
-import modal.JcFinalTestDao;
 import modal.JcLubricant;
 import modal.JcLubricantDao;
 import modal.JcPart;
@@ -120,7 +119,7 @@ public class SaveHistory extends HttpServlet {
 		JcServiceDao.delete(jobcardNumber);//remaining
 		JcLubricantDao.delete(jobcardNumber);//remaining
 		JcAccessoriesDao.delete(jobcardNumber);//remaining
-		JcFinalTestDao.delete(jobcardNumber);//remaining
+	//	JcFinalTestDao.delete(jobcardNumber);//remaining
 		AdvisorSolutionDao.delete(jobcardNumber);
 		CustomerComplainDao.delete(jobcardNumber);
 		JobcardInfoDao.delete(jobcardNumber);//remaining

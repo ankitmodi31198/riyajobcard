@@ -42,19 +42,12 @@
   <body>
     
     <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <h3 class="w3-bar-item">Menu</h3>
-        <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
-    </div>
+     <%@include file="adminSidebar.jsp" %>
 
     <!-- Page Content -->
-    <div style="margin-left:20%">
+    <main id="main">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">

@@ -37,7 +37,7 @@ if(request.getParameter("service_id")!=null)
 
   	<tr>
         <th>Service Name</th>
-        <th>Service Desc</th>
+        
         <th>Service Price</th>
         <th>Remove</th>        
       </tr>
@@ -49,7 +49,7 @@ if(request.getParameter("service_id")!=null)
     	
      <tr>
      	<td><%= js1.getServiceName() %></td>
-     	<td><%= js1.getServiceDetails() %></td>
+     	
      	<td><%= js1.getServicePrice() %></td>
      	<td><a href="javascript:void(0)" onclick="removeService('<%= js1.getServiceId() %>','<%= vehicleNumber %>')">Remove</a></td>
      </tr>    

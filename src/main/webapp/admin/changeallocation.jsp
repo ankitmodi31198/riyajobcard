@@ -21,21 +21,12 @@
     	document.getElementById("changeAllocation").href = "../ChangeAllocation?id="+jobcardNumber+"&username="+officerUsername;
     }
     </script>
-    <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
-        <h3 class="w3-bar-item">Menu</h3>
-        <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <form action="../Logout" method="POST">
-		<input type="submit" value="Log Out"/></form>
-    </div>
+   <%@include file="adminSidebar.jsp" %>
 
     <!-- Page Content -->
-    <div style="margin-left:20%">
+    <main id="main">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+         <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -63,6 +54,7 @@
 			   			<th>Arrival Date</th>
 			   			<th>Customer Name</th>
 			   			<th>Car Name</th> 
+			   			<th>Status</th>
 			   			<th>Delivery Date</th>	
 			   			<th>Amount</th>	
 			   			<th>Action</th>
@@ -85,7 +77,7 @@
 							String delivery_date = ji.getDeliveryDate();
 							int jobcardNumber=JobcardInfoDao.getJNByNumber(vehicle_number,"repaired");
 							int amount=JobcardInfoDao.getFinalAmount(jobcardNumber);
-                            String link="ChangeAllocation?id="+jobcardNumber;
+                            String link="../ChangeAllocation?id="+jobcardNumber;
                             
                             %>
 							<tr>
@@ -106,10 +98,10 @@
                             <td><%=arrival_date%></td>
                             <td><%=customer_name%></td>
                             <td><%=company_model%></td>
-                       
+                       		<td><%= ji.getStatus() %></td>
                             <td><%=delivery_date%></td>
                             <td><%= amount %></td>
-                            <td><a id="changeAllocation" href='<%= link %>&username='>View</a></td>
+                            <td><a id="changeAllocation" >Update</a></td>
                             </tr>	 
 						<%	
 						} 

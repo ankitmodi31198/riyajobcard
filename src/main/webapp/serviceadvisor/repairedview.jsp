@@ -39,6 +39,17 @@
   <main id="main">
    <%@include file="../navbar.jsp" %>
 
+ <!-- breadcrumbs at top of the page -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
+                 <li class="breadcrumb-item"><a href="repairedlist.jsp">Repaired Cars</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Repaired Car View </li>
+                
+            </ol>
+        </nav>    
+
+
    <div class="container-95">
     <div class="my-form" id="verify-static-details">
         <div class="my-form-heading">
@@ -194,8 +205,8 @@
     <table class="table table-striped">
         <tr>
             <td><label for="ddate" style="margin-left: 8px;"> <b>Delivery Date:<%= ji.getDeliveryDate() %></b> </label></td>
-            <td> <label for="dtime" style="margin-left: 8px;"><b>Delivery Time: <%= ji.getDeliveryTime() %></b></label></td>
-           
+            <td align="center"> <label for="dtime" style="margin-left: 8px;"><b>Delivery Time: <%= ji.getDeliveryTime() %></b></label></td>
+            <td align="right"> <label for="amount" style=""><b>Total Amount: <%= JobcardInfoDao.getFinalAmount(jobcard_number) %></b></label></td>
                     
         </tr>
     </table>

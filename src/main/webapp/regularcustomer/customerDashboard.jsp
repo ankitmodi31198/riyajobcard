@@ -66,7 +66,7 @@
                 </center>
             </div>
             
-                    <div class="row">
+                   <%--  <div class="row">
                     	<div class="col-md-4">
                     	<%String link1 = "../Saveappointment?id="+vehicleNumber; %>
                         <a href=<%=link1%> class="my-dashboard-box-link">
@@ -86,6 +86,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
+                    
                         <a href="pasthistoryview.jsp" class="my-dashboard-box-link">
                             <div class="my-dashboard-box">
                                 <div class="my-dashboard-box-header">
@@ -106,7 +107,35 @@
                     
                 </div>
             </div>
-        </div>
+        </div> --%>
+        
+        <div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<%String link1 = "../Saveappointment?id="+vehicleNumber; %>
+		<a href="<%= link1%>" class="my-dashboard-box-link">
+			<i class="fa fa-wrench"></i>
+			<div class="stats">
+			 <h5 class='#' >&nbsp;<span></span></h5>
+			  <div class="grow grow3">
+				<p><font style="color: white">Appointment</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="pasthistoryview.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-check-square"></i>
+			<div class="stats">
+			 <h5 class='#' >&nbsp;<span></span></h5>
+			  <div class="grow">
+				<p><font style="color: white">Past History</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
 
     </div>
 <%@include file="../footer.html"%>

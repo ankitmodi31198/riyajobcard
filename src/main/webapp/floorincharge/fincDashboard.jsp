@@ -65,7 +65,7 @@
                 </center>
             </div>
             
-                    <div class="row">
+                   <%--  <div class="row">
                     	<div class="col-md-4">
                         <a href="pendinglist.jsp" class="my-dashboard-box-link">
                             <div class="my-dashboard-box">
@@ -76,7 +76,7 @@
                                     <div class="row">
                                         <div class="col-md-10">Your Pending cars</div>
                                         <div class="col-md-2">
-                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("pending")%> data-delay='0.5' data-increment='1'>2</span>
+                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("pending")%> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getCountByStatus("pending")%></span>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="row">
                                         <div class="col-md-10">Your repaired cars</div>
                                         <div class="col-md-2">
-                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("repaired")%>  data-delay='0.5' data-increment='1'>2</span>
+                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("repaired")%>  data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getCountByStatus("repaired")%></span>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,39 @@
                     
                 </div>
             </div>
-        </div>
+        </div> --%>
+        
+       
+	
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="pendinglist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-wrench"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"pending") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"pending") %></h5>
+			  <div class="grow grow3">
+				<p><font style="color: white">Pending</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="repairedlist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-check-square"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"repaired") %> %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"repaired") %></h5>
+			  <div class="grow">
+				<p><font style="color: white">Repaired</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	
+        
+        
 
     </div>
 <%@include file="../footer.html"%>

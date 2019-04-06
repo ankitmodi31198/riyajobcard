@@ -32,10 +32,8 @@ if(request.getParameter("service_id")!=null)
   		}
   	</script>
   	<table class="table table-responsive table-hover">
-
   	<tr>
-        <th>Service Name</th>
-        <th>Service Desc</th>
+        <th>Service Name</th>     
         <th>Service Price</th>
         <th>Remove</th>        
       </tr>
@@ -47,7 +45,6 @@ if(request.getParameter("service_id")!=null)
     	
      <tr>
      	<td><%= js1.getServiceName() %></td>
-     	<td><%= js1.getServiceDesc() %></td>
      	<td><%= js1.getServicePrice() %></td>
      	<td><a href="javascript:void(0)" onclick="removeService('<%= js1.getServiceId() %>','<%= jobcardNumber %>')">Remove</a></td>
      </tr>    

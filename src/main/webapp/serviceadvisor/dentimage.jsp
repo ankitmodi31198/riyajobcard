@@ -151,10 +151,10 @@
         <div style="position:absolute;top:22%;left:45%;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
         <img id="canvasimg" style="position:absolute;top:10%;left:52%;" style="display:none;" name="carimage">
         <form id="imageForm" action="../SaveCarImage" method="POST" >
-        <input type="text" name="jobcardnumber" value='<%=jobcardNumber%>' >
+        <input type="hidden" name="jobcardnumber" value='<%=jobcardNumber%>' >
         <input type="hidden" name="carimage" id="carimage" value="0" /> 
-        <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:95%;left:15%;">
-        <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:95%;left:25%;">
+        <input type="button" value="save" id="btn" size="30" onclick="save()" style="position:absolute;top:90%;left:15%;">
+        <input type="button" value="clear" id="clr" size="23" onclick="erase()" style="position:absolute;top:90%;left:25%;">
         </form>
     </body>
     </html>

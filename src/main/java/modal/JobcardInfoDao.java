@@ -123,33 +123,6 @@ public class JobcardInfoDao {
 		 return list;
 	 }
 	  
-	 public static List<JobcardInfo> getAll()
-	 {
-		 List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
-	        try{  
-	            Connection con=ConnectionDb.getConnection();  
-	            PreparedStatement ps = con.prepareStatement("select * from jobcard_info") ;
-	            ResultSet rs = ps.executeQuery();
-	            while(rs.next()){  
-	            	JobcardInfo jci = new JobcardInfo();
-	            	jci.setVehicleNumber(rs.getString("vehicle_number"));
-		        	 jci.setJobcardNumber(rs.getInt("jobcard_number"));
-		        	 jci.setOfficeUsername(rs.getString("officer_username"));
-		        	 jci.setWorkType(rs.getString("work_type"));
-		        	 jci.setArrivalDate(rs.getString("arrival_date"));
-		        	 jci.setArrivalTime(rs.getString("arrival_time"));
-		        	 jci.setAvailableFuel(rs.getInt("available_fuel"));
-		        	 jci.setDeliveryDate(rs.getString("delivery_date"));
-		        	 jci.setDeliveryTime(rs.getString("delivery_time"));
-		        	 jci.setRunningKm(rs.getInt("running_km"));
-		        	 jci.setStatus(rs.getString("status"));
-	            	list.add(jci);
-	            }  
-	            con.close();  
-	        }catch(Exception e){e.printStackTrace();}   
-		 return list;
-	 }
-	  
 	 public static int getTotal(String officer_username,String status)
 	 {
 		    int i=0;
@@ -416,4 +389,31 @@ public class JobcardInfoDao {
 	          
 	        return status1;  
 		}
+		
+		 public static List<JobcardInfo> getAll()
+		 {
+			 List<JobcardInfo> list=new ArrayList<JobcardInfo>();  
+		        try{  
+		            Connection con=ConnectionDb.getConnection();  
+		            PreparedStatement ps = con.prepareStatement("select * from jobcard_info") ;
+		            ResultSet rs = ps.executeQuery();
+		            while(rs.next()){  
+		            	JobcardInfo jci = new JobcardInfo();
+		            	jci.setVehicleNumber(rs.getString("vehicle_number"));
+			        	 jci.setJobcardNumber(rs.getInt("jobcard_number"));
+			        	 jci.setOfficeUsername(rs.getString("officer_username"));
+			        	 jci.setWorkType(rs.getString("work_type"));
+			        	 jci.setArrivalDate(rs.getString("arrival_date"));
+			        	 jci.setArrivalTime(rs.getString("arrival_time"));
+			        	 jci.setAvailableFuel(rs.getInt("available_fuel"));
+			        	 jci.setDeliveryDate(rs.getString("delivery_date"));
+			        	 jci.setDeliveryTime(rs.getString("delivery_time"));
+			        	 jci.setRunningKm(rs.getInt("running_km"));
+			        	 jci.setStatus(rs.getString("status"));
+		            	list.add(jci);
+		            }  
+		            con.close();  
+		        }catch(Exception e){e.printStackTrace();}   
+			 return list;
+		 }
 }

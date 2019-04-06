@@ -45,6 +45,7 @@
 			   	<thead style="text-align: center; font-size: 14px;">
 			   		<tr>
 			   			<th>Customer Name</th>
+			   			<th>Vehicle Number</th>
 			   			<th>Date</th>
 			   			<th>Service Advisor Name</th>
 			   			<th>Running KM</th>
@@ -70,6 +71,7 @@
 							%>
 							<tr>
                             <td><%= Customername %></td>
+                            <td><%= vehicleNumber %>
                             <td><%=h.getDeliveryDate()%></td>
                             <td><%=oi.getOfficerName()%></td>
                             <td><%=h.getRunningKM()%></td>

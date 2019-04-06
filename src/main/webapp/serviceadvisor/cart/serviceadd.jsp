@@ -49,7 +49,6 @@ if(request.getParameter("reload_flag")!=null)
 
       	<tr>
 	        <th>Service Name</th>
-	        <th>Service Description1</th>
 	        <th>Service Price</th>
 	        <th>Remove</th>        
 	      </tr>
@@ -61,7 +60,6 @@ if(request.getParameter("reload_flag")!=null)
         	
          <tr>
          	<td><%= js1.getServiceName() %></td>
-         	<td><%=js1.getServiceDesc() %>
          	<td><%= js1.getServicePrice() %></td>
          	<td><a href="javascript:void(0)" onclick=" removeService('<%= js1.getServiceId() %>','<%= jobcardNumber %>')">Remove</a></td>
          </tr>    

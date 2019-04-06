@@ -1,6 +1,6 @@
  
  <%@page import="modal.OfficerInfo"%>
-<%@page import="modal.*"%>
+<%@page import="modal.OfficerInfoDao"%>
 
 <% String navbarusername = (String) session.getAttribute("officer_username");
 	OfficerInfo oinavbar = OfficerInfoDao.getByUsername(navbarusername);

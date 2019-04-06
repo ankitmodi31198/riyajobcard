@@ -33,20 +33,21 @@
   </head>
   <body>
     
-    <!-- Sidebar -->
-    <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
+     <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:20%">
         <h3 class="w3-bar-item">Menu</h3>
-        <a href="#" class="w3-bar-item w3-button">Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button">Search Customer</a>
-        <a href="#" class="w3-bar-item w3-button">Logout</a>
+         <a href="adminDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>     
+        <a href="companies.jsp" class="w3-bar-item w3-button">Manages Cars</a>
+        <a href="addstaff.jsp" class="w3-bar-item w3-button">Manages Staff</a>
+        <a href="changeallocation.jsp" class="w3-bar-item w3-button">Change Allocated Cars</a>
     </div>
 
     <!-- Page Content -->
     <div style="margin-left:20%">
 
-        <div class="w3-container dashboard-header">
-          <h3>JCMS</h3>
-        </div>
+    <!-- Page Content -->
+    <main id="main">
+
+         <%@include file="../navbar.jsp" %>
         
         <!-- breadcrumbs at top of the page -->
         <nav aria-label="breadcrumb">
@@ -55,12 +56,12 @@
                 <li class="breadcrumb-item" aria-current="page">Companies</li>
             </ol>
         </nav>    
-        
+        <div class="container-95">
         <form action="../AddCompany" method="post" class="my-form">
             <div class="my-form-heading">
                 <h5>Add New Company</h5>
             </div>
-            <div class="container-95">                
+            <div class="container mt-5">                
                 <div class="row my-form-row">
                     <h6>Enter New Company</h6>
                     <div class="col-md-3">
@@ -87,7 +88,7 @@
                     <h4>Companies</h4>
                 </center>
             </div>
-            <div class="my-dashboard-content mt-3">
+            <div class="my-dashboard-content mt-4">
                 <div class="row">
                 	<% 
 			        	List<VehicleCompany> list = VehicleCompanyDao.getCompanies();
@@ -120,6 +121,8 @@
         
 
     </div>
+    </main>
+   
 
     <footer class="my-footer">
         <div class="my-footer-copyright container-95">

@@ -36,6 +36,12 @@
 	margin-right: 30px;
 }
 </style>
+ <%
+  if( ! ((String)session.getAttribute("officer_role")).equals("service_advisor")  ){
+	  response.sendRedirect("../notaccess.jsp");
+  }
+  
+  %>
 </head>
 <body>
 
@@ -176,25 +182,12 @@
 					}
 				%>
 			</table>
-			<!-- <tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr> -->
 
 			<table style="width: 100%;">
 				<tr>
 					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
-					<th bgcolor=#95C8D8 align="left" style="width: 30%;">Services</th>
-					<th bgcolor=#95C8D8 align="right" style="width: 20%;" colspan="2">Service
-						Desc</th>
+					<th bgcolor=#95C8D8 align="left" style="width: 30%; colspan="3"; ">Services</th>
+					<th></th>
 					<!-- <th bgcolor=#95C8D8 align="right" style="width:10%;">Service Desc</th> -->
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
@@ -219,8 +212,8 @@
 							total_price += total_service_price; 
 					%>
 					<td><%=srno1%></td>
-					<td><%=service_name%></td>
-					<td align="right" colspan="2"><%= js.getServiceDesc() %></td>
+					<td colspan="3";><%=service_name%></td>
+					<td></td>
 					<td align="right"><%=service_price%></td>
 					<td align="right"><%=sgst%></td>
 					<td align="right"><%=cgst%></td>

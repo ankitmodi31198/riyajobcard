@@ -1,3 +1,4 @@
+<%@page import="modal.HistoryDao"%>
 <%@include file="../header.html" %>
 <%@page import="modal.JobcardInfoDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -37,8 +38,8 @@
         <a href="saDashboard.jsp" class="w3-bar-item w3-button">Dashboard</a>
         <a href="newarrival.jsp" class="w3-bar-item w3-button">New Arrival Cars</a>
         <a href="pendinglist.jsp" class="w3-bar-item w3-button">Pending Cars</a>
-        <a href="repaiedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
-        <a href="closedlist" class="w3-bar-item w3-button">Closed Cars</a>
+        <a href="repairedlist.jsp" class="w3-bar-item w3-button">Repaired Cars</a>
+        <a href="closedlist.jsp" class="w3-bar-item w3-button">Closed Cars</a>
         <a href="alljobcardlist.jsp" class="w3-bar-item w3-button">Jobcard View</a>
         <a href="serviceadvisorPR.jsp" class="w3-bar-item w3-button">Reports</a>   
         
@@ -69,7 +70,7 @@
                     <h4>Service Advisor's Dashboard</h4>
                 </center>
             </div>
-            <div class="my-dashboard-content mt-3">
+           <%--  <div class="my-dashboard-content mt-3">
                 <div class="row">
                 <div class="col-md-4">
                         <a href="newarrival.jsp" class="my-dashboard-box-link">
@@ -134,7 +135,7 @@
                                     <div class="row">
                                         <div class="col-md-10">Closed cars</div>
                                         <div class="col-md-2">
-                                        	<span class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"closed") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"arrived") %></span>
+                                        	<span class='numscroller' data-min='0' data-max=<%=HistoryDao.getTotal(officer_username) %> data-delay='0.5' data-increment='1'><%=HistoryDao.getTotal(officer_username) %> </span>
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +148,59 @@
                 </div>
             </div>
         </div>
-
+ --%>
+ 	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="newarrival.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-car"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"arrived") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"arrived") %><span></span></h5>
+			  <div class="grow grow1">
+				<p><font style="color: white">Arrived</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="pendinglist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-wrench"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"pending") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"pending") %></h5>
+			  <div class="grow grow3">
+				<p><font style="color: white">Pending</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="repairedlist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-check-square"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"repaired") %>  data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"repaired") %></h5>
+			  <div class="grow">
+				<p><font style="color: white">Repaired</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="closedlist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-lock"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=HistoryDao.getTotal(officer_username) %> data-delay='0.5' data-increment='1'><%=HistoryDao.getTotal(officer_username) %></h5>
+			  <div class="grow grow2">
+				<p><font style="color: white">Closed</p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div> 
     </div>
     <main>
         <!-- <form class="form-inline">

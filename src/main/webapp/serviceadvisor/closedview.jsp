@@ -209,12 +209,13 @@
 </div>
 
     </div>
-    
-    <div class="row">
-                        <div align="right" class="col-md-12">
-                            <h2>Total Amount: <%= hp.getFinalAmount()  %></h2>
-                        </div>
+     <table class="table table-striped table-bordered customer-verification-info-table" >
+    <div class="row col-md-12">
+                        <tr>
+                            <th><h3>Total Amount:  <%= hp.getFinalAmount()  %></h3><th>
+                         </tr>   
                     </div>
+                    </table>
 
     <div class="row">
         <div class="col-md"></div>

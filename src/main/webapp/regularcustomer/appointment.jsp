@@ -1,3 +1,5 @@
+<%@page import="modal.AppointmentDao"%>
+<%@page import="controller.CheckAllocation"%>
 <%@ include file="../header.html" %>
 <%@page import="modal.VehicleModelDao"%>
 <%@page import="modal.VehicleInfo"%>
@@ -29,10 +31,23 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="modal.VehicleLubricantDetails"%>
 <%@page import="modal.VehicleLubricantDetailsDao"%>
-<body>	
-       <% String vehicleNumber = (String)session.getAttribute("officer_username");
+<% String vehicleNumber = (String)session.getAttribute("officer_username");
        int model_varient_id=VehicleInfoDao.getVarientByNumber(vehicleNumber);
+  
        %>
+<script type="text/javascript">
+ function checkStatus(){
+	 <%
+		 boolean status= AppointmentDao.checkVehicleNumberAppointment(vehicleNumber);
+	     if(	status){
+	   	  response.sendRedirect("AllocationError.jsp");
+	     }
+     %>
+ }
+</script>
+
+<body onload=checkStatus()>	
+       
         
     <!-- openable navbar -->
     <header>
