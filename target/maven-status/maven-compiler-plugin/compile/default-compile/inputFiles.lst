@@ -17,10 +17,13 @@ P:\java\OOPS\jobcard\src\main\java\modal\VehicleModel.java
 P:\java\OOPS\jobcard\src\main\java\servlet\HelloServlet.java
 P:\java\OOPS\jobcard\src\main\java\controller\AllocateAppointment.java
 P:\java\OOPS\jobcard\src\main\java\modal\AppServiceDao.java
+P:\java\OOPS\jobcard\src\main\java\controller\AttachmentThread.java
+P:\java\OOPS\jobcard\src\main\java\controller\CheckAllocation.java
 P:\java\OOPS\jobcard\src\main\java\modal\VehlicleServiceDetails.java
 P:\java\OOPS\jobcard\src\main\java\modal\HistoryDao.java
 P:\java\OOPS\jobcard\src\main\java\modal\HistoryService.java
 P:\java\OOPS\jobcard\src\main\java\admincontroller\AddVarient.java
+P:\java\OOPS\jobcard\src\main\java\controller\MailAttachment.java
 P:\java\OOPS\jobcard\src\main\java\controller\UpdateAppointment.java
 P:\java\OOPS\jobcard\src\main\java\modal\HistoryServiceDao.java
 P:\java\OOPS\jobcard\src\main\java\modal\CustomerInfo.java
