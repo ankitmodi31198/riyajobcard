@@ -36,12 +36,7 @@
 	margin-right: 30px;
 }
 </style>
- <%
-  if( ! ((String)session.getAttribute("officer_role")).equals("service_advisor")  ){
-	  response.sendRedirect("../notaccess.jsp");
-  }
-  
-  %>
+
 </head>
 <body>
 

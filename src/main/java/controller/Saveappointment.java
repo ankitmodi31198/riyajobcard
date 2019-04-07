@@ -48,7 +48,7 @@ public class Saveappointment extends HttpServlet {
 		if (status > 0) {
 			 HttpSession session = request.getSession();
 		      	session.setAttribute("vehicle_number", vehicle_number);
-			response.sendRedirect("regularcustomer/appointment.jsp");
+			response.sendRedirect("regularcustomer/appointment.jsp?id=disabled");
 		} else {
 			System.out.println("error in Customer ");
 		}

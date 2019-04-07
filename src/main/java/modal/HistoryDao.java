@@ -59,6 +59,34 @@ public class HistoryDao {
 		 return list;
 	 }
 	
+	public static List<History> getListByNumber(String vehicle_number)
+	 {
+		List<History> list = new ArrayList<History>();
+	        try{  
+	            Connection con=ConnectionDb.getConnection();  
+	            PreparedStatement ps = con.prepareStatement("select * from history where vehicle_number=?") ;
+
+	            ps.setString(1, vehicle_number);   
+	            ResultSet rs = ps.executeQuery();
+	            while(rs.next()){  
+	            	History h = new History();
+	            	h.setHistoryId(rs.getString("history_id"));
+	            	h.setVehicleNumber(rs.getString("vehicle_number"));
+	            	h.setOfficerUsername(rs.getString("officer_username"));
+	            	h.setRunningKM(rs.getInt("running_km"));
+	            	h.setWorkType(rs.getString("work_type"));
+	            	h.setArrivalDate(rs.getString("arrival_date"));
+	            	h.setArrivaltime(rs.getString("arrival_time"));
+	            	h.setDeliveryDate(rs.getString("delivery_date"));
+	            	h.setDeliveryTime(rs.getString("delivery_time"));
+	            	list.add(h);
+	            	
+	            }  
+	            con.close();  
+	        }catch(Exception e){e.printStackTrace();}   
+		 return list;
+	 }
+	
 	public static History getAllByNumber(String vehicle_number)
 	 {
 		History h = new History();
@@ -85,6 +113,9 @@ public class HistoryDao {
 	        }catch(Exception e){e.printStackTrace();}   
 		 return h;
 	 }
+	
+	
+	
 	
 	public static List<History>  getByOfficerUsername(String officer_username)
 		 
@@ -224,6 +255,30 @@ public class HistoryDao {
 			        }catch(Exception e){e.printStackTrace();}   
 				 return list;
 			 }
+
+			public static History getHistoryById(String hid) {
+				 History h = new History();  
+			        try{  
+			            Connection con=ConnectionDb.getConnection();  
+			            PreparedStatement ps = con.prepareStatement("select * from history where history_id = ?") ;
+			            ps.setString(1, hid);			            
+			            
+			            ResultSet rs = ps.executeQuery();
+			            while(rs.next()){	
+			            	h.setHistoryId(rs.getString("history_id"));
+			            	h.setVehicleNumber(rs.getString("vehicle_number"));
+			            	h.setOfficerUsername(rs.getString("officer_username"));
+			            	h.setRunningKM(rs.getInt("running_km"));
+			            	h.setWorkType(rs.getString("work_type"));
+			            	h.setArrivalDate(rs.getString("arrival_date"));
+			            	h.setArrivaltime(rs.getString("arrival_time"));
+			            	h.setDeliveryDate(rs.getString("delivery_date"));
+			            	h.setDeliveryTime(rs.getString("delivery_time"));
+			            }  
+			            con.close();  
+			        }catch(Exception e){e.printStackTrace();}   
+				 return h;
+			}
 }
 
 

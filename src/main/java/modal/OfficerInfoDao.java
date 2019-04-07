@@ -49,9 +49,10 @@ public class OfficerInfoDao {
 		}
 	}
 
-	public static OfficerInfo getByUsername(String username) throws SQLException {
+	public static OfficerInfo getByUsername(String username){
 		Connection con = ConnectionDb.getConnection();
 		OfficerInfo oi = new OfficerInfo();
+		try {
 		PreparedStatement ps = con.prepareStatement("select * from officer_info where officer_username= ?");
 		ps.setString(1, username);
 		ResultSet rs = ps.executeQuery();
@@ -62,7 +63,12 @@ public class OfficerInfoDao {
 			oi.setOfficerEmail(rs.getString("officer_email"));
 			oi.setOfficerName(rs.getString("officer_name"));
 			oi.setOfficerRole(rs.getString("officer_role"));
-		}
+			oi.setOfficerCompany(rs.getString("officer_company"));
+		}	
+		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		return oi;
 	}
 	
@@ -83,6 +89,22 @@ public class OfficerInfoDao {
 		}
 		return oi;
 	} 
+	
+	public static String getByCompany(String company) throws SQLException {
+		Connection con = ConnectionDb.getConnection();
+		OfficerInfo oi = new OfficerInfo();
+		PreparedStatement ps = con.prepareStatement("select officer_username from officer_info where officer_company = ?");
+		ps.setString(1, company);
+		String ou="";
+		ResultSet rs = ps.executeQuery();
+		if(rs.next())
+		{
+			ou = rs.getString("officer_username");
+		}
+		return ou;
+	} 
+	
+	
 	public static List<OfficerInfo> getByOfficerRole(String officer_role)
 	{
 		List<OfficerInfo> list=new ArrayList<OfficerInfo>();

@@ -113,7 +113,7 @@
 		<a href="pendinglist.jsp" class="my-dashboard-box-link">
 			<i class="fa fa-wrench"></i>
 			<div class="stats">
-			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"pending") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"pending") %></h5>
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("pending")%> data-delay='0.5' data-increment='1'></h5>
 			  <div class="grow grow3">
 				<p><font style="color: white">Pending</p>
 			  </div>
@@ -126,7 +126,7 @@
 		<a href="repairedlist.jsp" class="my-dashboard-box-link">
 			<i class="fa fa-check-square"></i>
 			<div class="stats">
-			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getTotal(officer_username,"repaired") %> %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getTotal(officer_username,"repaired") %></h5>
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("pending") %> data-delay='0.5' data-increment='1'></h5>
 			  <div class="grow">
 				<p><font style="color: white">Repaired</p>
 			  </div>

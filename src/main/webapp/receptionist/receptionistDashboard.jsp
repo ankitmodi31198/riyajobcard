@@ -37,7 +37,7 @@
         <a href="search.jsp" class="w3-bar-item w3-button">Search Customer</a>
         <a href="serviceadvisorlist.jsp" class="w3-bar-item w3-button">Service Advisor List</a>
 <!--         <a href="servicedetails.jsp" class="w3-bar-item w3-button">Service Details</a> -->
-        <a href="reports.jsp" class="w3-bar-item w3-button">Reports</a>
+        <a href="receptionistPR.jsp" class="w3-bar-item w3-button">Reports</a>
         
     </div>
 

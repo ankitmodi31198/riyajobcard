@@ -148,7 +148,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="saDashboard.jsp">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="pendingist.jsp">Pending List</a></li>
+                <li class="breadcrumb-item"><a href="pendinglist.jsp">Pending List</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Add Jobs</li>
             </ol>
         </nav>  
@@ -322,9 +322,8 @@
     	  VehicleServiceDetails vsd = itr1.next();
       %>
                     <tbody>
-                    <tr>
-                    <td><%= vsd.getServiceName() %></td>
-         			
+                    <tr>                    
+         			<td data-toggle="tooltip" data-placement="bottom" title="<%= vsd.getServiceDetails() %>" >  <%= vsd.getServiceName() %></td>
          			<td><%=vsd.getServicePrice() %></td>
          			<td><a href="javascript:void(0)" onclick="serviceAdd('<%= vsd.getServiceId() %>','<%= jobcardNumber %>')"> + </a></td>
                     </tr>           
@@ -417,4 +416,10 @@
         	<div class="col-md"></div>        	
         </div>            
     </main>
+    <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+    
  <%@include file="../footer.html" %>

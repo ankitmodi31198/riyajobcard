@@ -51,7 +51,6 @@ public class AllocateServiceAdvisor extends HttpServlet {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime now = LocalDateTime.now();
         String arrival_date = dtf.format(now);
-        String work_type = "free service";
 		
         DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("HH:mm:ss");
         String arrivalTime = dtf1.format(now);

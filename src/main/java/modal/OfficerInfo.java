@@ -8,7 +8,14 @@ public class OfficerInfo implements java.io.Serializable {
 	private String officerContact;
 	private String officerEmail;
 	private String officerPassword;
+	private String officerCompany;
 	
+	public String getOfficerCompany() {
+		return officerCompany;
+	}
+	public void setOfficerCompany(String officerCompany) {
+		this.officerCompany = officerCompany;
+	}
 	public String getOfficerUsername() {
 		return officerUsername;
 	}

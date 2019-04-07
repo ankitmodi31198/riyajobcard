@@ -22,12 +22,16 @@ import modal.AppServiceDao;
 import modal.AppointmentDao;
 import modal.CustomerComplain;
 import modal.CustomerComplainDao;
+import modal.CustomerInfo;
+import modal.CustomerInfoDao;
 import modal.JcLubricant;
 import modal.JcLubricantDao;
 import modal.JcService;
 import modal.JcServiceDao;
 import modal.JobcardInfo;
 import modal.JobcardInfoDao;
+import modal.OfficerInfo;
+import modal.OfficerInfoDao;
 
 /**
  * Servlet implementation class AllocateAppointment
@@ -62,6 +66,8 @@ public class AllocateAppointment extends HttpServlet {
 		String officer_username = request.getParameter("officer_username");
 		String status = "arrived";
 		String vehicle_number = request.getParameter("vehicle_number");
+		CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicle_number);
+		OfficerInfo oi = OfficerInfoDao.getByUsername(officer_username);
 		
         String arrival_date =  request.getParameter("request_date");
         String arrivalTime =  request.getParameter("request_time");
@@ -117,6 +123,10 @@ public class AllocateAppointment extends HttpServlet {
 		}
 		
 		if (status1 > 0) {
+			String msg="Hello "+ci.getCustomerName()+",Your appointment is scheduled on"+arrival_date+" and "+arrivalTime+".<br/>Service Advisor Name:"+officer_username+".<br/>Service Advisor Contact:"+oi.getOfficerContact()+".";
+			MyThread t = new MyThread();
+			t.StartThread(ci.getCustomerEmail(), msg, "Appointment Alert!!!.");
+			
 			AppointmentDao.delete(vehicle_number);
 			
 			response.sendRedirect("receptionist/receptionistDashboard.jsp");

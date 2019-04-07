@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -13,10 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pdfcrowd.Pdfcrowd;
+
 import modal.AdvisorSolution;
 import modal.AdvisorSolutionDao;
 import modal.CustomerComplain;
 import modal.CustomerComplainDao;
+import modal.CustomerInfo;
+import modal.CustomerInfoDao;
 import modal.History;
 import modal.HistoryDao;
 import modal.HistoryLubricant;
@@ -115,6 +122,44 @@ public class SaveHistory extends HttpServlet {
 		HistoryPayment hpy = new HistoryPayment(historyId, finalAmount, paymenttype, cardOrCheckNumber, bankName, paymentDate);
 		HistoryPaymentDao.save(hpy);//remaining
 	
+		 URL oracle = new URL("http://localhost:8080/JCPS5.0/serviceadvisor/bill.jsp?id="+jobcardNumber);
+	        BufferedReader in = new BufferedReader(
+	        new InputStreamReader(oracle.openStream()));
+	        String inputLine,jobCard="";
+	        while ((inputLine = in.readLine()) != null)
+	            jobCard=jobCard + inputLine;
+	        in.close();
+	    
+	        
+	        try {
+	            // create the API client instance
+	            Pdfcrowd.HtmlToPdfClient client = new Pdfcrowd.HtmlToPdfClient("tryconvo", "15e747d6b32fc0016076f14122c25516");
+	            client.setPageDimensions("20in", "12in");
+	            // run the conversion and write the result to a file
+	            client.convertStringToFile(jobCard, "F://Hackathon/"+jobcardNumber+"bill.pdf");
+	        }
+	        catch(Pdfcrowd.Error why) {
+	            // report the error
+	            System.err.println("Pdfcrowd Error: " + why);
+
+	            // handle the exception here or rethrow and handle it at a higher level
+	            throw why;
+	        }
+	        catch(IOException why) {
+	            // report the error
+	            System.err.println("IO Error: " + why.getMessage());
+
+	            // handle the exception here or rethrow and handle it at a higher level
+	            throw why;
+	        }
+
+	      String path =  "F://Hackathon/"+jobcardNumber+"bill.pdf" ;
+	        CustomerInfo ci = CustomerInfoDao.getAllByNumber(vehicleNumber);
+		 String msg = "Hello <b>" + ci.getCustomerName() + "</b>, having Vehicle No. <b>" + ci.getVehicleNumber() + "</b> <br> Your bill is generated having <b>" + finalAmount + "</b> including tax.The same is given in pdf below. <br>";
+	      //  HttpSession session = request.getSession();
+		 AttachmentThread at = new AttachmentThread();
+		 at.StartThread(ci.getCustomerEmail(), msg, "Watch out bill in attachment.",path);
+		
 		JcPartDao.delete(jobcardNumber);//remaining
 		JcServiceDao.delete(jobcardNumber);//remaining
 		JcLubricantDao.delete(jobcardNumber);//remaining

@@ -32,6 +32,40 @@ public class VehicleServiceDetailsDao {
     }catch(Exception e){e.printStackTrace();}  
     return list;  
 }
+	
+	public static List<VehicleServiceDetails> getSuggestionByKm(int running_km,int model_varient_id,String vehicleNumber)
+	{
+		History h =	HistoryDao.getAllByNumber(vehicleNumber);
+		int pre_running_km = h.getRunningKM();
+		int diff = running_km - pre_running_km;
+	List<VehicleServiceDetails> list=new ArrayList<VehicleServiceDetails>();  
+    try{  
+        Connection con=ConnectionDb.getConnection();  
+        PreparedStatement ps = con.prepareStatement("select * from vehicle_service_details where vehicle_service_details.model_varient_id = ? AND vehicle_service_details.service_validity_km <= ? ") ;
+        ps.setInt(1, model_varient_id);
+        ps.setInt(2, diff);
+        ResultSet rs = ps.executeQuery();
+        int i =0;
+        while(rs.next()){  
+        	VehicleServiceDetails vsd = new VehicleServiceDetails();
+        	vsd.setServiceId(rs.getInt("service_id"));
+        	vsd.setServiceName(rs.getString("service_name"));
+        	vsd.setServicePrice(Integer.parseInt(rs.getString("service_price")));
+        	vsd.setServiceValidity(rs.getInt("service_validity"));  
+        	vsd.setServiceDetails(rs.getString("service_details"));
+        	vsd.setModelVarientId(rs.getInt("model_varient_id"));
+        	vsd.setServiceValidityKm(rs.getInt("service_validity_km"));
+        	
+        	list.add(vsd);
+        }  
+        con.close();  
+    }catch(Exception e){e.printStackTrace();}  
+    return list;  
+}
+	
+	
+	
+	
 	public static VehicleServiceDetails getServicesById(int service_id)
 	{
 		VehicleServiceDetails vsd=new VehicleServiceDetails();  

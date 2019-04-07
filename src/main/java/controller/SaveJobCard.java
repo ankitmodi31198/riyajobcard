@@ -36,7 +36,7 @@ public class SaveJobCard extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");  
+		response.setContentType("text/html");  		
         PrintWriter out=response.getWriter();  
         String vehicleNumber=request.getParameter("vehicle_number");
         String workType=request.getParameter("work_type");  
@@ -44,7 +44,12 @@ public class SaveJobCard extends HttpServlet {
         int availableFuel= Integer.parseInt(request.getParameter("available_fuel"));
         String deliveryDate=request.getParameter("delivery_date");  
         String deliveryTime=request.getParameter("delivery_time"); 
-        String status="pending";
+        String status=""; 
+        if(workType.equals("Insurance"))
+        { status = "insurancepending";
+        }else{
+        	status="pending";
+        }
         int jobcardNumber= Integer.parseInt(request.getParameter("jobcard_number"));
         
         boolean toolkit=request.getParameter("toolkit") != null;
@@ -82,7 +87,7 @@ public class SaveJobCard extends HttpServlet {
 		CustomerInfo ci= CustomerInfoDao.getAllByNumber(vehicleNumber);
 		int model_id=VehicleInfoDao.getModelByNumber(vehicleNumber);
 		String modelName=VehicleModelDao.getModelName(model_id);
-
+		
 		
 		int status1=JobcardInfoDao.update(ji);
 		int status2=JcAccessoriesDao.update(jca);
@@ -127,7 +132,14 @@ public class SaveJobCard extends HttpServlet {
 		      //  HttpSession session = request.getSession();
 			 AttachmentThread at = new AttachmentThread();
 			 at.StartThread(ci.getCustomerEmail(), msg, "Creation Of Jobcard.",path);
-		            response.sendRedirect("serviceadvisor/jobcardviewall.jsp?id="+jobcardNumber);  
+			 
+			 		if(ji.getWorkType().equals("Insurance") ) {
+			 			response.sendRedirect("serviceadvisor/insurancedetailform.jsp?id="+vehicleNumber);
+			 			
+			 		} else {
+			 
+			 				response.sendRedirect("serviceadvisor/jobcardviewall.jsp?id="+jobcardNumber);
+			 		}
 		        }else{  
 		            out.println("Allready Exist Vehicle Number & Status pending or Completed");  
 		            

@@ -60,9 +60,8 @@ if(request.getParameter("reload_flag")!=null)
       		AppService js1 = itr.next();
         %>        
         	
-         <tr>
-         	<td><%= js1.getServiceName() %></td>
-         
+         <tr>         	
+         	<td data-toggle="tooltip" data-placement="bottom" title="<%= js1.getServiceDetails() %>" >  <%= js1.getServiceName() %></td>
          	<td><%= js1.getServicePrice() %></td>
          	<td><a href="javascript:void(0)" onclick=" removeService('<%= js1.getServiceId() %>','<%= vehicleNumber %>')">Remove</a></td>
          </tr>    

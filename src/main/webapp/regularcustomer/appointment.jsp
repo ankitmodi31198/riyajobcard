@@ -36,6 +36,45 @@
   
        %>
 <script type="text/javascript">
+
+function getSuggestions()
+{
+	var running_km = document.getElementById("running_km").value;
+	$.ajax({
+	    type: "POST",
+	    url: "getServices.jsp",
+	    data: {
+	   		running_km: running_km,
+	   		model_varient_id : <%=model_varient_id %>,
+	   		vehicleNumber : '<%=vehicleNumber%>'
+	   },
+	   cache: false,
+	   success: function(response)
+	   {
+		   
+	    	$("#suggested_services").html(response);
+	  }
+	});
+	$.ajax({
+	    type: "POST",
+	    url: "getLubricants.jsp",
+	    data: {
+	    	running_km: running_km,
+	    	model_varient_id : <%=model_varient_id %>,
+	    	vehicleNumber : '<%=vehicleNumber%>'
+	   },
+	   cache: false,
+	   success: function(response)
+	   {		   
+	    $("#suggested_lubricants").html(response);
+	  }
+	});
+}
+
+
+
+
+
  function checkStatus(){
 	 <%
 		 boolean status= AppointmentDao.checkVehicleNumberAppointment(vehicleNumber);
@@ -98,6 +137,7 @@
     		});
     	}
     	
+    	
     </script>
     
     <script>
@@ -143,7 +183,7 @@
     type: "POST",
     url: "cart/serviceadd.jsp",
     data: {
-    	vehicleNumber : <%=vehicleNumber%>,
+    	vehicleNumber : '<%=vehicleNumber%>	',
      reload_flag : 1
    },
    cache: false,
@@ -156,7 +196,7 @@
      type: "POST",
      url: "cart/lubricantadd.jsp",
      data: {
-    	 vehicleNumber : <%=vehicleNumber %>,
+    	 vehicleNumber : '<%=vehicleNumber %>',
       reload_flag : 1
     },
     cache: false,
@@ -169,7 +209,7 @@
      type: "POST",
      url: "cart/partadd.jsp",
      data: {
-    	 vehicleNumber : <%=vehicleNumber%>,
+    	 vehicleNumber : '<%=vehicleNumber%>',
       reload_flag : 1
     },
     cache: false,
@@ -184,7 +224,12 @@
 </script>
 
 	
-	
+	<% String id = request.getParameter("id");
+	if(id.equals(""))
+	{
+		id = "disabled";
+	}
+	%>
   
     <main id="main">
         <div class="my-new-header">
@@ -204,27 +249,29 @@
                     			<table class="table table-striped">
 		                  			<tr>
 		                  				<td><label for="running_km">Running KM</label></td>
-		                  				<td><input type="text" name="running_km" id="running_km"></td>
+		                  				<td><input type="text" name="running_km" id="running_km" <%=id.equals("enabled")?"onkeyup='getSuggestions()'":" " %>></td>
+		                  				 <td><%= id.equals("disabled")?"<a class='btn btn-secondary btn-sm' href='appointment.jsp?id=enabled'>For enable suggestions</a>":"<a class='btn btn-secondary btn-sm' href='appointment.jsp?id=disabled'>For disable suggestions</a>" %></td>                 				
+		                  		
 		                  			</tr>
 		                  			<tr>
 		                  				<td><label for="work_type">Work Type</label></td>
-		                  				<td><select name="work_type" id="work_type">
+		                  				<td><select name="work_type" id="work_type" required="required">
 		                                	<option>-----</option>
 		                                    <option value="free service">Free Service</option>
 		                                    <option value="paid service">Paid Service</option>
-		                                </select></td>                  				
-		                  			</tr>
+		                                </select></td> 
+		                               	</tr>
 		                  		</table>
                     		</div>
                     		<div class="col-md-6">
                     			<table class="table table-striped">
 		                  			<tr>
 		                  				<td><label for="adate">Request Appointment Date:</label></td>
-		                  				<td> <input type="date" name="request_date" id="appintment_date"></td>                  				
+		                  				<td> <input type="date" name="request_date" id="appintment_date" required="required"></td>                  				
 		                  			</tr>
 		                  			<tr>
 		                  				<td><label for="atime">Request Appointment Time:</label></td>
-		                  				<td><input type="time" name="request_time" id="appintment_time"></td>                  				
+		                  				<td><input type="time" name="request_time" id="appintment_time" required="required"></td>                  				
 		                  			</tr>                  			
 		                  		</table>
                     		</div>                    		
@@ -248,142 +295,7 @@
                     
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-               <%--  <div class="col-md-4">
-                <table id="data-table-simple-2" class="table table-striped">
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Add</th>
-                    </thead>
-                    <%     
-      List<VehicleServiceDetails> list1 = VehicleServiceDetailsDao.getServices(model_varient_id);
-      Iterator<VehicleServiceDetails> itr1=list1.iterator();  
-      while(itr1.hasNext()){ 
-    	  VehicleServiceDetails vsd = itr1.next();
-      %>
-                    <tbody>
-                    <tr>
-                    <td><%= vsd.getServiceName() %></td>
-         			<td><%= vsd.getServiceDetails() %></td>
-         			<td><%=vsd.getServicePrice() %></td>
-         			<td><a href="javascript:void(0)" onclick="serviceAdd('<%= vsd.getServiceId() %>','<%= vehicleNumber %>')"> + </a></td>
-                    </tr>           
-            
-            <%
-      }
-            %>
-             </table>
-             </div>
-             
-            <div class="col-md-4" >
-                <table id="data-table-simple-3" class="table table-striped"  >
-                          <thead>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Quantity()</th>
-                        <th>Add</th>
-                    </thead>
-
-    <% 
-       
-      List<VehicleLubricantDetails> list3 = VehicleLubricantDetailsDao.getLubricants(model_varient_id);
-      Iterator<VehicleLubricantDetails> itr3=list3.iterator();  
-      while(itr3.hasNext())
-      { 
-    	  VehicleLubricantDetails vld1 = itr3.next();
-     %>   
-                    <tbody>
-                        <tr>
-                            <td><%= vld1.getLubricantName() %></td>
-                           <td><%= vld1.getLubricantPrice() %></td>
-                            <td><%= vld1.getLubricantQuantity() %></td>
-                            <td><a href="javascript:void(0)" onclick="lubricantAdd('<%=vld1.getLubricantId()%>','<%= vehicleNumber %>')"> + </a></td>                          
-                        </tr>
-                    </tbody>
-      <%
-      }
-      %>
-      </table>
-            </div>
-        </div>
-        <!-- added servings tables goes here -->
-        <div class="my-form-heading">
-            <h5>Added Jobs</h5>
-        </div>
-                   <div class="col-md-4" id="addedServices">
-                <table id="data-table-simple-5" class="table table-striped">
-                    <thead>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Remove</th>
-                    </thead>
-                    <tbody>
-                        <!-- data -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-4" id="addedLubricants">
-  
-                <table id="data-table-simple-6" class="table table-striped">
-                    <thead>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Remove</th>
-                    </thead>
-                 <!--  data  -->
-                </table>     
-            </div>
-        </div>
-
-             
-
-		<div class="row my-form-row">
-                    
-                    <div class="col-md-6">
-                        <h6>Customer's Requests</h6>
-                        <!-- take care while nesting it -->
-                        <!-- ALERT !!! -->
-                        <!-- ask JASH for while you work on this form -->
-                        <form action="" id="customer_complain_form">  
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="customer_complain">Customer's Complain</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <input type="text" name="customer_complain" id="customer_complain" form="customer_complain_form">
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" class="btn btn-primary btn-sm" form="customer_complain_form" onclick="addComplain('<%=vehicleNumber%>')">Add</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="row mt-5">
-                            <div class="col-md-12" id="addedComplains">
-                                <table class="table table-hover">
-                                    <tr>
-                                        <th>Complains</th>
-                                        <th></th>
-                                    </tr>
-                      
-                                    
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    </div> --%>
-
-             
-        
+     
 
         <div class="my-form-heading">
             <h5>Add Jobs</h5>
@@ -413,8 +325,9 @@
                         
                         
                         
-            <div class="col-md-4">
-                <table id="data-table-simple-2" class="table table-striped">
+            <div class="col-md-4" id="suggested_services">
+           <%  if(id.equals("disabled")){ %>
+                 <table id="data-table-simple-2" class="table table-striped">
                     <thead>
                         <th>Name</th>
                         <th>Description</th>
@@ -438,14 +351,16 @@
             <%
       }
             %>
-             </table>
+             </table> 
+             <%} %>
              </div>
              
              
            
            
-            <div class="col-md-4" >
-                <table id="data-table-simple-3" class="table table-striped"  >
+            <div class="col-md-4" id="suggested_lubricants">
+            <% if(id.equals("disabled")) { %>
+                 <table id="data-table-simple-3" class="table table-striped"  >
                           <thead>
                         <th>Name</th>
                         <th>Price</th>
@@ -472,7 +387,8 @@
       <%
       }
       %>
-      </table>
+      </table> 
+      <% } %>
             </div>
         </div>
            
@@ -545,7 +461,11 @@
                 </div>
             </div>
         </div>
-
+    <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
     </main> 
 
     <%@ include file="../footer.html" %>

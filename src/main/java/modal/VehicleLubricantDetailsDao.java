@@ -48,7 +48,7 @@ public class VehicleLubricantDetailsDao {
         	vld.setLubricantValidity(rs.getInt("lubricant_validity"));
         	vld.setModelVarientid(rs.getInt("model_varient_id"));
         	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
-        	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
+        	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_suggest_flag"));
         	list.add(vld);
         }  
         con.close();  
@@ -108,7 +108,7 @@ public class VehicleLubricantDetailsDao {
             	vld.setLubricantValidity(rs.getInt("lubricant_validity"));
             	vld.setModelVarientid(rs.getInt("model_varient_id"));
             	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
-            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
+            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_suggest_flag"));
             }  
             con.close();  
         }catch(Exception e){e.printStackTrace();}  
@@ -133,7 +133,7 @@ public class VehicleLubricantDetailsDao {
 	                vld.setLubricantValidity(rs.getInt("lubricant_validity"));
 	            	vld.setModelVarientid(rs.getInt("model_varient_id"));
 	            	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
-	            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_validity_km"));
+	            	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_suggest_flag"));
 	            	list.add(vld);
 	            }  
 	            con.close();  
@@ -141,6 +141,38 @@ public class VehicleLubricantDetailsDao {
 	        	return list; 
 	    }
 	
+	 
+	 public static List<VehicleLubricantDetails> getSuggestionByKm(int running_km,int model_varient_id,String vehicleNumber)
+		{
+			History h =	HistoryDao.getAllByNumber(vehicleNumber);
+			int pre_running_km = h.getRunningKM();
+			int diff = running_km - pre_running_km;
+		List<VehicleLubricantDetails> list=new ArrayList<VehicleLubricantDetails>();  
+	    try{  
+	        Connection con=ConnectionDb.getConnection();  
+	        PreparedStatement ps = con.prepareStatement("select * from vehicle_lubricant_details where vehicle_lubricant_details.model_varient_id = ? AND vehicle_lubricant_details.lubricant_validity_km <= ? ") ;
+	        ps.setInt(1, model_varient_id);
+	        ps.setInt(2, diff);
+	        ResultSet rs = ps.executeQuery();
+	        while(rs.next()){  
+	        	VehicleLubricantDetails vld = new VehicleLubricantDetails();
+	        	vld.setLubricantId(rs.getInt("lubricant_id"));
+	        	vld.setLubricantName(rs.getString("lubricant_name"));
+	        	vld.setLubricantPrice(rs.getInt("lubricant_price"));
+	        	vld.setLubricantQuantity(rs.getInt("lubricant_quantity"));
+	        	vld.setLubricantLabour(rs.getInt("lubricant_labour"));
+	        	vld.setLubricantValidity(rs.getInt("lubricant_validity"));
+	        	vld.setModelVarientid(rs.getInt("model_varient_id"));
+	        	vld.setLubricantValidityKm(rs.getInt("lubricant_validity_km"));
+	        	vld.setLubricantSuggestflag(rs.getBoolean("lubricant_suggest_flag"));
+	        	list.add(vld);
+	        }  
+	        con.close();  
+	    }catch(Exception e){e.printStackTrace();}  
+	    return list;  
+	}
 	
 	
 }
+
+

@@ -202,6 +202,32 @@
 		</div>
 	</div> 
     </div>
+    <div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="insurancelist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-car-crash"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("insurancepending") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getCountByStatus("insurancepending") %></h5>
+			  <div class="grow grow1">
+				<p><font style="color: white">Insurance</font></p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-md-3 widget widget1">
+		<div class="r3_counter_box">
+		<a href="insurancerepairedlist.jsp" class="my-dashboard-box-link">
+			<i class="fa fa-lock"></i>
+			<div class="stats">
+			  <h5 class='numscroller' data-min='0' data-max=<%=JobcardInfoDao.getCountByStatus("insurancerepaired") %> data-delay='0.5' data-increment='1'><%=JobcardInfoDao.getCountByStatus("insurancerepaired") %></h5>
+			  <div class="grow grow2">
+				<p><font style="color: white">Insurance repaired</font></p>
+			  </div>
+			</div>
+			</a>
+		</div>
+	</div>
     <main>
         <!-- <form class="form-inline">
             <label class="" for="inlineFormInputName2">Name</label>

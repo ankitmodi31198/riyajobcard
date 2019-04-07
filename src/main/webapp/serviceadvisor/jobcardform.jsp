@@ -224,6 +224,7 @@
                                     <option value="free service">Free Service</option>
                                     <option value="paid service">Paid Service</option>
                                     <option value="running repair">Running Repair</option>
+                                    <option value="Insurance">Insurance</option>
                                 </select>
                             </div>
                             <div class="col-md-2">

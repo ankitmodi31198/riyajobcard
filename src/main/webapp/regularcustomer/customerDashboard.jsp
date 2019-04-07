@@ -125,7 +125,7 @@
 	</div> 
 	<div class="col-md-3 widget widget1">
 		<div class="r3_counter_box">
-		<a href="pasthistoryview.jsp" class="my-dashboard-box-link">
+		<a href=<%="allpastHistory.jsp?id="+vehicleNumber%> class="my-dashboard-box-link">
 			<i class="fa fa-check-square"></i>
 			<div class="stats">
 			 <h5 class='#' >&nbsp;<span></span></h5>

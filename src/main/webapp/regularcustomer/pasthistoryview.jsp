@@ -32,8 +32,9 @@
 <title>PastHistory View</title> 
 <body>  
   <%
-  String vehicleNumber=(String) session.getAttribute("officer_username");
-  History h=HistoryDao.getAllByNumber(vehicleNumber);
+  String hid=(String) request.getParameter("id");
+  History h=HistoryDao.getHistoryById(hid);
+  String vehicleNumber = h.getVehicleNumber();
   VehicleInfo vi = VehicleInfoDao.getAllByNumber(vehicleNumber);
 	CustomerInfo ci =CustomerInfoDao.getAllByNumber(vehicleNumber);
 	OfficerInfo oi = OfficerInfoDao.getByUsername(h.getOfficerUsername());
@@ -220,7 +221,7 @@
         <div class="col-md"></div>
         <div class="col-md-2">
            
-            <a class="btn btn-secondary my-btn btn-lg" href="customerDashboard.jsp" >Close</a>
+            <a class="btn btn-secondary my-btn btn-lg" href=<%="allpastHistory.jsp?id="+h.getVehicleNumber()%> >Close</a>
         </div>
         <div class="col-md"></div>
     </div>

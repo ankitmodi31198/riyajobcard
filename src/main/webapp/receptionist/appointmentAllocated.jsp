@@ -24,6 +24,7 @@
     <%@include file="receptionistSidebar.html" %>
     <main id="main">
          <%@include file="../navbar.jsp" %>
+           <form action="../AllocateAppointment" method="post">
         <div class="container-95">
             <div class="my-form" id="verify-static-details">
                 <div class="my-form-heading">
@@ -86,7 +87,7 @@
                 </div>
             </div><br>
             		
-                            <form action="../AllocateAppointment" method="post">
+                     
                         <div class="row officer-select">
                             <div class="col-md"></div>
                             <div class="col-md-2">

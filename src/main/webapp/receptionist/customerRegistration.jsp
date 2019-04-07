@@ -82,7 +82,7 @@ function model_change()
                                 <label for="customer_contact">Contact No.</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_contact" id="customer_contact" max=10 min=10 required>
+                                <input type="text" name="customer_contact" id="customer_contact" maxlength="10" minlength="10" required>
                             </div>
                         </div>                                            
                     </div>
@@ -105,7 +105,7 @@ function model_change()
                                 <label for="customer_aadhaar">Aadhaar Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_aadhaar" id="customer_aadhaar" max=12 min=12 required>
+                                <input type="text" name="customer_aadhaar" id="customer_aadhaar" maxlength="12" minlength="12" required>
                             </div>
                         </div>                                                
                     </div>                    
@@ -115,7 +115,7 @@ function model_change()
                                 <label for="customer_license">License Number</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_license" id="customer_license" max=12 required>
+                                <input type="text" name="customer_license" id="customer_license" maxlength="20" minlength="5" placeholder="GJ1820170000231" required>
                             </div>
                         </div>                                                
                     </div>                                                                    
@@ -157,7 +157,7 @@ function model_change()
                                 <label for="pincode">Pincode</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="pincode" id="pincode" max=6 min=6 required>
+                                <input type="text" name="pincode" id="pincode" maxlength="6" minlength="6" required>
                             </div>
                         </div>                                                
                     </div>                                                     
@@ -180,7 +180,7 @@ function model_change()
                                 <label for="vin_no">VIN</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="vin_number" id="vin_number" min=10 max=16 required>
+                                <input type="text" name="vin_number" id="vin_number" maxlength="17" minlength="10" placeholder="1HBh41jxMN109628" required>
                             </div>
                         </div>
                     </div>
@@ -190,7 +190,7 @@ function model_change()
                                 <label for="engine_no">Engine No.</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="engine_number" id="engine_number" min=6 max=9 required>
+                                <input type="text" name="engine_number" id="engine_number" maxlength="6" minlength="6" placeholder="109628" required>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@ function model_change()
                                 <label for="customer_rc">RC Number</label>                                
                             </div>
                             <div class="col-md-8">
-                                <input type="text" name="customer_rc" id="customer_rc" min=8 max=10 required>
+                                <input type="text" name="customer_rc" id="customer_rc" maxlength="10" minlength="10" placeholder="MH88ZE7876" required>
                             </div>
                         </div>
                     </div>
