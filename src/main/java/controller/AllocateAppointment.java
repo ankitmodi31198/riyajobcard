@@ -63,8 +63,8 @@ public class AllocateAppointment extends HttpServlet {
 		String status = "arrived";
 		String vehicle_number = request.getParameter("vehicle_number");
 		
-        String arrival_date =  request.getParameter("appointment_date");
-        String arrivalTime =  request.getParameter("appointment_time");
+        String arrival_date =  request.getParameter("request_date");
+        String arrivalTime =  request.getParameter("request_time");
 		JobcardInfo ji = new JobcardInfo();
 		ji.setOfficeUsername(officer_username);
 		ji.setStatus(status);
