@@ -1,3 +1,4 @@
+<%@page import="modal.ReportObj"%>
 <%@include file="../header.html" %>
 <title>New Arrival</title>
 <%@page import="modal.CustomerInfo"%>
@@ -142,9 +143,9 @@
 			   			
 			   		</tr>
 			   	</thead>
-		<%-- 	   	<tbody style="font-size: 12px; text-align: center;">	        
-			   		<% List<JobcardInfo> list3 = JobcardInfoDao.getAllByDate("2019-01-01", "2019-04-01");
-						Iterator<JobcardInfo> itr3 = list3.iterator();
+			   	<tbody style="font-size: 12px; text-align: center;">	        
+			   		<% List<ReportObj> list9 = JobcardInfoDao.getCountOfJobStatusByUsername("b_horem");
+						Iterator<ReportObj> itr9 = list9.iterator();
 						while (itr3.hasNext())
 						{
 							JobcardInfo jci =  itr3.next();

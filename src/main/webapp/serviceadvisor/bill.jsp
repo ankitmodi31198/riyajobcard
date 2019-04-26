@@ -181,9 +181,10 @@
 			<table style="width: 100%;">
 				<tr>
 					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
-					<th bgcolor=#95C8D8 align="left" style="width: 30%; colspan="3"; ">Services</th>
-					<th></th>
-					<!-- <th bgcolor=#95C8D8 align="right" style="width:10%;">Service Desc</th> -->
+					<th bgcolor=#95C8D8 align="left" style="width: 30%; ">Services</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;"> </th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;"> </th>
+					
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">SGST</th>
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">CGST</th>
@@ -207,8 +208,9 @@
 							total_price += total_service_price; 
 					%>
 					<td><%=srno1%></td>
-					<td colspan="3";><%=service_name%></td>
-					<td></td>
+					<td><%=service_name%></td>
+					<td align="right">    </td>
+					<td align="right">    </td>
 					<td align="right"><%=service_price%></td>
 					<td align="right"><%=sgst%></td>
 					<td align="right"><%=cgst%></td>
@@ -238,7 +240,7 @@
 				<tr>
 					<th bgcolor=#95C8D8 align="left" style="width: 5%;">Sr.No</th>
 					<th bgcolor=#95C8D8 align="left" style="width: 30%;">Lubricants</th>
-					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Quantity</th>
+					<th bgcolor=#95C8D8 align="right" style="width: 10%;"></th>
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Price</th>
 					<th bgcolor=#95C8D8 align="right" style="width: 10%;">Labour
 						Price</th>
@@ -268,7 +270,7 @@
 					%>
 					<td><%=srno2%></td>
 					<td><%=lubricant_name%></td>
-					<td align="right">null</td>
+					<td align="right">  </td>
 					<td align="right"><%=lubricant_price%></td>
 					<td align="right"><%=lubricant_labour%></td>
 					<td align="right"><%=sgst%></td>
